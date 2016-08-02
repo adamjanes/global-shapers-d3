@@ -1,0 +1,26 @@
+Index: js/map.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- js/map.js	(revision )
++++ js/map.js	(revision )
+@@ -426,6 +426,17 @@
+ 
+         $("#active")[0].innerHTML = clickedCountry.properties["NAME"];
+ 
++        var responders = data.reduce(function(a, b){
++            if (b["EmbeddedData-Country"] == clickedCountry.properties["NAME"]) {
++                return a + 1;
++            }
++            else {
++                return a;
++            }
++        }, 0);
++
++        $("#participants")[0].innerHTML = responders;
++
+         var bounds = path.bounds(clickedCountry),
+             dx = bounds[1][0] - bounds[0][0],
+             dy = bounds[1][1] - bounds[0][1],
+\ No newline at end of file
