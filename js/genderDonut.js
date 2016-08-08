@@ -1,10 +1,10 @@
 function addGenderDonut(data) {
 
     var width = 300,
-        height = 475,
-        radius = 80,
+        height = worldMap.height * 0.75,
+        radius = worldMap.height / 8,
         donutWidth = radius / 2 - 10,
-        legendRectSize = 18,
+        legendRectSize = 14,
         legendSpacing = 4;
     
     var color = d3.scaleOrdinal()

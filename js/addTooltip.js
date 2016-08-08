@@ -60,7 +60,13 @@ function addTooltips(data) {
 
     d3.selectAll(".bar")
         .on("mouseover", function (d) {
-            var output = d.label + ": " + d.count;
+            var output;
+            if (d.count == 1) {
+                output = "<strong>" + d.label + "</strong><br>Participants: " + d.count;
+            }
+            else {
+                output = "<strong>" + d.label + "</strong><br>Participants: " + d.count;
+            }
             tooltip.show(output);
         })
         .on("mousemove", function () {

@@ -1,8 +1,8 @@
 function addPiecesChart(allData) {
 
-    var margin = {top: 350, right: 20, bottom: 40, left: 40},
+    var margin = {top: (worldMap.height * 0.51), right: 40, bottom: (worldMap.height * 0.09), left: 40},
         width = 300 - margin.left - margin.right,
-        height = 490 - margin.top - margin.bottom;
+        height = worldMap.height * 0.76 - margin.top - margin.bottom;
 
     var x = d3.scaleBand()
         .range([0, width])
@@ -120,8 +120,7 @@ function addPiecesChart(allData) {
 
         rects
             .enter().append("rect")
-            .attr("class", "enter")
-            .attr("class", "bar")
+            .attr("class", "enter bar")
             .merge(rects)
             .attr("x", function(d) { return x(d.label); })
             .attr("width", x.bandwidth)
@@ -135,20 +134,36 @@ function addPiecesChart(allData) {
         // Remove old axes
         svg.selectAll(".axis").remove();
 
-        //Add new axes
-        svg
-            .append("g")
+        //Add new X Axis
+        svg.append("g")
             .attr("class", "axis")
             .attr("transform", "translate(0," + height + ")")
             .call(d3.axisBottom(x))
             .selectAll("text")
             .style("text-anchor", "end")
-            .attr("dx", "1.8em")
-            .attr("dy", "1.2em")
+            .attr("dx", "1em")
+            .attr("dy", "1em")
             .attr("transform", "rotate(-15)" );
 
+        //Add new Y Axis
+        var yMax = y.domain().slice(-1)[0];
         svg.append("g")
             .attr("class", "axis")
-            .call(d3.axisLeft(y));
+            .call(d3.axisLeft(y)
+                .tickFormat(function(e){
+                    if(Math.floor(e) != e)
+                    { return; }
+                    return e;
+                })
+                .ticks(tickCountSetter(yMax)));
+        function tickCountSetter(n){if (n <=2){return n} else {return 10}}
+
     }
+    // Add the text label for the X axis
+    svg.append("text")
+        //.attr("class", "axis")
+        .attr("transform", "translate(" + (width/2) + " ," + (height + margin.bottom - 2) + ")")
+        .style("text-anchor", "middle")
+        .style("font-size", "11px")
+        .text("Regions");
 }

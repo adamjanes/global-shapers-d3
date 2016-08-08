@@ -12,7 +12,7 @@ Choropleth.prototype.initVis = function() {
     var vis = this;
 
     vis.width = 1366;
-    vis.height = 500;
+    vis.height = 550;
 
     vis.svg = d3.select("#" + vis.parentElement)
         .append("div")
@@ -39,12 +39,12 @@ Choropleth.prototype.initVis = function() {
     // Draw Map
     vis.projection = d3.geoMiller()
         .translate([vis.width / 2, vis.height / 2])
-        .scale(160)
-        .center([-30, 25]);
+        .scale(140)
+        .center([-20, 0]);
 
     vis.zoom = d3.zoom()
         .scaleExtent([1, 8])
-        .translateExtent([[-100, -100], [vis.width, vis.height]])
+        .translateExtent([[-100, -100], [vis.width + 100, vis.height + 100]])
         .on("zoom", zoomed);
 
     vis.path = d3.geoPath()
