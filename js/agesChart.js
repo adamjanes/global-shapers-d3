@@ -11,8 +11,7 @@ function addAgesChart(data) {
     var y = d3.scaleLinear()
         .range([height, 0]);
 
-
-    var svg = d3.select("#ages-chart-area").append("svg")
+    var svg = d3.select("#mapID").append("svg")
         .attr("id", "agesSVG")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
@@ -22,68 +21,12 @@ function addAgesChart(data) {
     $("#chart-area")
         .on("click", update);
 
+    $("#view")
+        .on("click", update);
+
     update();
 
     function update(){
-        /*var view = $(".active.piece")[0];
-
-        var type;
-
-        // World
-        if (view == undefined) {
-            type = "EmbeddedData-Region_Cont"
-        }
-        // Region
-        else if (view.classList.contains("region")) {
-            type = "EmbeddedData-Region_Sub"
-        }
-        // National
-        else {
-            type = "EmbeddedData-Country"
-        }
-
-        var nested_data = d3.nest()
-            .key(function(d){
-                return d["QID88"];
-            })
-            .key(function(d) { return d[type]; })
-            .entries(allData);
-
-        var data = [];
-
-        nested_data.map(function(d) {
-            if (d.key == "less than 18") {
-                return data.push({
-                    "label": "<18",
-                    "count": d.values.length
-                })
-            }
-            else if (d.key == "more than 35"){
-                return data.push({
-                    "label": ">35",
-                    "count": d.values.length
-                })
-            }
-            else {
-                return data.push({
-                    "label": d.key,
-                    "count": d.values.length
-                })
-            }
-        });
-
-        data.sort(function(a, b){
-            if ((a.label == ">35") || (b.label == "<18")){
-                return 1;
-            }
-            else if ((a.label == "<18") || (b.label == ">35")){
-                return 1;
-            }
-            else {
-                console.log(a.label.substr(0,2));
-                return a.label.substr(0,2) - b.label.substr(0,2);
-            }
-        });*/
 
         var clicked = $(".active.piece")[0];
 
@@ -136,7 +79,6 @@ function addAgesChart(data) {
 
             data.map(function (d) {
                 if (d[type] == clicked.getAttribute("title")) {
-                    console.log("HI")
                     var age = d["QID88"];
                         var age = d["QID88"];
                         if (age == "less than 18") {
@@ -161,9 +103,6 @@ function addAgesChart(data) {
             });
         }
 
-        console.log(value)
-
-
         // Scale the range of the data in the domains
         x.domain(value.map(function(d) { return d.label; }));
         y.domain([0, d3.max(value, function(d) { return d.count; })]);
@@ -176,11 +115,10 @@ function addAgesChart(data) {
             .data(value);
 
         rects.exit()
-            .attr("class", "exit")
+            .attr("class", "exit bar")
             .transition(t)
             .attr("y", height)
             .attr("height", 0)
-            .style("fill-opacity", 1e-6)
             .remove();
 
         rects.attr("class", "update bar");
@@ -195,7 +133,6 @@ function addAgesChart(data) {
             .attr("y", height)
             .attr("height", 0)
             .transition(t)
-            .attr("fill", "grey")
             .attr("height", height - y(0))
             .attr("y", function(d) { return y(d.count); })
             .attr("height", function(d) { return height - y(d.count); });

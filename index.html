@@ -11,8 +11,10 @@
     <link rel="stylesheet" href="css/style.css">
 
 </head>
+<div id="view_code" style="display:none">EmbeddedData-Region_Cont</div>
 <section id="screen"></section>
 <body>
+<div id="wordCloud"></div>
 
 <div id="content" style="display:none">
 <!-- Navigation -->
@@ -36,12 +38,19 @@
             </div>
     </div>
     <div class="row">
-        <div class="col-md-8 col-sm-8 col-xs-8">
+        <div class="col-md-12 col-sm-12 col-xs-12">
             <div id="chart-area"></div>
         </div>
+
+    </div>
+    <div class="row">
         <div class="col-md-4 col-sm-4 col-xs-4">
             <div id="pieces-chart-area"></div>
+        </div>
+        <div class="col-md-4 col-sm-4 col-xs-4">
             <div id="donut-area"></div>
+        </div>
+        <div class="col-md-4 col-sm-4 col-xs-4">
             <div id="ages-chart-area"></div>
         </div>
     </div>
@@ -58,19 +67,24 @@
 <script src="js/bootstrap.min.js"></script>
 <script src="js/d3.tip.js"></script>
 <script src="js/spin.min.js"></script>
+<script src="js/d3-force.js"></script>
+<script src="js/d3.layout.cloud.js"></script>
+
 
 
 <!-- Custom JS Scripts -->
 <script src="js/main.js"></script>
 <script src="js/map.js"></script>
 <script src="js/changeRegions.js"></script>
-<script src="js/mapRegions.js"></script>
-<script src="js/mapClicked.js"></script>
 <script src="js/getDivisions.js"></script>
 <script src="js/genderDonut.js"></script>
 <script src="js/piecesChart.js"></script>
 <script src="js/agesChart.js"></script>
 <script src="js/addTooltip.js"></script>
+<script src="js/wordCloud.js"></script>
+<script src="js/countData.js"></script>
+
+
 
 
 </body>

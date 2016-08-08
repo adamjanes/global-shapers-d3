@@ -1,5 +1,7 @@
 function changeRegions() {
     $("#country").click(function(){
+        worldMap.reset();
+        $("#view_code")[0].innerHTML = "EmbeddedData-Country";
         $(".region").hide();
         $(".subregion").hide();
         $(".country").show();
@@ -7,6 +9,8 @@ function changeRegions() {
     });
 
     $("#sub-region").click(function(){
+        worldMap.reset();
+        $("#view_code")[0].innerHTML = "EmbeddedData-Region_Sub";
         $(".region").hide();
         $(".country").hide();
         $(".subregion").show();
@@ -14,6 +18,8 @@ function changeRegions() {
     });
 
     $("#region").click(function(){
+        worldMap.reset();
+        $("#view_code")[0].innerHTML = "EmbeddedData-Region_Cont";
         $(".country").hide();
         $(".subregion").hide();
         $(".region").show();

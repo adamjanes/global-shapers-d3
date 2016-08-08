@@ -7,10 +7,9 @@
     display: inline-block;
     position: relative;
     width: 100%;
-    padding-bottom: 55%;
+    padding-bottom: 38%;
     vertical-align: top;
     overflow: hidden;
-    float:left
 }
 .svg-content-responsive {
     display: inline-block;
@@ -71,8 +70,6 @@
 }
 
 .svg-content-responsive {
-    border: 5px solid #337ab7 !important;
-    border-radius: 10px;
 }
 
 .legend {
@@ -136,3 +133,22 @@ div.tooltip {
     left: 0;
 }
 
+.x.axis path {
+    display: none;
+}
+
+.bar {
+    fill: cornflowerblue;
+}
+
+.nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover {
+    color: #fff;
+    background-color: cornflowerblue;
+}
+
+a {
+    color: cornflowerblue;
+    text-decoration: none;
+}
+
+h1 { white-space: nowrap; }

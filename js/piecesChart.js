@@ -1,8 +1,8 @@
 function addPiecesChart(allData) {
 
-    var margin = {top: 20, right: 20, bottom: 40, left: 40},
+    var margin = {top: 350, right: 20, bottom: 40, left: 40},
         width = 300 - margin.left - margin.right,
-        height = 150 - margin.top - margin.bottom;
+        height = 490 - margin.top - margin.bottom;
 
     var x = d3.scaleBand()
         .range([0, width])
@@ -12,7 +12,7 @@ function addPiecesChart(allData) {
         .range([height, 0]);
 
 
-    var svg = d3.select("#pieces-chart-area").append("svg")
+    var svg = d3.select("#mapID").append("svg")
         .attr("id", "piecesSVG")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
@@ -22,12 +22,10 @@ function addPiecesChart(allData) {
     $("#chart-area")
         .on("click", update);
 
-    console.log("HELLO")
-
+    $("#view")
+        .on("click", update);
+    
     update();
-
-    console.log("HELLO")
-
 
     function update(){
         // Get Right Data
@@ -87,15 +85,11 @@ function addPiecesChart(allData) {
                 .entries(allData);
 
             thisRegion = $("#active")[0].innerHTML;
-
-            console.log(thisRegion);
-
+            
             regionData = nested_data.find(function(d){
                 return d.key == thisRegion;
             }).values;
-
-            console.log(regionData);
-
+            
             regionData.map(function(d) {
                 return data.push({
                     "label": d.key,
@@ -116,11 +110,10 @@ function addPiecesChart(allData) {
         var rects = svg.selectAll(".bar").data(data);
 
         rects.exit()
-            .attr("class", "exit")
+            .attr("class", "exit bar")
             .transition(t)
             .attr("y", height)
             .attr("height", 0)
-            .style("fill-opacity", 1e-6)
             .remove();
 
         rects.attr("class", "update bar");
@@ -135,7 +128,6 @@ function addPiecesChart(allData) {
             .attr("y", height)
             .attr("height", 0)
             .transition(t)
-            .attr("fill", "grey")
             .attr("height", height - y(0))
             .attr("y", function(d) { return y(d.count); })
             .attr("height", function(d) { return height - y(d.count); });

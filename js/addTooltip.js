@@ -26,8 +26,6 @@ function addTooltips(data) {
                 myData = country_nested_data;
             }
 
-            console.log(piece)
-
             var participants = myData.find(function(d){
                 return d.key == piece;
             });
@@ -62,7 +60,6 @@ function addTooltips(data) {
 
     d3.selectAll(".bar")
         .on("mouseover", function (d) {
-            console.log(d)
             var output = d.label + ": " + d.count;
             tooltip.show(output);
         })

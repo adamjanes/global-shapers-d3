@@ -1,14 +1,14 @@
 function addGenderDonut(data) {
 
-    var width = 175,
-        height = 175,
-        radius = Math.min(width - 10, height - 10) / 2,
+    var width = 300,
+        height = 475,
+        radius = 80,
         donutWidth = radius / 2 - 10,
         legendRectSize = 18,
         legendSpacing = 4;
     
     var color = d3.scaleOrdinal()
-        .range(["#337ab7", "orange", "grey"]);
+        .range(["cornflowerblue", "orange", "grey"]);
     
     var arc = d3.arc()
         .outerRadius(radius - 10)
@@ -20,14 +20,14 @@ function addGenderDonut(data) {
             return d.count;
         });
 
-    var svg = d3.select("#donut-area")
+    var svg = d3.select("#mapID")
         .append("svg")
         .attr("width", width)
         .attr("id", "genderSVG")
         .attr("height", height)
         .append("g")
-        .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
-    
+        .attr("transform", "translate(" + width / 2 + "," + (height / 2) + ")");
+
         var gender = [
             {label: "Male", count: 0},
             {label: "Female", count: 0},
@@ -61,6 +61,9 @@ function addGenderDonut(data) {
             .each(function (d) { this._current = d; });
 
         $("#chart-area")
+            .on("click", change);
+
+        $("#view")
             .on("click", change);
 
         var legend = svg.selectAll('.legend')

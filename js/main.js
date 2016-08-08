@@ -61,8 +61,6 @@ function loadData() {
 
     var target = document.getElementById('screen');
 
-    console.log(target)
-
     // trigger loader
     var spinner = new Spinner(opts).spin(target);
 
@@ -73,6 +71,8 @@ function loadData() {
             .defer(d3.csv, "data/division.csv")
             .await(function (error, map, data, headers, division) {
                 if (error) return console.warn(error);
+
+                console.log(headers);
                 
                 createVis(map, data, headers, division);
                 // stop the loader
@@ -88,17 +88,6 @@ function createVis(map, data, headers, division) {
 
     // Initialize Map
     worldMap = new Choropleth("chart-area", map, data, headers, division);
-    
-    // Add Countries Layer
-    addCountries();
-    $(".country").toggle();
-
-    // Add Subregions Layer
-    addSubregions();
-    $(".subregions").toggle();
-    
-    // Add Regions Layer
-    addRegions();
 
     // Add Javascript for Display Pills
     changeRegions();
@@ -111,6 +100,9 @@ function createVis(map, data, headers, division) {
     
     // Add Age Range Chart
     addAgesChart(data);
+
+    // Add Word Cloud
+    //createWordcloud(["QID137-3", "QID137-6", "QID137-5", "QID137-8", "QID137-10", "QID137-11"], data, "body");
 
     // Add tooltip listeners
     addTooltips(data);
