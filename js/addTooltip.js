@@ -1,14 +1,15 @@
 function addTooltips(data) {
     // Prepare Data
     var region_nested_data = d3.nest()
-        .key(function(d) { return d["EmbeddedData-Region_Cont"]})
+        .key(function(d) { return d["EmbeddedData-Region"]})
         .entries(data);
     var subregion_nested_data = d3.nest()
-        .key(function(d) { return d["EmbeddedData-Region_Sub"]})
+        .key(function(d) { return d["EmbeddedData-Region_Sub_WEF"]})
         .entries(data);
     var country_nested_data = d3.nest()
         .key(function(d) { return d["EmbeddedData-Country"]})
         .entries(data);
+    
 
     // Map
     d3.selectAll(".piece")

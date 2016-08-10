@@ -6,7 +6,7 @@ function getRegions(countries) {
             color: "#ffbb78",
             id: 2,
             features: countries.features.filter(function (d) {
-                return d.properties["REGION"] == 2;
+                return d.properties["REGION"] == "Africa";
             })
         },
         {
@@ -15,7 +15,7 @@ function getRegions(countries) {
             color: "#2ca02c",
             id: 19,
             features: countries.features.filter(function (d) {
-                return d.properties["REGION"] == 19;
+                return d.properties["REGION"] == "Americas";
             })
         },
         {
@@ -24,7 +24,7 @@ function getRegions(countries) {
             color: "#ff7f0e",
             id: 142,
             features: countries.features.filter(function (d) {
-                return d.properties["REGION"] == 142;
+                return d.properties["REGION"] == "Asia";
             })
         },
         {
@@ -33,7 +33,7 @@ function getRegions(countries) {
             color: "#1f77b4",
             id: 150,
             features: countries.features.filter(function (d) {
-                return d.properties["REGION"] == 150;
+                return d.properties["REGION"] == "Europe";
             })
         },
         {
@@ -42,7 +42,7 @@ function getRegions(countries) {
             color: "#aec7e8",
             id: 9,
             features: countries.features.filter(function (d) {
-                return d.properties["REGION"] == 9;
+                return d.properties["REGION"] == "Oceania";
             })
         }
     ];
@@ -52,200 +52,92 @@ function getSubregions(countries) {
     return [
         {
             type: "FeatureCollection",
-            name: "Australia and New Zealand",
+            name: "East Asia & Pacific",
             color: "#ffbb78",
             id: 53,
             features: countries.features.filter(function (d) {
-                return d.properties["SUBREGION"] == 53;
+                return d.properties["SUBREGION"] == "East Asia & Pacific";
             })
         },
         {
             type: "FeatureCollection",
-            name: "Caribbean",
+            name: "Latin America & Caribbean",
             color: "#2ca02c",
             id: 29,
             features: countries.features.filter(function (d) {
-                return d.properties["SUBREGION"] == 29;
+                return d.properties["SUBREGION"] == "Latin America & Caribbean";
             })
         },
         {
             type: "FeatureCollection",
-            name: "Central America",
+            name: "Latin America & Caribbean",
             color: "#ff7f0e",
             id: 13,
             features: countries.features.filter(function (d) {
-                return d.properties["SUBREGION"] == 13;
+                return d.properties["SUBREGION"] == "Latin America & Caribbean";
             })
         },
         {
             type: "FeatureCollection",
-            name: "Central Asia",
+            name: "Eurasia",
             color: "#ff7f0e",
             id: 143,
             features: countries.features.filter(function (d) {
-                return d.properties["SUBREGION"] == 143;
+                return d.properties["SUBREGION"] == "Eurasia";
             })
         },
         {
             type: "FeatureCollection",
-            name: "Eastern Africa",
+            name: "Sub-Saharan Africa",
             color: "#aec7e8",
             id: 14,
             features: countries.features.filter(function (d) {
-                return d.properties["SUBREGION"] == 14;
+                return d.properties["SUBREGION"] == "Sub-Saharan Africa";
             })
         },
         {
             type: "FeatureCollection",
-            name: "Eastern Asia",
-            color: "#ffbb78",
-            id: 30,
-            features: countries.features.filter(function (d) {
-                return d.properties["SUBREGION"] == 30;
-            })
-        },
-        {
-            type: "FeatureCollection",
-            name: "Eastern Europe",
+            name: "Europe",
             color: "#2ca02c",
             id: 151,
             features: countries.features.filter(function (d) {
-                return d.properties["SUBREGION"] == 151;
+                return d.properties["SUBREGION"] == "Europe";
             })
         },
         {
             type: "FeatureCollection",
-            name: "Melanesia",
-            color: "#ff7f0e",
-            id: 54,
-            features: countries.features.filter(function (d) {
-                return d.properties["SUBREGION"] == 54;
-            })
-        },
-        {
-            type: "FeatureCollection",
-            name: "Micronesia",
-            color: "#1f77b4",
-            id: 57,
-            features: countries.features.filter(function (d) {
-                return d.properties["SUBREGION"] == 57;
-            })
-        },
-        {
-            type: "FeatureCollection",
-            name: "Middle Africa",
-            color: "#ffbb78",
-            id: 17,
-            features: countries.features.filter(function (d) {
-                return d.properties["SUBREGION"] == 17;
-            })
-        },
-        {
-            type: "FeatureCollection",
-            name: "Northern Africa",
+            name: "Middle East & North Africa",
             color: "#2ca02c",
             id: 15,
             features: countries.features.filter(function (d) {
-                return d.properties["SUBREGION"] == 15;
+                return d.properties["SUBREGION"] == "Middle East & North Africa";
             })
         },
         {
             type: "FeatureCollection",
-            name: "Northern America",
+            name: "North America",
             color: "#ff7f0e",
             id: 21,
             features: countries.features.filter(function (d) {
-                return d.properties["SUBREGION"] == 21;
+                return d.properties["SUBREGION"] == "North America";
             })
         },
         {
             type: "FeatureCollection",
-            name: "Northern Europe",
-            color: "#1f77b4",
-            id: 154,
-            features: countries.features.filter(function (d) {
-                return d.properties["SUBREGION"] == 154;
-            })
-        },
-        {
-            type: "FeatureCollection",
-            name: "Polynesia",
-            color: "#ffbb78",
-            id: 61,
-            features: countries.features.filter(function (d) {
-                return d.properties["SUBREGION"] == 61;
-            })
-        },
-        {
-            type: "FeatureCollection",
-            name: "Southern America",
-            color: "#2ca02c",
-            id: 5,
-            features: countries.features.filter(function (d) {
-                return d.properties["SUBREGION"] == 5;
-            })
-        },
-        {
-            type: "FeatureCollection",
-            name: "South-Eastern Asia",
-            color: "#ff7f0e",
-            id: 35,
-            features: countries.features.filter(function (d) {
-                return d.properties["SUBREGION"] == 35;
-            })
-        },
-        {
-            type: "FeatureCollection",
-            name: "Southern Africa",
-            color: "#1f77b4",
-            id: 18,
-            features: countries.features.filter(function (d) {
-                return d.properties["SUBREGION"] == 18;
-            })
-        },
-        {
-            type: "FeatureCollection",
-            name: "Southern Asia",
+            name: "South Asia",
             color: "#ffbb78",
             id: 34,
             features: countries.features.filter(function (d) {
-                return d.properties["SUBREGION"] == 34;
+                return d.properties["SUBREGION"] == "South Asia";
             })
         },
         {
             type: "FeatureCollection",
-            name: "Southern Europe",
-            color: "#2ca02c",
-            id: 39,
+            name: "N/A",
+            color: "#ffbb78",
+            id: 34,
             features: countries.features.filter(function (d) {
-                return d.properties["SUBREGION"] == 39;
-            })
-        },
-        {
-            type: "FeatureCollection",
-            name: "Western Africa",
-            color: "#ff7f0e",
-            id: 11,
-            features: countries.features.filter(function (d) {
-                return d.properties["SUBREGION"] == 11;
-            })
-        },
-        {
-            type: "FeatureCollection",
-            name: "Western Asia",
-            color: "#1f77b4",
-            id: 145,
-            features: countries.features.filter(function (d) {
-                return d.properties["SUBREGION"] == 145;
-            })
-        },
-        {
-            type: "FeatureCollection",
-            name: "Western Europe",
-            color: "#1f77b4",
-            id: 155,
-            features: countries.features.filter(function (d) {
-                return d.properties["SUBREGION"] == 155;
+                return d.properties["SUBREGION"] == "#N/A";
             })
         }
     ];

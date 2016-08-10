@@ -1,0 +1,241 @@
+country,region,development,income,subregion
+Afghanistan,Asia,LOW HUMAN DEVELOPMENT,Low income,South Asia
+Albania,Europe,HIGH HUMAN DEVELOPMENT,Upper middle income,Europe
+Algeria,Africa,HIGH HUMAN DEVELOPMENT,Upper middle income,Middle East & North Africa
+Andorra,Europe,VERY HIGH HUMAN DEVELOPMENT,High income,Europe
+Angola,Africa,LOW HUMAN DEVELOPMENT,Upper middle income,Sub-Saharan Africa
+Anguillan (UK),Americas,#N/A,#N/A,#N/A
+Antigua and Barbuda,Americas,HIGH HUMAN DEVELOPMENT,High income,Latin America & Caribbean
+Argentina,Americas,VERY HIGH HUMAN DEVELOPMENT,Not classified,Latin America & Caribbean
+Armenia,Asia,HIGH HUMAN DEVELOPMENT,Lower middle income,Eurasia
+Aruba (Netherlands),Americas,#N/A,#N/A,#N/A
+Australia,Oceania,VERY HIGH HUMAN DEVELOPMENT,High income,East Asia & Pacific
+Austria,Europe,VERY HIGH HUMAN DEVELOPMENT,High income,Europe
+Azerbaijan,Asia,HIGH HUMAN DEVELOPMENT,Upper middle income,Eurasia
+Bahamas,Americas,HIGH HUMAN DEVELOPMENT,#N/A,#N/A
+Bahrain,Asia,VERY HIGH HUMAN DEVELOPMENT,High income,Middle East & North Africa
+Bangladesh,Asia,MEDIUM HUMAN DEVELOPMENT,Lower middle income,South Asia
+Barbados,Americas,HIGH HUMAN DEVELOPMENT,High income,Latin America & Caribbean
+Belarus,Europe,HIGH HUMAN DEVELOPMENT,Upper middle income,Eurasia
+Belgium,Europe,VERY HIGH HUMAN DEVELOPMENT,High income,Europe
+Belize,Americas,HIGH HUMAN DEVELOPMENT,Upper middle income,Latin America & Caribbean
+Benin,Africa,LOW HUMAN DEVELOPMENT,Low income,Sub-Saharan Africa
+Bermuda (UK),Americas,#N/A,#N/A,#N/A
+Bhutan,Asia,MEDIUM HUMAN DEVELOPMENT,Lower middle income,South Asia
+Bolivia,Americas,MEDIUM HUMAN DEVELOPMENT,Lower middle income,Latin America & Caribbean
+Bosnia and Herzegovina,Europe,HIGH HUMAN DEVELOPMENT,Upper middle income,Europe
+Botswana,Africa,MEDIUM HUMAN DEVELOPMENT,Upper middle income,Sub-Saharan Africa
+Brazil,Americas,HIGH HUMAN DEVELOPMENT,Upper middle income,Latin America & Caribbean
+British Virgin Islands (UK),Americas,#N/A,#N/A,#N/A
+Brunei,Asia,VERY HIGH HUMAN DEVELOPMENT,#N/A,#N/A
+Bulgaria,Europe,HIGH HUMAN DEVELOPMENT,Upper middle income,Europe
+Burkina Faso,Africa,LOW HUMAN DEVELOPMENT,Low income,Sub-Saharan Africa
+Burma,Asia,LOW HUMAN DEVELOPMENT,#N/A,#N/A
+Burundi,Africa,LOW HUMAN DEVELOPMENT,Low income,Sub-Saharan Africa
+Cambodia,Asia,MEDIUM HUMAN DEVELOPMENT,Lower middle income,East Asia & Pacific
+Cameroon,Africa,LOW HUMAN DEVELOPMENT,Lower middle income,Sub-Saharan Africa
+Canada,Americas,VERY HIGH HUMAN DEVELOPMENT,High income,North America
+Cape Verde,Africa,MEDIUM HUMAN DEVELOPMENT,#N/A,#N/A
+Cayman Islands (UK),Americas,#N/A,#N/A,#N/A
+Central African Republic,Africa,LOW HUMAN DEVELOPMENT,Low income,Sub-Saharan Africa
+Chad,Africa,LOW HUMAN DEVELOPMENT,Low income,Sub-Saharan Africa
+Chile,Americas,VERY HIGH HUMAN DEVELOPMENT,High income,Latin America & Caribbean
+China,Asia,HIGH HUMAN DEVELOPMENT,Upper middle income,East Asia & Pacific
+Christmas Island (Australia),Oceania,#N/A,#N/A,#N/A
+Cocos (Keeling) Islands (Australia),Oceania,#N/A,#N/A,#N/A
+Colombia,Americas,HIGH HUMAN DEVELOPMENT,Upper middle income,Latin America & Caribbean
+Comoros,Africa,LOW HUMAN DEVELOPMENT,Low income,Sub-Saharan Africa
+Cook Islands (NZ),Oceania,#N/A,#N/A,#N/A
+Costa Rica,Americas,HIGH HUMAN DEVELOPMENT,Upper middle income,Latin America & Caribbean
+Croatia,Europe,VERY HIGH HUMAN DEVELOPMENT,High income,Europe
+Cuba,Americas,HIGH HUMAN DEVELOPMENT,Upper middle income,Latin America & Caribbean
+Curacao (Netherlands),Americas,#N/A,#N/A,#N/A
+Cyprus,Asia,VERY HIGH HUMAN DEVELOPMENT,High income,Europe
+Czech Republic,Europe,VERY HIGH HUMAN DEVELOPMENT,High income,Europe
+Democratic Republic of the Congo,Africa,LOW HUMAN DEVELOPMENT,#N/A,#N/A
+Denmark,Europe,VERY HIGH HUMAN DEVELOPMENT,High income,Europe
+Djibouti,Africa,LOW HUMAN DEVELOPMENT,Lower middle income,Middle East & North Africa
+Dominica,Americas,HIGH HUMAN DEVELOPMENT,Upper middle income,Latin America & Caribbean
+Dominican Republic,Americas,HIGH HUMAN DEVELOPMENT,Upper middle income,Latin America & Caribbean
+Ecuador,Americas,HIGH HUMAN DEVELOPMENT,Upper middle income,Latin America & Caribbean
+Egypt,Africa,MEDIUM HUMAN DEVELOPMENT,#N/A,#N/A
+El Salvador,Americas,MEDIUM HUMAN DEVELOPMENT,Lower middle income,Latin America & Caribbean
+Equatorial Guinea,Africa,MEDIUM HUMAN DEVELOPMENT,Upper middle income,Sub-Saharan Africa
+Eritrea,Africa,LOW HUMAN DEVELOPMENT,Low income,Sub-Saharan Africa
+Estonia,Europe,VERY HIGH HUMAN DEVELOPMENT,High income,Europe
+Ethiopia,Africa,LOW HUMAN DEVELOPMENT,Low income,Sub-Saharan Africa
+Falkland Islands (UK),Americas,#N/A,#N/A,#N/A
+Faroe Islands (Denmark),Europe,#N/A,#N/A,#N/A
+Federated States of Micronesia,Oceania,MEDIUM HUMAN DEVELOPMENT,#N/A,#N/A
+Fiji,Oceania,HIGH HUMAN DEVELOPMENT,Upper middle income,East Asia & Pacific
+Finland,Europe,VERY HIGH HUMAN DEVELOPMENT,High income,Europe
+France,Europe,VERY HIGH HUMAN DEVELOPMENT,High income,Europe
+French Guiana (France),Americas,#N/A,#N/A,#N/A
+French Polynesia (France),Oceania,#N/A,#N/A,#N/A
+Gabon,Africa,MEDIUM HUMAN DEVELOPMENT,Upper middle income,Sub-Saharan Africa
+Gambia,Africa,LOW HUMAN DEVELOPMENT,#N/A,#N/A
+Georgia,Asia,HIGH HUMAN DEVELOPMENT,Upper middle income,Eurasia
+Germany,Europe,VERY HIGH HUMAN DEVELOPMENT,High income,Europe
+Ghana,Africa,MEDIUM HUMAN DEVELOPMENT,Lower middle income,Sub-Saharan Africa
+Gibraltar (UK),Europe,#N/A,#N/A,#N/A
+Greece,Europe,VERY HIGH HUMAN DEVELOPMENT,High income,Europe
+Greenland (Denmark),Americas,#N/A,#N/A,#N/A
+Grenada,Americas,HIGH HUMAN DEVELOPMENT,Upper middle income,Latin America & Caribbean
+Guadeloupe (France),Americas,#N/A,#N/A,#N/A
+Guam (USA),Oceania,#N/A,#N/A,#N/A
+Guatemala,Americas,MEDIUM HUMAN DEVELOPMENT,Lower middle income,Latin America & Caribbean
+Guernsey (UK),Europe,#N/A,#N/A,#N/A
+Guinea,Africa,LOW HUMAN DEVELOPMENT,Low income,Sub-Saharan Africa
+Guinea-Bissau,Africa,LOW HUMAN DEVELOPMENT,Low income,Sub-Saharan Africa
+Guyana,Americas,MEDIUM HUMAN DEVELOPMENT,Upper middle income,Latin America & Caribbean
+Haiti,Americas,LOW HUMAN DEVELOPMENT,Low income,Latin America & Caribbean
+Honduras,Americas,MEDIUM HUMAN DEVELOPMENT,Lower middle income,Latin America & Caribbean
+Hong Kong (China),Asia,VERY HIGH HUMAN DEVELOPMENT,#N/A,#N/A
+Hungary,Europe,VERY HIGH HUMAN DEVELOPMENT,High income,Europe
+Iceland,Europe,VERY HIGH HUMAN DEVELOPMENT,High income,Europe
+India,Asia,MEDIUM HUMAN DEVELOPMENT,Lower middle income,South Asia
+Indonesia,Asia,MEDIUM HUMAN DEVELOPMENT,Lower middle income,East Asia & Pacific
+Iran,Asia,HIGH HUMAN DEVELOPMENT,#N/A,#N/A
+Iraq,Asia,MEDIUM HUMAN DEVELOPMENT,Upper middle income,Middle East & North Africa
+Ireland,Europe,VERY HIGH HUMAN DEVELOPMENT,High income,Europe
+Isle of Man (UK),Europe,#N/A,#N/A,#N/A
+Israel,Asia,VERY HIGH HUMAN DEVELOPMENT,High income,Middle East & North Africa
+Italy,Europe,VERY HIGH HUMAN DEVELOPMENT,High income,Europe
+Ivory Coast,Africa,LOW HUMAN DEVELOPMENT,#N/A,#N/A
+Jamaica,Americas,HIGH HUMAN DEVELOPMENT,Upper middle income,Latin America & Caribbean
+Japan,Asia,VERY HIGH HUMAN DEVELOPMENT,High income,East Asia & Pacific
+Jersey (UK),Europe,#N/A,#N/A,#N/A
+Jordan,Asia,HIGH HUMAN DEVELOPMENT,Upper middle income,Middle East & North Africa
+Kazakhstan,Asia,HIGH HUMAN DEVELOPMENT,Upper middle income,Eurasia
+Kenya,Africa,LOW HUMAN DEVELOPMENT,Lower middle income,Sub-Saharan Africa
+Kiribati,Oceania,MEDIUM HUMAN DEVELOPMENT,Lower middle income,East Asia & Pacific
+Kosovo,Europe,#N/A,Lower middle income,Europe
+Kuwait,Asia,VERY HIGH HUMAN DEVELOPMENT,High income,Middle East & North Africa
+Kyrgyzstan,Asia,MEDIUM HUMAN DEVELOPMENT,#N/A,#N/A
+Laos,Asia,#N/A,#N/A,#N/A
+Latvia,Europe,VERY HIGH HUMAN DEVELOPMENT,High income,Europe
+Lebanon,Asia,HIGH HUMAN DEVELOPMENT,Upper middle income,Middle East & North Africa
+Lesotho,Africa,LOW HUMAN DEVELOPMENT,Lower middle income,Sub-Saharan Africa
+Liberia,Africa,LOW HUMAN DEVELOPMENT,Low income,Sub-Saharan Africa
+Libya,Africa,HIGH HUMAN DEVELOPMENT,Upper middle income,Middle East & North Africa
+Liechtenstein,Europe,VERY HIGH HUMAN DEVELOPMENT,High income,Europe
+Lithuania,Europe,VERY HIGH HUMAN DEVELOPMENT,High income,Europe
+Luxembourg,Europe,VERY HIGH HUMAN DEVELOPMENT,High income,Europe
+Macau (China),Asia,#N/A,#N/A,#N/A
+Macedonia,Europe,HIGH HUMAN DEVELOPMENT,#N/A,#N/A
+Madagascar,Africa,LOW HUMAN DEVELOPMENT,Low income,Sub-Saharan Africa
+Malawi,Africa,LOW HUMAN DEVELOPMENT,Low income,Sub-Saharan Africa
+Malaysia,Asia,HIGH HUMAN DEVELOPMENT,Upper middle income,East Asia & Pacific
+Maldives,Asia,HIGH HUMAN DEVELOPMENT,Upper middle income,South Asia
+Mali,Africa,LOW HUMAN DEVELOPMENT,Low income,Sub-Saharan Africa
+Malta,Europe,VERY HIGH HUMAN DEVELOPMENT,High income,Middle East & North Africa
+Marshall Islands,Oceania,#N/A,Upper middle income,East Asia & Pacific
+Martinique (France),Americas,#N/A,#N/A,#N/A
+Mauritania,Africa,LOW HUMAN DEVELOPMENT,Lower middle income,Sub-Saharan Africa
+Mauritius,Africa,HIGH HUMAN DEVELOPMENT,Upper middle income,Sub-Saharan Africa
+Mayotte (France),Africa,#N/A,#N/A,#N/A
+Mexico,Americas,HIGH HUMAN DEVELOPMENT,Upper middle income,Latin America & Caribbean
+Moldov,Europe,MEDIUM HUMAN DEVELOPMENT,#N/A,#N/A
+Monaco,Europe,#N/A,High income,Europe
+Mongolia,Asia,HIGH HUMAN DEVELOPMENT,Lower middle income,East Asia & Pacific
+Montenegro,Europe,VERY HIGH HUMAN DEVELOPMENT,Upper middle income,Europe
+Montserrat (UK),Americas,#N/A,#N/A,#N/A
+Morocco,Africa,MEDIUM HUMAN DEVELOPMENT,Lower middle income,Middle East & North Africa
+Mozambique,Africa,LOW HUMAN DEVELOPMENT,Low income,Sub-Saharan Africa
+Namibia,Africa,MEDIUM HUMAN DEVELOPMENT,Upper middle income,Sub-Saharan Africa
+Nauru,Oceania,#N/A,High income,East Asia & Pacific
+Nepal,Asia,LOW HUMAN DEVELOPMENT,Low income,South Asia
+Netherlands,Europe,VERY HIGH HUMAN DEVELOPMENT,High income,Europe
+New Caledonia (France),Oceania,#N/A,#N/A,#N/A
+New Zealand,Oceania,VERY HIGH HUMAN DEVELOPMENT,High income,East Asia & Pacific
+Nicaragua,Americas,MEDIUM HUMAN DEVELOPMENT,Lower middle income,Latin America & Caribbean
+Niger,Africa,LOW HUMAN DEVELOPMENT,Low income,Sub-Saharan Africa
+Nigeria,Africa,LOW HUMAN DEVELOPMENT,Lower middle income,Sub-Saharan Africa
+Niue (NZ),Oceania,#N/A,#N/A,#N/A
+Norfolk Island (Australia),Oceania,#N/A,#N/A,#N/A
+North Korea,Asia,#N/A,#N/A,#N/A
+Northern Mariana Islands (USA),Oceania,#N/A,#N/A,#N/A
+Norway,Europe,VERY HIGH HUMAN DEVELOPMENT,High income,Europe
+Oman,Asia,HIGH HUMAN DEVELOPMENT,High income,Middle East & North Africa
+Pakistan,Asia,LOW HUMAN DEVELOPMENT,Lower middle income,South Asia
+Palau,Oceania,HIGH HUMAN DEVELOPMENT,Upper middle income,East Asia & Pacific
+Palestine,Asia,MEDIUM HUMAN DEVELOPMENT,#N/A,#N/A
+Panama,Americas,HIGH HUMAN DEVELOPMENT,Upper middle income,Latin America & Caribbean
+Papua New Guinea,Oceania,LOW HUMAN DEVELOPMENT,Lower middle income,East Asia & Pacific
+Paraguay,Americas,MEDIUM HUMAN DEVELOPMENT,Upper middle income,Latin America & Caribbean
+Peru,Americas,HIGH HUMAN DEVELOPMENT,Upper middle income,Latin America & Caribbean
+Philippines,Asia,MEDIUM HUMAN DEVELOPMENT,Lower middle income,East Asia & Pacific
+Pitcairn Islands (UK),Oceania,#N/A,#N/A,#N/A
+Poland,Europe,VERY HIGH HUMAN DEVELOPMENT,High income,Europe
+Portugal,Europe,VERY HIGH HUMAN DEVELOPMENT,High income,Europe
+Puerto Rico,Americas,#N/A,High income,Latin America & Caribbean
+Qatar,Asia,VERY HIGH HUMAN DEVELOPMENT,High income,Middle East & North Africa
+Republic of the Congo,Africa,MEDIUM HUMAN DEVELOPMENT,#N/A,#N/A
+Reunion (France),Africa,#N/A,#N/A,#N/A
+Romania,Europe,HIGH HUMAN DEVELOPMENT,Upper middle income,Europe
+Russia,Europe,HIGH HUMAN DEVELOPMENT,#N/A,#N/A
+Rwanda,Africa,LOW HUMAN DEVELOPMENT,Low income,Sub-Saharan Africa
+Saint Barthelemy (France),Americas,#N/A,#N/A,#N/A
+"Saint Helena, Ascension and Tristan da Cunha (UK)",Africa,#N/A,#N/A,#N/A
+Saint Kitts and Nevis,Americas,HIGH HUMAN DEVELOPMENT,#N/A,#N/A
+Saint Lucia,Americas,HIGH HUMAN DEVELOPMENT,#N/A,#N/A
+Saint Martin (France),Americas,#N/A,#N/A,#N/A
+Saint Pierre and Miquelon (France),Americas,#N/A,#N/A,#N/A
+Saint Vincent and the Grenadines,Americas,HIGH HUMAN DEVELOPMENT,#N/A,#N/A
+Samoa,Oceania,HIGH HUMAN DEVELOPMENT,Lower middle income,East Asia & Pacific
+San Marino,Europe,#N/A,High income,Europe
+Sao Tom and Principe,Africa,#N/A,#N/A,#N/A
+Saudi Arabia,Asia,VERY HIGH HUMAN DEVELOPMENT,High income,Middle East & North Africa
+Senegal,Africa,LOW HUMAN DEVELOPMENT,Low income,Sub-Saharan Africa
+Serbia,Europe,HIGH HUMAN DEVELOPMENT,Upper middle income,Europe
+Seychelles,Africa,HIGH HUMAN DEVELOPMENT,High income,Sub-Saharan Africa
+Sierra Leone,Africa,LOW HUMAN DEVELOPMENT,Low income,Sub-Saharan Africa
+Singapore,Asia,VERY HIGH HUMAN DEVELOPMENT,High income,East Asia & Pacific
+Sint Maarten (Netherlands),Americas,#N/A,#N/A,#N/A
+Slovakia,Europe,VERY HIGH HUMAN DEVELOPMENT,#N/A,#N/A
+Slovenia,Europe,VERY HIGH HUMAN DEVELOPMENT,High income,Europe
+Solomon Islands,Oceania,LOW HUMAN DEVELOPMENT,Lower middle income,East Asia & Pacific
+Somalia,Africa,#N/A,Low income,Sub-Saharan Africa
+South Africa,Africa,MEDIUM HUMAN DEVELOPMENT,Upper middle income,Sub-Saharan Africa
+South Korea,Asia,VERY HIGH HUMAN DEVELOPMENT,#N/A,#N/A
+South Sudan,Africa,LOW HUMAN DEVELOPMENT,Low income,Sub-Saharan Africa
+Spain,Europe,VERY HIGH HUMAN DEVELOPMENT,High income,Europe
+Sri Lanka,Asia,HIGH HUMAN DEVELOPMENT,Lower middle income,South Asia
+Sudan,Africa,LOW HUMAN DEVELOPMENT,Lower middle income,Sub-Saharan Africa
+Suriname,Americas,HIGH HUMAN DEVELOPMENT,Upper middle income,Latin America & Caribbean
+Svalbard and Jan Mayen (Norway),Europe,#N/A,#N/A,#N/A
+Swaziland,Africa,LOW HUMAN DEVELOPMENT,Lower middle income,Sub-Saharan Africa
+Sweden,Europe,VERY HIGH HUMAN DEVELOPMENT,High income,Europe
+Switzerland,Europe,VERY HIGH HUMAN DEVELOPMENT,High income,Europe
+Syria,Asia,MEDIUM HUMAN DEVELOPMENT,#N/A,#N/A
+Taiwan,Asia,#N/A,#N/A,#N/A
+Tajikistan,Asia,MEDIUM HUMAN DEVELOPMENT,Lower middle income,Eurasia
+Tanzania,Africa,LOW HUMAN DEVELOPMENT,Low income,Sub-Saharan Africa
+Thailand,Asia,HIGH HUMAN DEVELOPMENT,Upper middle income,East Asia & Pacific
+Timor-Leste,Asia,MEDIUM HUMAN DEVELOPMENT,Lower middle income,East Asia & Pacific
+Togo,Africa,LOW HUMAN DEVELOPMENT,Low income,Sub-Saharan Africa
+Tokelau (NZ),Oceania,#N/A,#N/A,#N/A
+Tonga,Oceania,HIGH HUMAN DEVELOPMENT,Lower middle income,East Asia & Pacific
+Trinidad and Tobago,Americas,HIGH HUMAN DEVELOPMENT,High income,Latin America & Caribbean
+Tunisia,Africa,HIGH HUMAN DEVELOPMENT,Lower middle income,Middle East & North Africa
+Turkey,Asia,HIGH HUMAN DEVELOPMENT,Upper middle income,Europe
+Turkmenistan,Asia,MEDIUM HUMAN DEVELOPMENT,Upper middle income,Eurasia
+Turks and Caicos Islands (UK),Americas,#N/A,#N/A,#N/A
+Tuvalu,Oceania,#N/A,Upper middle income,East Asia & Pacific
+Uganda,Africa,LOW HUMAN DEVELOPMENT,Low income,Sub-Saharan Africa
+Ukraine,Europe,HIGH HUMAN DEVELOPMENT,Lower middle income,Eurasia
+United Arab Emirates,Asia,VERY HIGH HUMAN DEVELOPMENT,High income,Middle East & North Africa
+United Kingdom,Europe,VERY HIGH HUMAN DEVELOPMENT,High income,Europe
+United States,Americas,VERY HIGH HUMAN DEVELOPMENT,High income,North America
+United States Virgin Islands (USA),Americas,#N/A,#N/A,#N/A
+Uruguay,Americas,HIGH HUMAN DEVELOPMENT,High income,Latin America & Caribbean
+Uzbekistan,Asia,MEDIUM HUMAN DEVELOPMENT,Lower middle income,Eurasia
+Vanuatu,Oceania,MEDIUM HUMAN DEVELOPMENT,Lower middle income,East Asia & Pacific
+Vatican City,Europe,#N/A,#N/A,#N/A
+Venezuela,Americas,HIGH HUMAN DEVELOPMENT,#N/A,#N/A
+Vietnam,Asia,MEDIUM HUMAN DEVELOPMENT,Lower middle income,East Asia & Pacific
+Wallis and Futuna (France),Oceania,#N/A,#N/A,#N/A
+Western Sahara,Africa,#N/A,#N/A,#N/A
+Yemen,Asia,LOW HUMAN DEVELOPMENT,#N/A,#N/A
+Zambia,Africa,MEDIUM HUMAN DEVELOPMENT,Lower middle income,Sub-Saharan Africa
+Zimbabwe,Africa,LOW HUMAN DEVELOPMENT,Low income,Sub-Saharan Africa

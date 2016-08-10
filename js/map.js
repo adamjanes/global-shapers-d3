@@ -12,13 +12,13 @@ Choropleth.prototype.initVis = function() {
     var vis = this;
 
     vis.width = 1366;
-    vis.height = 550;
+    vis.height = 667;
 
     vis.svg = d3.select("#" + vis.parentElement)
         .append("div")
         .classed("svg-container", true) //container class to make it responsive
         .append("svg")
-        .attr("id", "mapID")
+        .attr("id", "mapID1")
         //responsive SVG needs these 2 attributes and no width and height attr
         .attr("preserveAspectRatio", "xMinYMin meet")
         .attr("viewBox", "0 0 " + vis.width + " " + vis.height)
@@ -39,8 +39,8 @@ Choropleth.prototype.initVis = function() {
     // Draw Map
     vis.projection = d3.geoMiller()
         .translate([vis.width / 2, vis.height / 2])
-        .scale(140)
-        .center([-20, 0]);
+        .scale(224)
+        .center([0, 25]);
 
     vis.zoom = d3.zoom()
         .scaleExtent([1, 8])
@@ -65,19 +65,37 @@ Choropleth.prototype.initVis = function() {
     vis.subregions = getSubregions(vis.countries);
     vis.subregion = vis.g.selectAll(".subregion").data(vis.subregions);
 
+   /* // Get
+    vis.subregions = getSubregions(vis.countries);
+    vis.subregion = vis.g.selectAll(".subregion").data(vis.subregions);*/
+
     // Set Initial Country Label as World
     $("#active")[0].innerHTML = "World";
 
+    // Needed to set class for visible countries
+    var country_nested_data = d3.nest()
+        .key(function(d) { return d["EmbeddedData-Country"]})
+        .entries(vis.data);
+
     // Add Countries Layer
     vis.country.enter().append("path")
-        .attr("class", function(d){ return (d.properties["FIPS"] + " country piece"); })
+        .attr("class", function(d){
+            var flag = "noshow";
+            country_nested_data.forEach(function(cont){
+                if (cont.key == d.properties["NAME"]){
+                    flag = "yesshow";
+                }
+            });
+            return (flag + " country piece");
+        })
         .attr("d", vis.path)
         .attr("id", function(d,i) { return d.properties["FIPS"]; })
         .attr("title", function(d,i) { return d.properties["NAME"]; })
         .attr("region", function(d) { return d.properties["REGION"]})
-        .style("fill", function(d){ if (d.properties["NAME"] != "Antarctica"){ return "grey"; } else { return "white";}})
         .on("click", clicked);
     $(".country").toggle();
+
+    //$(".country.piece").attr("stroke", "black");
 
     // Add Subregions Layer
     vis.subregion.enter().append("path")
@@ -85,9 +103,19 @@ Choropleth.prototype.initVis = function() {
         .attr("d", vis.path)
         .attr("id", function(d,i) { return d.id; })
         .attr("title", function(d,i) { return d.name; })
-        .style("fill", "grey")
+        .style("pointer-events", function(d){ if (d.name == "N/A"){ return "none"; } })
+        .style("stroke", function(d) { if (d.name == "N/A"){ return "#9CC7F6"; } })
+        .style("stroke-opacity", "0.7")
+        .style("fill", function(d){ if (d.name == "N/A"){ return "none"; } else { return "#9CC7F6"; } })
         .on("click", clicked);
-    $(".subregions").toggle();
+    $(".subregion").toggle();
+
+    vis.overlay = vis.svg.append("rect")
+        .attr("class", "overlay")
+        .attr("height", vis.height)
+        .attr("width", vis.width * 0.25)
+        .attr("fill", "#ffffff")
+        .attr("opacity", 0.7);
 
     // Add Regions Layer
     vis.region.enter().append("path")
@@ -95,26 +123,22 @@ Choropleth.prototype.initVis = function() {
         .attr("d", vis.path)
         .attr("id", function(d,i) { return d.id; })
         .attr("title", function(d,i) { return d.name; })
-        .style("fill", "grey")
+        .style("fill", "#9CC7F6")
         .on("click", clicked);
-    
+
     $("#participants")[0].innerHTML = vis.data.length;
 
-    vis.overlap = vis.svg.append("rect")
-        .attr("class", "overlay")
-        .attr("height", vis.height)
-        .attr("width", 300)
-        .attr("fill", "white")
-        .attr("opacity", 0.7);
 
     function clicked(){
-        // Get region title and view type (Region/Subregion/Country, etc)
-        vis.clicked = this.getAttribute("title");
-        vis.view = $("#view_code")[0].innerHTML;
+        $("#flag")[0].innerHTML = "YES";
 
+        // Get region title and view type (Region/Subregion/Country, etc)
+        vis.clicker = this.getAttribute("title");
+        vis.view = $("#view_code")[0].innerHTML;
+        
         // Number of participants in this area
         var parts = vis.data.reduce(function(a, b){
-            if (b[vis.view] == vis.clicked) { return a + 1; }
+            if (b[vis.view] == vis.clicker) { return a + 1; }
             else { return a; }
         }, 0);
 
@@ -125,7 +149,14 @@ Choropleth.prototype.initVis = function() {
             active = d3.select(this).classed("active", true);
 
             // Rename title to new region name
-            $("#active")[0].innerHTML = vis.clicked;
+            $("#active")[0].innerHTML = vis.clicker;
+
+            if (vis.clicker.length > 17){
+                $("#active").css("font-size", "1.8vw");
+            }
+            else {
+                $("#active").css("font-size", "3vw");
+            }
 
             // Set number of participants to the relevant total
             $("#participants")[0].innerHTML = parts;
@@ -136,6 +167,10 @@ Choropleth.prototype.initVis = function() {
     function zoomed() {
         vis.g.attr("transform", d3.event.transform);
     }
+
+    vis.svg
+        .append("g").attr("id", "mapID")
+        .attr("height", "80%");
 
     vis.wrangleData();
 };
@@ -156,17 +191,27 @@ Choropleth.prototype.updateVis = function() {
 Choropleth.prototype.reset =  function() {
     var vis = this;
 
-    active.classed("active", false);
-    active = d3.select(null);
+    $("#active").css("font-size", "3vw");
 
-    worldMap.g.transition()
-        .duration(750)
-        .style("stroke-width", "1.5px")
-        .attr("transform", "");
+    if ($(".active.piece")[0] != undefined){
+        $("#flag")[0].innerHTML = "YES";
 
-    // Title goes back to "World"
-    $("#active")[0].innerHTML = "World";
-    // Participants count full range of responses again
-    $("#participants")[0].innerHTML = worldMap.data.length;
-}
+        active.classed("active", false);
+        active = d3.select(null);
+
+        worldMap.g.transition()
+            .duration(750)
+            .style("stroke-width", "1.5px")
+            .attr("transform", "");
+
+        // Title goes back to "World"
+        $("#active")[0].innerHTML = "World";
+        // Participants count full range of responses again
+        $("#participants")[0].innerHTML = worldMap.data.length;
+    }
+    
+    else {
+        $("#flag")[0].innerHTML = "NO";
+    }
+};
 

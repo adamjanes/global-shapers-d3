@@ -1,18 +1,19 @@
 function addGenderDonut(data) {
 
-    var width = 300,
-        height = worldMap.height * 0.75,
+    var width = worldMap.width * 0.25,
+        height = worldMap.height * 1.1,
         radius = worldMap.height / 8,
         donutWidth = radius / 2 - 10,
         legendRectSize = 14,
         legendSpacing = 4;
     
     var color = d3.scaleOrdinal()
-        .range(["cornflowerblue", "orange", "grey"]);
+        .range(["9CC7F6", "FFD958", "FF9258"]);
     
     var arc = d3.arc()
         .outerRadius(radius - 10)
         .innerRadius(radius - donutWidth);
+    
 
     var pie = d3.pie()
         .sort(null)
@@ -63,7 +64,7 @@ function addGenderDonut(data) {
         $("#chart-area")
             .on("click", change);
 
-        $("#view")
+        $(".option")
             .on("click", change);
 
         var legend = svg.selectAll('.legend')
@@ -91,6 +92,8 @@ function addGenderDonut(data) {
             });
 
         function change() {
+            console.log("HI")
+
             var value;
             var clicked = $(".active.piece")[0];
 
@@ -108,10 +111,10 @@ function addGenderDonut(data) {
                 // Get Type of Piece Clicked
                 var type;
                 if (clicked.classList.contains("region")) {
-                    type = "EmbeddedData-Region_Cont"
+                    type = "EmbeddedData-Region"
                 }
                 else if (clicked.classList.contains("subregion")) {
-                    type = "EmbeddedData-Region_Sub"
+                    type = "EmbeddedData-Region_Sub_WEF"
                 }
                 else {
                     type = "EmbeddedData-Country"

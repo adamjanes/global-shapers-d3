@@ -4,6 +4,13 @@ var worldMap,
 
 var start;
 
+$('.dropdown-menu a').click(function()
+{
+    $(this).closest('ul').find('.act').removeClass('act');
+    $(this).addClass('act');
+});
+
+
 // Tooltip
 var tooltip = {
     element: null,
@@ -65,7 +72,7 @@ function loadData() {
     var spinner = new Spinner(opts).spin(target);
 
         queue()
-            .defer(d3.json, "data/un-map.json")
+            .defer(d3.json, "data/data.json")
             .defer(d3.csv, "data/test.csv")
             .defer(d3.csv, "data/headers.csv")
             .defer(d3.csv, "data/division.csv")
@@ -85,7 +92,7 @@ function loadData() {
 // Create the Visualization
 function createVis(map, data, headers, division) {
     tooltip.init();
-
+    
     // Initialize Map
     worldMap = new Choropleth("chart-area", map, data, headers, division);
 
@@ -106,6 +113,8 @@ function createVis(map, data, headers, division) {
 
     // Add tooltip listeners
     addTooltips(data);
-    
+
+    console.log("HELLO")
+
 }
 

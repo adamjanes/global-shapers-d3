@@ -11,41 +11,71 @@
     <link rel="stylesheet" href="css/style.css">
 
 </head>
-<div id="view_code" style="display:none">EmbeddedData-Region_Cont</div>
+<div id="view_code" style="display:none">EmbeddedData-Region</div>
+<div id="flag" style="display:none">Background</div>
 <section id="screen"></section>
 <body>
 <div id="wordCloud"></div>
 
 <div id="content" style="display:none">
-<!-- Navigation -->
+<!-- Navigation
 <nav class="navbar navbar-default custom-nav" role="navigation" style="margin-bottom: 0px">
     <a href="#" class="navbar-left"><img id="logo" src="data/logo.png"></a>
-</nav>
+</nav>-->
 
-<div class="container-fluid">
-    <div class="row" style="margin-bottom: 5px;margin-top:0px">
-            <div class="col-md-8 col-sm-8 col-xs-8">
-                <h2>See the world by...</h2>
-                <ul id="view" class="nav nav-pills nav-justified list" style="margin-top:15px">
-                    <li id="region" class="active"><a data-toggle="pill" href="#">Region</a></li>
-                    <li><a id="sub-region" data-toggle="pill" href="#">Sub-region</a></li>
-                    <li><a id="country" data-toggle="pill" href="#">Country</a></li>
+<div class="contain">
+    <div class="row" id="row1">
+        <div class="header1">
+            <h1 id="active">World</h1>
+            <div id="stats" class="class-screen">
+                <h3><span id="participants"></span> Participants</h3>
+            </div>
+        </div>
+        <div class="header2">
+            <div id="choose" class="dropdown">
+                <button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">View the world by...
+                    <span class="caret"></span></button>
+                <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="menu1">
+                    <li id="region" class="act option" role="presentation"><a role="menuitem" tabindex="-1" href="#">Region</a></li>
+                    <li role="presentation"><a class="option" id="sub-region" role="menuitem" tabindex="-1" href="#">Sub-region</a></li>
+                    <li role="presentation"><a class="option" id="country" role="menuitem" tabindex="-1" href="#">Country</a></li>
+                    <li role="presentation"><a class="option" id="development" role="menuitem" tabindex="-1" href="#">Development Level</a></li>
+                    <li role="presentation"><a class="option" id="income" role="menuitem" tabindex="-1" href="#">Income Level</a></li>
                 </ul>
             </div>
-            <div class="col-md-4 col-sm-4 col-xs-4">
-                <h1 style="text-align: center;margin-top:15px" id="active">World</h1>
-                <div id="stats" class="class-screen">
-                    <h3 style="text-align: center"><span id="participants"></span> Participants</h3>
-                </div>
+            <div id="insights" class="dropdown">
+                <button class="btn btn-default dropdown-toggle" type="button" id="menu2" data-toggle="dropdown">Survey Insights
+                    <span class="caret"></span></button>
+                <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="menu2">
+                    <li id="topic1"  role="presentation"><a role="menuitem" tabindex="-1" href="#">Governance and Civil Engagement</a></li>
+                    <li role="presentation"><a id="topic2" role="menuitem" tabindex="-1" href="#">The Role of the Private Sector</a></li>
+                    <li role="presentation"><a id="topic3" role="menuitem" tabindex="-1" href="#">Economic Progress and Youth</a></li>
+                    <li role="presentation"><a id="topic4" role="menuitem" tabindex="-1" href="#">Technology and Innovation</a></li>
+                    <li role="presentation"><a id="topic5" role="menuitem" tabindex="-1" href="#">Values and Society</a></li>
+                </ul>
             </div>
+        </div>
+    </div>
+    <div class="title">
+        <ul class="share-buttons">
+            <li><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fglobalshaperssurvey2016.com&t=Global%20Shapers%20Community%20Youth%20Survey%202016" title="Share on Facebook" target="_blank"><img src="images/social_flat_rounded_rects_svg/Facebook.svg"></a></li>
+            <li><a href="https://twitter.com/intent/tweet?source=http%3A%2F%2Fglobalshaperssurvey2016.com&text=Global%20Shapers%20Community%20Youth%20Survey%202016:%20http%3A%2F%2Fglobalshaperssurvey2016.com&via=GlobalShapers" target="_blank" title="Tweet"><img src="images/social_flat_rounded_rects_svg/Twitter.svg"></a></li>
+            <li><a href="https://plus.google.com/share?url=http%3A%2F%2Fglobalshaperssurvey2016.com" target="_blank" title="Share on Google+"><img src="images/social_flat_rounded_rects_svg/Google+.svg"></a></li>
+            <li><a href="http://www.tumblr.com/share?v=3&u=http%3A%2F%2Fglobalshaperssurvey2016.com&t=Global%20Shapers%20Community%20Youth%20Survey%202016&s=" target="_blank" title="Post to Tumblr"><img src="images/social_flat_rounded_rects_svg/Tumblr.svg"></a></li>
+            <li><a href="http://www.reddit.com/submit?url=http%3A%2F%2Fglobalshaperssurvey2016.com&title=Global%20Shapers%20Community%20Youth%20Survey%202016" target="_blank" title="Submit to Reddit"><img src="images/social_flat_rounded_rects_svg/Reddit.svg"></a></li>
+            <li><a href="http://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fglobalshaperssurvey2016.com&title=Global%20Shapers%20Community%20Youth%20Survey%202016&summary=The%20Global%20Shapers%20Community%20asked%20(Number%20of%20Respondents)%20young%20people%20around%20the%20world%20about%20how%20they%20view%20the%20world.%20Here%20is%20what%20we%20found.&source=http%3A%2F%2Fglobalshaperssurvey2016.com" target="_blank" title="Share on LinkedIn"><img src="images/social_flat_rounded_rects_svg/LinkedIn.svg"></a></li>
+            <li><a href="mailto:?subject=Global%20Shapers%20Community%20Youth%20Survey%202016&body=The%20Global%20Shapers%20Community%20asked%20(Number%20of%20Respondents)%20young%20people%20around%20the%20world%20about%20how%20they%20view%20the%20world.%20Here%20is%20what%20we%20found.:%20http%3A%2F%2Fglobalshaperssurvey2016.com" target="_blank" title="Email"><img src="images/social_flat_rounded_rects_svg/Email.svg"></a></li>
+        </ul>
+        <h1 id="title-survey">Annual Youth<br>Survey 2016</h1>
+        <img id="logo" src="data/logo.png"/>
     </div>
     <div class="row">
-        <div class="col-md-12 col-sm-12 col-xs-12">
+        <div>
             <div id="chart-area"></div>
         </div>
 
     </div>
-    <div class="row">
+    <!--<div class="row">
         <div class="col-md-4 col-sm-4 col-xs-4">
             <div id="pieces-chart-area"></div>
         </div>
@@ -55,7 +85,7 @@
         <div class="col-md-4 col-sm-4 col-xs-4">
             <div id="ages-chart-area"></div>
         </div>
-    </div>
+    </div>-->
 </div>
 </div>
 

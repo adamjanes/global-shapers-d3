@@ -1,8 +1,8 @@
 function addAgesChart(data) {
 
-    var margin = {top: (worldMap.height * 0.03), right: 40, bottom: (worldMap.height * 0.07), left: 40},
-        width = 300 - margin.left - margin.right,
-        height = worldMap.height * 0.24 - margin.top - margin.bottom;
+    var margin = {top: (worldMap.height * 0.19), right: 40, bottom: (worldMap.height * 0.07), left: 40},
+        width = worldMap.width * 0.25 - margin.left - margin.right,
+        height = worldMap.height * 0.40 - margin.top - margin.bottom;
 
     var x = d3.scaleBand()
         .range([0, width])
@@ -21,12 +21,19 @@ function addAgesChart(data) {
     $("#chart-area")
         .on("click", update);
 
-    $("#view")
+    $(".option")
         .on("click", update);
 
     update();
 
     function update(){
+        console.log("HI")
+
+        var flag = $("#flag")[0].innerHTML;
+
+        if ((flag == "NO")){
+            return;
+        }
 
         var clicked = $(".active.piece")[0];
 
@@ -67,10 +74,10 @@ function addAgesChart(data) {
             // Get Type of Piece Clicked
             var type;
             if (clicked.classList.contains("region")) {
-                type = "EmbeddedData-Region_Cont"
+                type = "EmbeddedData-Region"
             }
             else if (clicked.classList.contains("subregion")) {
-                type = "EmbeddedData-Region_Sub"
+                type = "EmbeddedData-Region_Sub_WEF"
             }
             else {
                 type = "EmbeddedData-Country"
@@ -146,6 +153,7 @@ function addAgesChart(data) {
             .attr("transform", "translate(0," + height + ")")
             .call(d3.axisBottom(x))
             .selectAll("text")
+            .attr("class", "label")
             .style("text-anchor", "end")
             .attr("dx", "1em")
             .attr("dy", "1em")
@@ -162,15 +170,14 @@ function addAgesChart(data) {
                     return e;
                 })
                 .ticks(tickCountSetter(yMax)));
-        function tickCountSetter(n){if (n <=2){return n} else {return 10}}
+        function tickCountSetter(n){if (n <=2){return n} else {return 5}}
 
     }
 
     // Add the text label for the X axis
     svg.append("text")
-    //.attr("class", "axis")
+        .attr("class", "title")
         .attr("transform", "translate(" + (width/2) + " ," + (height + margin.bottom - 2) + ")")
         .style("text-anchor", "middle")
-        .style("font-size", "11px")
-        .text("Age Bands");
+        .text("Age Range");
 }

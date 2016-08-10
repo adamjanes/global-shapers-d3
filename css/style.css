@@ -7,14 +7,14 @@
     display: inline-block;
     position: relative;
     width: 100%;
-    padding-bottom: 32%;
+    padding-bottom: 100%;
     vertical-align: top;
     overflow: hidden;
 }
 .svg-content-responsive {
     display: inline-block;
     position: absolute;
-    top: 10px;
+    top: 0px;
     left: 0;
 }
 
@@ -44,7 +44,7 @@
 }
 
 .active {
-    fill: orange !important;
+    fill: #FFD958 !important;
 }
 
 .mesh {
@@ -135,21 +135,200 @@ div.tooltip {
 }
 
 .bar {
-    fill: cornflowerblue;
+    fill: #9BCBF6;
 }
 
-.nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover {
-    color: #fff;
-    background-color: cornflowerblue;
+.act {
+    color: #ffffff;
+    background-color: #9BCBF6;
 }
 
 a {
-    color: cornflowerblue;
+    color: #000000;
     text-decoration: none;
 }
 
 h1 { white-space: nowrap; }
 
+/*
+#chart-area {
+    z-index: -2;
+    position: absolute;
+}*/
+
+#row1 {
+    position: fixed;
+    right: 0;
+    left: 0;
+    z-index: 1030;
+    height: 0%;
+    width: 100%;
+}
+
+.contain {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+body {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    color: #31465B;
+    background-color: #ffffff;
+}
+
+.row {
+    margin-left: 0px;
+    margin-right: 0px;
+
+}
+
+.header1 {
+    width: 25%;
+    float: left;
+}
+
+.header2 {
+    float: right;
+}
+
+#choose {
+    float:left;
+    margin-right: 20vw;
+}
+
+#insights{
+    float:right;
+    margin-right: 4vw;
+}
+
+.btn {
+    margin-top: 2vw;
+    font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+    font-size: 1.5vw;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 400;
+    line-height: 1.5vw;
+    padding: 1vw;
+    color: #31465B;
+}
+
+h1 {
+    font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+    font-size: 3vw;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 500;
+    line-height: 2vw;
+    text-align: center;
+    margin-top: 2vw;
+    margin-bottom: 1vw;
+    color: #31465B;
+}
+
+h3 {
+    font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+    font-size: 1.5vw;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 500;
+    line-height: 1vw;
+    text-align: center;
+    margin-top: 1vw;
+    margin-bottom: 1vw;
+    color: #31465B;
+}
+
+.country.piece.yesshow {
+    fill: #9BCBF6;
+}
+
+.country.piece.noshow {
+    fill: white;
+    stroke: #9CC7F6;
+    stroke-opacity: 0.7;
+    stroke-width: 1px;
+    pointer-events: none;
+}
+
+text.title {
+    font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 400;
+    line-height: 20px;
+    color: #31465B;
+}
+
+text.label {
+    font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+    font-size: 9px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 100;
+    line-height: 20px;
+    color: #31465B;
+}
+
+.dropdown-menu.pull-right {
+    font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+    font-size: 1vw;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 400;
+    line-height: 1vw;
+    color: #31465B
+}
+
+.title {
+    pointer-events: none;
+    position: fixed;
+    right: 0;
+    left: 0;
+    margin-left: 25%;
+    margin-top: 40%;
+    z-index: 1030;
+    height: 20%;
+    width: 70%;
+}
+
 #logo {
-    width : 75px;
+    float:right;
+    width: 9vw;
+}
+
+#title-survey {
+    margin-top: 1vw;
+    float:right;
+    color: #31465B;
+    font-family: 'Raleway',sans-serif;
+    font-size: 3vw;
+    font-weight: 800;
+    line-height: 3vw;
+    text-align: right;
+    text-transform: uppercase;
+}
+
+ul.share-buttons{
+    list-style: none;
+    padding: 0;
+    float: left;
+    pointer-events: all;
+    margin-left:1vw;
+    margin-top: 4.5vw;
+}
+
+ul.share-buttons li{
+    display: inline;
+}
+
+ul.share-buttons img{
+    width: 32px;
+}
+
+.axis {
+    stroke: #31465B;
 }
