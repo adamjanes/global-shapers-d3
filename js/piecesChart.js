@@ -39,9 +39,6 @@ function addPiecesChart(allData) {
         var type2;
         var view = $(".active.piece")[0];
 
-        console.log(flag);
-        console.log(view)
-
             var data = [],
             nested_data,
             thisRegion,
@@ -102,6 +99,52 @@ function addPiecesChart(allData) {
 
             regionData = nested_data.find(function(d){
                 return d.key == thisRegion;
+            }).values;
+
+            regionData.map(function(d) {
+                return data.push({
+                    "label": d.key,
+                    "count": d.values.length
+                })
+            });
+        }
+
+        else if (view.classList.contains("development")) {
+            type1 = "EmbeddedData-UNDP_LEVEL";
+            type2 = "EmbeddedData-Country";
+            nested_data = d3.nest()
+                .key(function(d) { return d[type1]; })
+                .key(function(d) { return d[type2]; })
+                .entries(allData);
+
+            thisRegion = $("#active")[0].innerHTML;
+
+            console.log(nested_data);
+
+            regionData = nested_data.find(function(d){
+                return d.key.toUpperCase() == thisRegion.toUpperCase();
+            }).values;
+
+            regionData.map(function(d) {
+                return data.push({
+                    "label": d.key,
+                    "count": d.values.length
+                })
+            });
+        }
+
+        else if (view.classList.contains("income")) {
+            type1 = "EmbeddedData-Income_WorldBank";
+            type2 = "EmbeddedData-Country";
+            nested_data = d3.nest()
+                .key(function(d) { return d[type1]; })
+                .key(function(d) { return d[type2]; })
+                .entries(allData);
+
+            thisRegion = $("#active")[0].innerHTML;
+
+            regionData = nested_data.find(function(d){
+                return d.key.toUpperCase() == thisRegion.toUpperCase();
             }).values;
 
             regionData.map(function(d) {

@@ -65,9 +65,13 @@ Choropleth.prototype.initVis = function() {
     vis.subregions = getSubregions(vis.countries);
     vis.subregion = vis.g.selectAll(".subregion").data(vis.subregions);
 
-   /* // Get
-    vis.subregions = getSubregions(vis.countries);
-    vis.subregion = vis.g.selectAll(".subregion").data(vis.subregions);*/
+    // Get Human Development Levels
+    vis.developments = getDevRegions(vis.countries);
+    vis.development = vis.g.selectAll(".development").data(vis.developments);
+
+    // Get Human Development Levels
+    vis.incomes = getIncomeRegions(vis.countries);
+    vis.income = vis.g.selectAll(".income").data(vis.incomes);
 
     // Set Initial Country Label as World
     $("#active")[0].innerHTML = "World";
@@ -95,8 +99,6 @@ Choropleth.prototype.initVis = function() {
         .on("click", clicked);
     $(".country").toggle();
 
-    //$(".country.piece").attr("stroke", "black");
-
     // Add Subregions Layer
     vis.subregion.enter().append("path")
         .attr("class", "subregion piece")
@@ -110,6 +112,33 @@ Choropleth.prototype.initVis = function() {
         .on("click", clicked);
     $(".subregion").toggle();
 
+    // Add Development Layer
+    vis.development.enter().append("path")
+        .attr("class", "development piece")
+        .attr("d", vis.path)
+        .attr("id", function(d,i) { return d.id; })
+        .attr("title", function(d,i) { return d.name; })
+        .style("pointer-events", function(d){ if (d.name == "N/A"){ return "none"; } })
+        .style("stroke", function(d) { if (d.name == "N/A"){ return "#9CC7F6"; } })
+        .style("stroke-opacity", "0.7")
+        .style("fill", function(d){ if (d.name == "N/A"){ return "none"; } else { return "#9CC7F6"; } })
+        .on("click", clicked);
+    $(".development").toggle();
+
+    // Add Income Layer
+    vis.income.enter().append("path")
+        .attr("class", "income piece")
+        .attr("d", vis.path)
+        .attr("id", function(d,i) { return d.id; })
+        .attr("title", function(d,i) { return d.name; })
+        .style("pointer-events", function(d){ if (d.name == "N/A"){ return "none"; } })
+        .style("stroke", function(d) { if (d.name == "N/A"){ return "#9CC7F6"; } })
+        .style("stroke-opacity", "0.7")
+        .style("fill", function(d){ if (d.name == "N/A"){ return "none"; } else { return "#9CC7F6"; } })
+        .on("click", clicked);
+    $(".income").toggle();
+
+    // Overlay For Side Visualizations
     vis.overlay = vis.svg.append("rect")
         .attr("class", "overlay")
         .attr("height", vis.height)
@@ -135,10 +164,10 @@ Choropleth.prototype.initVis = function() {
         // Get region title and view type (Region/Subregion/Country, etc)
         vis.clicker = this.getAttribute("title");
         vis.view = $("#view_code")[0].innerHTML;
-        
+
         // Number of participants in this area
         var parts = vis.data.reduce(function(a, b){
-            if (b[vis.view] == vis.clicker) { return a + 1; }
+            if (b[vis.view].toUpperCase() == vis.clicker.toUpperCase()) { return a + 1; }
             else { return a; }
         }, 0);
 
@@ -151,13 +180,19 @@ Choropleth.prototype.initVis = function() {
             // Rename title to new region name
             $("#active")[0].innerHTML = vis.clicker;
 
-            if (vis.clicker.length > 17){
+            if (vis.clicker.length > 20){
+                $("#active").css("font-size", "1.5vw");
+            }
+            else if (vis.clicker.length > 17){
                 $("#active").css("font-size", "1.8vw");
+            }
+            else if (vis.clicker.length > 15){
+                $("#active").css("font-size", "2.5vw");
             }
             else {
                 $("#active").css("font-size", "3vw");
             }
-
+            
             // Set number of participants to the relevant total
             $("#participants")[0].innerHTML = parts;
         }

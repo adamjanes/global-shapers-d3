@@ -116,13 +116,19 @@ function addGenderDonut(data) {
                 else if (clicked.classList.contains("subregion")) {
                     type = "EmbeddedData-Region_Sub_WEF"
                 }
+                else if (clicked.classList.contains("development")) {
+                    type = "EmbeddedData-UNDP_LEVEL"
+                }
+                else if (clicked.classList.contains("income")) {
+                    type = "EmbeddedData-Income_WorldBank"
+                }
                 else {
                     type = "EmbeddedData-Country"
                 }
 
 
                 data.map(function (d) {
-                    if (d[type] == clicked.getAttribute("title")) {
+                    if (d[type].toUpperCase() == clicked.getAttribute("title").toUpperCase()) {
                         var gen = d["QID87"];
                         if (gen == "Male") {
                             value[0].count += 1;

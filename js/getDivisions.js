@@ -142,3 +142,111 @@ function getSubregions(countries) {
         }
     ];
 }
+
+function getDevRegions(countries) {
+    return [
+        {
+            type: "FeatureCollection",
+            name: "Very High Human Development",
+            color: "#ffbb78",
+            id: 2,
+            features: countries.features.filter(function (d) {
+                return d.properties["DEVELOPMENT"] == "VERY HIGH HUMAN DEVELOPMENT";
+            })
+        },
+        {
+            type: "FeatureCollection",
+            name: "High Human Development",
+            color: "#2ca02c",
+            id: 19,
+            features: countries.features.filter(function (d) {
+                return d.properties["DEVELOPMENT"] == "HIGH HUMAN DEVELOPMENT";
+            })
+        },
+        {
+            type: "FeatureCollection",
+            name: "Medium Human Development",
+            color: "#2ca02c",
+            id: 19,
+            features: countries.features.filter(function (d) {
+                return d.properties["DEVELOPMENT"] == "MEDIUM HUMAN DEVELOPMENT";
+            })
+        },        {
+            type: "FeatureCollection",
+            name: "Low Human Development",
+            color: "#2ca02c",
+            id: 19,
+            features: countries.features.filter(function (d) {
+                return d.properties["DEVELOPMENT"] == "LOW HUMAN DEVELOPMENT";
+            })
+        },
+        {
+            type: "FeatureCollection",
+            name: "Very Low Human Development",
+            color: "#2ca02c",
+            id: 19,
+            features: countries.features.filter(function (d) {
+                return d.properties["DEVELOPMENT"] == "VERY LOW HUMAN DEVELOPMENT";
+            })
+        },
+        {
+            type: "FeatureCollection",
+            name: "N/A",
+            color: "#ffbb78",
+            id: 34,
+            features: countries.features.filter(function (d) {
+                return d.properties["DEVELOPMENT"] == "#N/A";
+            })
+        }
+    ];
+}
+
+function getIncomeRegions(countries) {
+    return [
+        {
+            type: "FeatureCollection",
+            name: "High Income",
+            color: "#ffbb78",
+            id: 2,
+            features: countries.features.filter(function (d) {
+                return d.properties["INCOME"] == "High income";
+            })
+        },
+        {
+            type: "FeatureCollection",
+            name: "Upper Middle Income",
+            color: "#ffbb78",
+            id: 2,
+            features: countries.features.filter(function (d) {
+                return d.properties["INCOME"] == "Upper middle income";
+            })
+        },
+        {
+            type: "FeatureCollection",
+            name: "Lower Middle Income",
+            color: "#ffbb78",
+            id: 2,
+            features: countries.features.filter(function (d) {
+                return d.properties["INCOME"] == "Lower middle income";
+            })
+        },
+        {
+            type: "FeatureCollection",
+            name: "Low Income",
+            color: "#ffbb78",
+            id: 2,
+            features: countries.features.filter(function (d) {
+                return d.properties["INCOME"] == "Low income";
+            })
+        },
+        {
+            type: "FeatureCollection",
+            name: "N/A",
+            color: "#ffbb78",
+            id: 34,
+            features: countries.features.filter(function (d) {
+                return d.properties["INCOME"] == "#N/A";
+            })
+        }
+    ];
+}

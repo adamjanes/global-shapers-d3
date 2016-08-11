@@ -6,6 +6,12 @@ function addTooltips(data) {
     var subregion_nested_data = d3.nest()
         .key(function(d) { return d["EmbeddedData-Region_Sub_WEF"]})
         .entries(data);
+    var development_nested_data = d3.nest()
+        .key(function(d) { return d["EmbeddedData-UNDP_LEVEL"]})
+        .entries(data);
+    var income_nested_data = d3.nest()
+        .key(function(d) { return d["EmbeddedData-Income_WorldBank"]})
+        .entries(data);
     var country_nested_data = d3.nest()
         .key(function(d) { return d["EmbeddedData-Country"]})
         .entries(data);
@@ -23,11 +29,22 @@ function addTooltips(data) {
             else if (this.classList.contains("subregion")) {
                 myData = subregion_nested_data;
             }
+            else if (this.classList.contains("development")) {
+                myData = development_nested_data;
+            }
+            else if (this.classList.contains("income")) {
+                myData = income_nested_data;
+            }
             else {
                 myData = country_nested_data;
             }
 
+            var selected = this;
+
             var participants = myData.find(function(d){
+                if (selected.classList.contains("development") || selected.classList.contains("income")){
+                    return d.key.toUpperCase() == piece.toUpperCase();
+                }
                 return d.key == piece;
             });
 

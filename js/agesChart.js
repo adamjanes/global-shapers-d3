@@ -27,8 +27,6 @@ function addAgesChart(data) {
     update();
 
     function update(){
-        console.log("HI")
-
         var flag = $("#flag")[0].innerHTML;
 
         if ((flag == "NO")){
@@ -79,13 +77,19 @@ function addAgesChart(data) {
             else if (clicked.classList.contains("subregion")) {
                 type = "EmbeddedData-Region_Sub_WEF"
             }
+            else if (clicked.classList.contains("development")) {
+                type = "EmbeddedData-UNDP_LEVEL"
+            }
+            else if (clicked.classList.contains("income")) {
+                type = "EmbeddedData-Income_WorldBank"
+            }
             else {
                 type = "EmbeddedData-Country"
             }
 
 
             data.map(function (d) {
-                if (d[type] == clicked.getAttribute("title")) {
+                if (d[type].toUpperCase() == clicked.getAttribute("title").toUpperCase()) {
                     var age = d["QID88"];
                         var age = d["QID88"];
                         if (age == "less than 18") {
