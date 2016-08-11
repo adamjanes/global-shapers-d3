@@ -1,8 +1,8 @@
 function addAgesChart(data) {
 
     var margin = {top: (worldMap.height * 0.19), right: 40, bottom: (worldMap.height * 0.07), left: 40},
-        width = worldMap.width * 0.25 - margin.left - margin.right,
-        height = worldMap.height * 0.40 - margin.top - margin.bottom;
+        width = (worldMap.width * 0.25 - margin.left - margin.right),
+        height = (worldMap.height * 0.40 - margin.top - margin.bottom) * 0.7;
 
     var x = d3.scaleBand()
         .range([0, width])
@@ -181,7 +181,7 @@ function addAgesChart(data) {
     // Add the text label for the X axis
     svg.append("text")
         .attr("class", "title")
-        .attr("transform", "translate(" + (width/2) + " ," + (height + margin.bottom - 2) + ")")
-        .style("text-anchor", "middle")
+        .attr("transform", "translate(" + (width) + " ," + (height + margin.bottom - 4) + ")")
+        .style("text-anchor", "end")
         .text("Age Range");
 }

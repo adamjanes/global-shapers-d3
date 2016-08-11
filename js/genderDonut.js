@@ -1,8 +1,8 @@
 function addGenderDonut(data) {
 
     var width = worldMap.width * 0.25,
-        height = worldMap.height * 1.1,
-        radius = worldMap.height / 8,
+        height = worldMap.height * 1.1 * 0.7 * 1.18,
+        radius = worldMap.height / 10,
         donutWidth = radius / 2 - 10,
         legendRectSize = 14,
         legendSpacing = 4;

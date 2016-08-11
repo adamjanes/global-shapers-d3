@@ -284,25 +284,26 @@ text.label {
     color: #31465B
 }
 
-.title {
+#title {
     pointer-events: none;
     position: fixed;
     right: 0;
     left: 0;
-    margin-left: 25%;
-    margin-top: 40%;
+    margin-left: 0;
+    margin-top: 38%;
     z-index: 1030;
-    height: 20%;
-    width: 70%;
+    height: 25%;
+    width: 100%;
 }
 
 #logo {
     float:right;
     width: 9vw;
+    margin-top:2.5vw
 }
 
 #title-survey {
-    margin-top: 1vw;
+    margin-top: 3.5vw;
     float:right;
     color: #31465B;
     font-family: 'Raleway',sans-serif;
@@ -311,6 +312,7 @@ text.label {
     line-height: 3vw;
     text-align: right;
     text-transform: uppercase;
+    margin-right:2vw;
 }
 
 ul.share-buttons{
@@ -319,7 +321,7 @@ ul.share-buttons{
     float: left;
     pointer-events: all;
     margin-left:1vw;
-    margin-top: 4.5vw;
+    margin-top: 7vw;
 }
 
 ul.share-buttons li{
@@ -327,9 +329,34 @@ ul.share-buttons li{
 }
 
 ul.share-buttons img{
-    width: 32px;
+    width: 2.5vw;
 }
 
 .axis {
     stroke: #31465B;
+}
+
+#buttons1{
+    display:none;
+}
+
+li {
+    pointer-events: all;
+}
+
+#country-btns {
+    pointer-events: none;
+    position: fixed;
+    right: 0;
+    left: 0;
+    margin-left: 0;
+    margin-top: 27%;
+    z-index: 1030;
+    height: 25%;
+    width: 100%;
+    display:none;
+}
+
+#compare-btn, #insights-btn, #compare-btn2, #insights-btn2 {
+    font-size: 1vw;
 }

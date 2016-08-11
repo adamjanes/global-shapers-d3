@@ -1,7 +1,7 @@
 function addPiecesChart(allData) {
-    var margin = {top: (worldMap.height * 0.71), right: 40, bottom: (worldMap.height * 0.1), left: 40},
+    var margin = {top: (worldMap.height * 0.71) * 0.79, right: 40, bottom: (worldMap.height * 0.11), left: 40},
         width = worldMap.width * 0.25 - margin.left - margin.right,
-        height = worldMap.height * 0.96 - margin.top - margin.bottom;
+        height = (worldMap.height * 0.96 - margin.top - margin.bottom) * 0.36;
 
     var x = d3.scaleBand()
         .range([0, width])
@@ -246,7 +246,7 @@ function addPiecesChart(allData) {
     // Add the text label for the X axis
     svg.append("text")
         .attr("class", "title")
-        .attr("transform", "translate(" + (width/2) + " ," + (height + margin.bottom - 2) + ")")
-        .style("text-anchor", "middle")
+        .attr("transform", "translate(" + (width) + " ," + (height + 50) + ")")
+        .style("text-anchor", "end")
         .text("Region");
 }

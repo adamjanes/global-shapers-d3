@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="description" content="">
-    <title>Test Map</title>
+    <title>GSF Youth Survey 2016</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -56,18 +56,41 @@
             </div>
         </div>
     </div>
-    <div class="title">
-        <ul class="share-buttons">
-            <li><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fglobalshaperssurvey2016.com&t=Global%20Shapers%20Community%20Youth%20Survey%202016" title="Share on Facebook" target="_blank"><img src="images/social_flat_rounded_rects_svg/Facebook.svg"></a></li>
-            <li><a href="https://twitter.com/intent/tweet?source=http%3A%2F%2Fglobalshaperssurvey2016.com&text=Global%20Shapers%20Community%20Youth%20Survey%202016:%20http%3A%2F%2Fglobalshaperssurvey2016.com&via=GlobalShapers" target="_blank" title="Tweet"><img src="images/social_flat_rounded_rects_svg/Twitter.svg"></a></li>
-            <li><a href="https://plus.google.com/share?url=http%3A%2F%2Fglobalshaperssurvey2016.com" target="_blank" title="Share on Google+"><img src="images/social_flat_rounded_rects_svg/Google+.svg"></a></li>
-            <li><a href="http://www.tumblr.com/share?v=3&u=http%3A%2F%2Fglobalshaperssurvey2016.com&t=Global%20Shapers%20Community%20Youth%20Survey%202016&s=" target="_blank" title="Post to Tumblr"><img src="images/social_flat_rounded_rects_svg/Tumblr.svg"></a></li>
-            <li><a href="http://www.reddit.com/submit?url=http%3A%2F%2Fglobalshaperssurvey2016.com&title=Global%20Shapers%20Community%20Youth%20Survey%202016" target="_blank" title="Submit to Reddit"><img src="images/social_flat_rounded_rects_svg/Reddit.svg"></a></li>
-            <li><a href="http://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fglobalshaperssurvey2016.com&title=Global%20Shapers%20Community%20Youth%20Survey%202016&summary=The%20Global%20Shapers%20Community%20asked%20(Number%20of%20Respondents)%20young%20people%20around%20the%20world%20about%20how%20they%20view%20the%20world.%20Here%20is%20what%20we%20found.&source=http%3A%2F%2Fglobalshaperssurvey2016.com" target="_blank" title="Share on LinkedIn"><img src="images/social_flat_rounded_rects_svg/LinkedIn.svg"></a></li>
-            <li><a href="mailto:?subject=Global%20Shapers%20Community%20Youth%20Survey%202016&body=The%20Global%20Shapers%20Community%20asked%20(Number%20of%20Respondents)%20young%20people%20around%20the%20world%20about%20how%20they%20view%20the%20world.%20Here%20is%20what%20we%20found.:%20http%3A%2F%2Fglobalshaperssurvey2016.com" target="_blank" title="Email"><img src="images/social_flat_rounded_rects_svg/Email.svg"></a></li>
-        </ul>
-        <h1 id="title-survey">Annual Youth<br>Survey 2016</h1>
-        <img id="logo" src="data/logo.png"/>
+    <div id="country-btns">
+        <div id="buttons2" style="width:21%;margin-left:2%;margin-right:2%;float:left">
+            <button type="button" id="compare-btn2" style="color:white;background-color:#9CC7F6;border:#9CC7F6; margin-bottom:1.5vw;margin-top:1vw;pointer-events: all" class="btn btn-primary btn-lg btn-block">What's The Most Serious Issue?</button>
+            <button type="button" id="insights-btn2" style="color:white;background-color:#9CC7F6;border:#9CC7F6; margin-top:0.5vw;pointer-events: all" class="btn btn-primary btn-lg btn-block">Would They Welcome Refugees?</button>
+        </div>
+    </div>
+
+    <div id="title">
+        <div id="buttons1" style="width:21%;margin-left:2%;margin-right:2%;float:left">
+            <button type="button" id="compare-btn" style="color:white;background-color:#9CC7F6;border:#9CC7F6; margin-bottom:1.5vw;margin-top:0vw;pointer-events: all" class="btn btn-primary btn-lg btn-block">Side-By-Side Comparison</button>
+            <div class="dropup">
+                <button data-toggle="dropdown" type="button" id="insights-btn" style="color:white;background-color:#9CC7F6;border:#9CC7F6; margin-top:0.5vw;pointer-events: all" class="btn btn-primary btn-lg btn-block dropdown-toggle">Insights For This Region
+                    <span class="caret"></span></button>
+                <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="insights-btn">
+                    <li role="presentation"><a id="topic11" role="menuitem" tabindex="-1" href="#">Governance and Civil Engagement</a></li>
+                    <li role="presentation"><a id="topic22" role="menuitem" tabindex="-1" href="#">The Role of the Private Sector</a></li>
+                    <li role="presentation"><a id="topic33" role="menuitem" tabindex="-1" href="#">Economic Progress and Youth</a></li>
+                    <li role="presentation"><a id="topic44" role="menuitem" tabindex="-1" href="#">Technology and Innovation</a></li>
+                    <li role="presentation"><a id="topic55" role="menuitem" tabindex="-1" href="#">Values and Society</a></li>
+                </ul>
+            </div>
+        </div>
+        <div style="float:right;width:75%">
+            <h1 id="title-survey">Annual Youth<br>Survey 2016</h1>
+            <img id="logo" src="data/logo.png"/>
+            <ul class="share-buttons">
+                <li><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fglobalshaperssurvey2016.com&t=Global%20Shapers%20Community%20Youth%20Survey%202016" title="Share on Facebook" target="_blank"><img src="images/social_flat_rounded_rects_svg/Facebook.svg"></a></li>
+                <li><a href="https://twitter.com/intent/tweet?source=http%3A%2F%2Fglobalshaperssurvey2016.com&text=Global%20Shapers%20Community%20Youth%20Survey%202016:%20http%3A%2F%2Fglobalshaperssurvey2016.com&via=GlobalShapers" target="_blank" title="Tweet"><img src="images/social_flat_rounded_rects_svg/Twitter.svg"></a></li>
+                <li><a href="https://plus.google.com/share?url=http%3A%2F%2Fglobalshaperssurvey2016.com" target="_blank" title="Share on Google+"><img src="images/social_flat_rounded_rects_svg/Google+.svg"></a></li>
+                <li><a href="http://www.tumblr.com/share?v=3&u=http%3A%2F%2Fglobalshaperssurvey2016.com&t=Global%20Shapers%20Community%20Youth%20Survey%202016&s=" target="_blank" title="Post to Tumblr"><img src="images/social_flat_rounded_rects_svg/Tumblr.svg"></a></li>
+                <li><a href="http://www.reddit.com/submit?url=http%3A%2F%2Fglobalshaperssurvey2016.com&title=Global%20Shapers%20Community%20Youth%20Survey%202016" target="_blank" title="Submit to Reddit"><img src="images/social_flat_rounded_rects_svg/Reddit.svg"></a></li>
+                <li><a href="http://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fglobalshaperssurvey2016.com&title=Global%20Shapers%20Community%20Youth%20Survey%202016&summary=The%20Global%20Shapers%20Community%20asked%20(Number%20of%20Respondents)%20young%20people%20around%20the%20world%20about%20how%20they%20view%20the%20world.%20Here%20is%20what%20we%20found.&source=http%3A%2F%2Fglobalshaperssurvey2016.com" target="_blank" title="Share on LinkedIn"><img src="images/social_flat_rounded_rects_svg/LinkedIn.svg"></a></li>
+                <li><a href="mailto:?subject=Global%20Shapers%20Community%20Youth%20Survey%202016&body=The%20Global%20Shapers%20Community%20asked%20(Number%20of%20Respondents)%20young%20people%20around%20the%20world%20about%20how%20they%20view%20the%20world.%20Here%20is%20what%20we%20found.:%20http%3A%2F%2Fglobalshaperssurvey2016.com" target="_blank" title="Email"><img src="images/social_flat_rounded_rects_svg/Email.svg"></a></li>
+            </ul>
+        </div>
     </div>
     <div class="row">
         <div>

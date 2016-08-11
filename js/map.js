@@ -165,6 +165,14 @@ Choropleth.prototype.initVis = function() {
         vis.clicker = this.getAttribute("title");
         vis.view = $("#view_code")[0].innerHTML;
 
+        $("#buttons1").fadeIn("slow");
+
+        console.log(vis.view);
+
+        if (vis.view == "EmbeddedData-Country"){
+            $("#country-btns").fadeIn("slow");
+        }
+
         // Number of participants in this area
         var parts = vis.data.reduce(function(a, b){
             if (b[vis.view].toUpperCase() == vis.clicker.toUpperCase()) { return a + 1; }
@@ -225,6 +233,9 @@ Choropleth.prototype.updateVis = function() {
 
 Choropleth.prototype.reset =  function() {
     var vis = this;
+
+    $("#buttons1").fadeOut("slow");
+    $("#country-btns").fadeOut("slow");
 
     $("#active").css("font-size", "3vw");
 
