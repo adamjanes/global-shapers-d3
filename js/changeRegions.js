@@ -11,7 +11,7 @@ function changeRegions() {
     });
     
     $("#country").click(function(){
-        $("#piecesSVG").hide('slow');
+        $("#piecesSVG").hide();
         worldMap.reset();
         $("#view_code")[0].innerHTML = "EmbeddedData-Country";
         $(".region").hide();

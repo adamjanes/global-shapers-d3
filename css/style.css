@@ -271,6 +271,7 @@ text.label {
     font-weight: 100;
     line-height: 20px;
     color: #31465B;
+    text-transform: capitalize;
 }
 
 .dropdown-menu.pull-right {

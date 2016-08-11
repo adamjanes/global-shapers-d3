@@ -27,10 +27,11 @@ function addPiecesChart(allData) {
     update();
 
     function update(){
+        console.log(this)
+        console.log($(this).attr("class"))
+
         var flag = $("#flag")[0].innerHTML;
-
-
-        if ((flag == "NO")){
+        if ((flag == "NO") && ($(this).attr("class") != "option act")){
             return;
         }
 
@@ -44,19 +45,27 @@ function addPiecesChart(allData) {
             thisRegion,
             regionData;
 
+        console.log(view)
         
         if (view == undefined){
-            type1 = "EmbeddedData-Region";
+            type1 = $("#view_code")[0].innerHTML;
             nested_data = d3.nest()
                 .key(function(d) { return d[type1]; })
                 .entries(allData);
 
             nested_data.map(function(d) {
-                return data.push({
-                    "label": d.key,
-                    "count": d.values.length
-                })
+                if (d.key != "#N/A"){
+                    return data.push({
+                        "label": toTitleCase(d.key),
+                        "count": d.values.length
+                    })
+                }
             });
+
+            function toTitleCase(str)
+            {
+                return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+            }
         }
 
         else if (view.classList.contains("region")) {
