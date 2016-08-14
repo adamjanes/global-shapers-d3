@@ -1,8 +1,8 @@
 function addAgesChart(data) {
 
-    var margin = {top: (worldMap.height * 0.19), right: 40, bottom: (worldMap.height * 0.07), left: 40},
+    var margin = {top: (worldMap.height * 0.2), right: 40, bottom: (worldMap.height * 0.07), left: 40},
         width = (worldMap.width * 0.25 - margin.left - margin.right),
-        height = (worldMap.height * 0.40 - margin.top - margin.bottom) * 0.7;
+        height = (worldMap.height * 0.45 - margin.top - margin.bottom) * 0.7;
 
     var x = d3.scaleBand()
         .range([0, width])
@@ -21,20 +21,28 @@ function addAgesChart(data) {
     $("#chart-area")
         .on("click", update);
 
-    $(".option")
-        .on("click", update);
+    $("#select-region")
+        .on("change", update);
+
+    $("#choose-regions")
+        .on("change", update);
+    
+    $("#flag")[0].innerHTML = "YES";
 
     update();
 
     function update(){
+        console.log("Updating Ages");
         var flag = $("#flag")[0].innerHTML;
+
+        console.log(flag);
 
         if ((flag == "NO")){
             return;
         }
 
         var clicked = $(".active.piece")[0];
-
+        
         var value = [
             {label: "<18", count: 0},
             {label: "18-21", count: 0},
@@ -70,22 +78,7 @@ function addAgesChart(data) {
 
         else {
             // Get Type of Piece Clicked
-            var type;
-            if (clicked.classList.contains("region")) {
-                type = "EmbeddedData-Region"
-            }
-            else if (clicked.classList.contains("subregion")) {
-                type = "EmbeddedData-Region_Sub_WEF"
-            }
-            else if (clicked.classList.contains("development")) {
-                type = "EmbeddedData-UNDP_LEVEL"
-            }
-            else if (clicked.classList.contains("income")) {
-                type = "EmbeddedData-Income_WorldBank"
-            }
-            else {
-                type = "EmbeddedData-Country"
-            }
+            var type = $("#view_code")[0].innerHTML;
 
 
             data.map(function (d) {
@@ -181,7 +174,7 @@ function addAgesChart(data) {
     // Add the text label for the X axis
     svg.append("text")
         .attr("class", "title")
-        .attr("transform", "translate(" + (width) + " ," + (height + margin.bottom - 4) + ")")
-        .style("text-anchor", "end")
-        .text("Age Range");
+        .attr("transform", "translate(" + (width / 2) + " ," + (-20) + ")")
+        .style("text-anchor", "middle")
+        .text("Age Group Distribution");
 }

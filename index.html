@@ -12,6 +12,7 @@
 
 </head>
 <div id="view_code" style="display:none">EmbeddedData-Region</div>
+<div id="view_class" style="display:none">region</div>
 <div id="flag" style="display:none">Background</div>
 <section id="screen"></section>
 <body>
@@ -26,44 +27,59 @@
 <div class="contain">
     <div class="row" id="row1">
         <div class="header1">
+            <img id="logo" src="data/logo.png"/>
+            <h5 id="title-survey">The Global Shapers<br>Annual Survey 2016</h5>
+            <ul id="navtabs" class="nav nav-tabs">
+                <li class="active1" style="margin-top:0"><a style="padding:1.5vw;line-height:1vw" class="tabbs" data-toggle="tab" href="#" id="map">World Map</a></li>
+                <li class="chart"><a class="tabbs" style="padding:1.5vw;line-height:1vw" data-toggle="tab" href="" id="economy">Economy</a></li>
+                <li class="chart"><a class="tabbs" style="padding:1.5vw;line-height:1vw" data-toggle="tab" href="" id="politics">Politics</a></li>
+                <li class="chart"><a class="tabbs" style="padding:1.5vw;line-height:1vw" data-toggle="tab" href="" id="values">Values</a></li>
+                <li class="chart"><a class="tabbs" style="padding:1.5vw;line-height:1vw" data-toggle="tab" href="" id="technology">Technology</a></li>
+                <li class="chart"><a class="tabbs" style="padding:1.5vw;line-height:1vw" data-toggle="tab" href="" id="business">Business</a></li>
+                <li class="chart"><a class="tabbs" style="padding:1.5vw;line-height:1vw" data-toggle="tab" href="" id="about">About the Survey</a></li>
+            </ul>
+        </div>
+        <div class="header2">
+            <h3 id="view-world">
+                View the world by...
+            </h3>
+            <div class="form-group">
+                <select class="form-control" id="select-region" onchange="changeRegions();changeChoose()">
+                    <option selected class="view" id="region">Region</option>
+                    <option class="view" id="subregion">Sub-region</option>
+                    <option class="view" id="country">Country</option>
+                    <option class="view" id="development">UNDP Index</option>
+                    <option class="view" id="income">Income Level</option>
+                </select>
+                <select class="form-control" id="select-view">
+                    <option selected class="option" id="totals">Totals</option>
+                    <option class="option" id="categories">Categories</option>
+                </select>
+                <select class="form-control" id="choose-regions" onchange="changeActive()"></select>
+                <select class="form-control" id="select-insight" onchange="worldMap.updateVis()">
+                    <option class="option" id="question1">Q1</option>
+                    <option class="option" id="question2">Q2</option>
+                </select>
+            </div>
+        </div>
+        <div id="header3">
             <h1 id="active">World</h1>
             <div id="stats" class="class-screen">
                 <h3><span id="participants"></span> Participants</h3>
             </div>
         </div>
-        <div class="header2">
-            <div id="choose" class="dropdown">
-                <button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">View the world by...
-                    <span class="caret"></span></button>
-                <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="menu1">
-                    <li role="presentation"><a id="region" class="act option" role="menuitem" tabindex="-1" href="#">Region</a></li>
-                    <li role="presentation"><a class="option" id="sub-region" role="menuitem" tabindex="-1" href="#">Sub-region</a></li>
-                    <li role="presentation"><a class="option" id="country" role="menuitem" tabindex="-1" href="#">Country</a></li>
-                    <li role="presentation"><a class="option" id="development" role="menuitem" tabindex="-1" href="#">Human Development Level</a></li>
-                    <li role="presentation"><a class="option" id="income" role="menuitem" tabindex="-1" href="#">Income Level</a></li>
-                </ul>
-            </div>
-            <div id="insights" class="dropdown">
-                <button class="btn btn-default dropdown-toggle" type="button" id="menu2" data-toggle="dropdown">Survey Insights
-                    <span class="caret"></span></button>
-                <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="menu2">
-                    <li id="topic1"  role="presentation"><a role="menuitem" tabindex="-1" href="#">Governance and Civil Engagement</a></li>
-                    <li role="presentation"><a id="topic2" role="menuitem" tabindex="-1" href="#">The Role of the Private Sector</a></li>
-                    <li role="presentation"><a id="topic3" role="menuitem" tabindex="-1" href="#">Economic Progress and Youth</a></li>
-                    <li role="presentation"><a id="topic4" role="menuitem" tabindex="-1" href="#">Technology and Innovation</a></li>
-                    <li role="presentation"><a id="topic5" role="menuitem" tabindex="-1" href="#">Values and Society</a></li>
-                </ul>
-            </div>
+        <div id="footer">
+
         </div>
     </div>
-    <div id="country-btns">
+    <!--<div id="country-btns">
         <div id="buttons2" style="width:21%;margin-left:2%;margin-right:2%;float:left">
             <button type="button" id="compare-btn2" style="color:white;background-color:#9CC7F6;border:#9CC7F6; margin-bottom:1.5vw;margin-top:1vw;pointer-events: all" class="btn btn-primary btn-lg btn-block">What's The Most Serious Issue?</button>
             <button type="button" id="insights-btn2" style="color:white;background-color:#9CC7F6;border:#9CC7F6; margin-top:0.5vw;pointer-events: all" class="btn btn-primary btn-lg btn-block">Would They Welcome Refugees?</button>
         </div>
-    </div>
+    </div>-->
 
-    <div id="title">
+   <!-- <div id="title">
         <div id="buttons1" style="width:21%;margin-left:2%;margin-right:2%;float:left">
             <button type="button" id="compare-btn" style="color:white;background-color:#9CC7F6;border:#9CC7F6; margin-bottom:1.5vw;margin-top:0vw;pointer-events: all" class="btn btn-primary btn-lg btn-block">Side-By-Side Comparison</button>
             <div class="dropup">
@@ -79,8 +95,6 @@
             </div>
         </div>
         <div style="float:right;width:75%">
-            <h1 id="title-survey">Annual Youth<br>Survey 2016</h1>
-            <img id="logo" src="data/logo.png"/>
             <ul class="share-buttons">
                 <li><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fglobalshaperssurvey2016.com&t=Global%20Shapers%20Community%20Youth%20Survey%202016" title="Share on Facebook" target="_blank"><img src="images/social_flat_rounded_rects_svg/Facebook.svg"></a></li>
                 <li><a href="https://twitter.com/intent/tweet?source=http%3A%2F%2Fglobalshaperssurvey2016.com&text=Global%20Shapers%20Community%20Youth%20Survey%202016:%20http%3A%2F%2Fglobalshaperssurvey2016.com&via=GlobalShapers" target="_blank" title="Tweet"><img src="images/social_flat_rounded_rects_svg/Twitter.svg"></a></li>
@@ -92,23 +106,13 @@
             </ul>
         </div>
     </div>
+    -->
     <div class="row">
         <div>
             <div id="chart-area"></div>
         </div>
-
     </div>
-    <!--<div class="row">
-        <div class="col-md-4 col-sm-4 col-xs-4">
-            <div id="pieces-chart-area"></div>
-        </div>
-        <div class="col-md-4 col-sm-4 col-xs-4">
-            <div id="donut-area"></div>
-        </div>
-        <div class="col-md-4 col-sm-4 col-xs-4">
-            <div id="ages-chart-area"></div>
-        </div>
-    </div>-->
+
 </div>
 </div>
 
@@ -131,9 +135,10 @@
 <script src="js/main.js"></script>
 <script src="js/map.js"></script>
 <script src="js/changeRegions.js"></script>
+<script src="js/changeView.js"></script>
 <script src="js/getDivisions.js"></script>
 <script src="js/genderDonut.js"></script>
-<script src="js/piecesChart.js"></script>
+<!--<script src="js/piecesChart.js"></script>-->
 <script src="js/agesChart.js"></script>
 <script src="js/addTooltip.js"></script>
 <script src="js/wordCloud.js"></script>

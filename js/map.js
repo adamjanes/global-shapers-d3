@@ -32,19 +32,23 @@ Choropleth.prototype.initVis = function() {
         .attr("height", vis.height)
         .on("click", vis.reset);
 
+    $("#select-region")
+        .on("change", vis.reset);
+
     vis.g = vis.svg.append("g")
+        .attr("id", "mapID2")
         .style("stroke-width", "1.5px");
 
 
     // Draw Map
     vis.projection = d3.geoMiller()
         .translate([vis.width / 2, vis.height / 2])
-        .scale(224)
-        .center([0, 25]);
+        .scale(150)
+        .center([-60, 40]);
 
     vis.zoom = d3.zoom()
         .scaleExtent([1, 8])
-        .translateExtent([[-100, -100], [vis.width + 100, vis.height + 100]])
+        .translateExtent([[-200, -200], [vis.width + 200, vis.height + 200]])
         .on("zoom", zoomed);
 
     vis.path = d3.geoPath()
@@ -106,9 +110,9 @@ Choropleth.prototype.initVis = function() {
         .attr("id", function(d,i) { return d.id; })
         .attr("title", function(d,i) { return d.name; })
         .style("pointer-events", function(d){ if (d.name == "N/A"){ return "none"; } })
-        .style("stroke", function(d) { if (d.name == "N/A"){ return "#9CC7F6"; } })
+        .style("stroke", function(d) { if (d.name == "N/A"){ return "#0082C4"; } })
         .style("stroke-opacity", "0.7")
-        .style("fill", function(d){ if (d.name == "N/A"){ return "none"; } else { return "#9CC7F6"; } })
+        .style("fill", function(d){ if (d.name == "N/A"){ return "none"; } else { return "#0082C4"; } })
         .on("click", clicked);
     $(".subregion").toggle();
 
@@ -119,9 +123,9 @@ Choropleth.prototype.initVis = function() {
         .attr("id", function(d,i) { return d.id; })
         .attr("title", function(d,i) { return d.name; })
         .style("pointer-events", function(d){ if (d.name == "N/A"){ return "none"; } })
-        .style("stroke", function(d) { if (d.name == "N/A"){ return "#9CC7F6"; } })
+        .style("stroke", function(d) { if (d.name == "N/A"){ return "#0082C4"; } })
         .style("stroke-opacity", "0.7")
-        .style("fill", function(d){ if (d.name == "N/A"){ return "none"; } else { return "#9CC7F6"; } })
+        .style("fill", function(d){ if (d.name == "N/A"){ return "none"; } else { return "#0082C4"; } })
         .on("click", clicked);
     $(".development").toggle();
 
@@ -132,9 +136,9 @@ Choropleth.prototype.initVis = function() {
         .attr("id", function(d,i) { return d.id; })
         .attr("title", function(d,i) { return d.name; })
         .style("pointer-events", function(d){ if (d.name == "N/A"){ return "none"; } })
-        .style("stroke", function(d) { if (d.name == "N/A"){ return "#9CC7F6"; } })
+        .style("stroke", function(d) { if (d.name == "N/A"){ return "#0082C4"; } })
         .style("stroke-opacity", "0.7")
-        .style("fill", function(d){ if (d.name == "N/A"){ return "none"; } else { return "#9CC7F6"; } })
+        .style("fill", function(d){ if (d.name == "N/A"){ return "none"; } else { return "#0082C4"; } })
         .on("click", clicked);
     $(".income").toggle();
 
@@ -143,8 +147,8 @@ Choropleth.prototype.initVis = function() {
         .attr("class", "overlay")
         .attr("height", vis.height)
         .attr("width", vis.width * 0.25)
-        .attr("fill", "#ffffff")
-        .attr("opacity", 0.7);
+        .attr("fill", "#0096FF")
+        .attr("opacity", 1);
 
     // Add Regions Layer
     vis.region.enter().append("path")
@@ -152,22 +156,27 @@ Choropleth.prototype.initVis = function() {
         .attr("d", vis.path)
         .attr("id", function(d,i) { return d.id; })
         .attr("title", function(d,i) { return d.name; })
-        .style("fill", "#9CC7F6")
+        .style("fill", "#0082C4")
         .on("click", clicked);
 
     $("#participants")[0].innerHTML = vis.data.length;
 
 
-    function clicked(){
+    function clicked(select){
         $("#flag")[0].innerHTML = "YES";
 
+        if (this.type == undefined){
+            vis.selection = $(this);
+        }
+        else{
+            vis.selection = select;
+        }
+
         // Get region title and view type (Region/Subregion/Country, etc)
-        vis.clicker = this.getAttribute("title");
+        vis.clicker = vis.selection.attr("title");
         vis.view = $("#view_code")[0].innerHTML;
 
         $("#buttons1").fadeIn("slow");
-
-        console.log(vis.view);
 
         if (vis.view == "EmbeddedData-Country"){
             $("#country-btns").fadeIn("slow");
@@ -181,9 +190,15 @@ Choropleth.prototype.initVis = function() {
 
         if (parts !== 0){
             // Region becomes active
-            if (active.node() === this) return vis.reset();
-            active.classed("active", false);
-            active = d3.select(this).classed("active", true);
+            if (active === vis.selection) return vis.reset();
+
+            var view = $(".view:selected")[0].id;
+            $(".active").attr("class", "piece " + view);
+            active = vis.selection.attr("class", "piece " + view + " active");
+
+            console.log(active.attr("class"));
+
+            $("#choose-regions").val(vis.clicker);
 
             // Rename title to new region name
             $("#active")[0].innerHTML = vis.clicker;
@@ -213,7 +228,8 @@ Choropleth.prototype.initVis = function() {
 
     vis.svg
         .append("g").attr("id", "mapID")
-        .attr("height", "80%");
+        .attr("height", "80%")
+        .attr("transform", "translate(0,  100)");
 
     vis.wrangleData();
 };
@@ -226,7 +242,7 @@ Choropleth.prototype.wrangleData = function() {
 
 Choropleth.prototype.updateVis = function() {
     var vis = this;
-
+    
     // Put code here if data is going to change
 
 };
@@ -239,16 +255,23 @@ Choropleth.prototype.reset =  function() {
 
     $("#active").css("font-size", "3vw");
 
+    // If a piece is active
     if ($(".active.piece")[0] != undefined){
         $("#flag")[0].innerHTML = "YES";
 
-        active.classed("active", false);
-        active = d3.select(null);
+        var view = $("#view_class")[0].innerHTML;
+
+        active.attr("class", "piece " + view);
+        console.log(active.attr("class"));
+
+        active = $(null);
 
         worldMap.g.transition()
             .duration(750)
             .style("stroke-width", "1.5px")
             .attr("transform", "");
+
+        $("#choose-regions").val("Show All");
 
         // Title goes back to "World"
         $("#active")[0].innerHTML = "World";

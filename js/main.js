@@ -1,14 +1,9 @@
 // Global Variables
 var worldMap,
-    active = d3.select(null);
+    allData,
+    active = $(null);
 
 var start;
-
-$('.dropdown-menu a').click(function()
-{
-    $(this).closest('ul').find('.act').removeClass('act');
-    $(this).addClass('act');
-});
 
 
 // Tooltip
@@ -92,18 +87,24 @@ function loadData() {
 // Create the Visualization
 function createVis(map, data, headers, division) {
     tooltip.init();
+    allData = data;
     
     // Initialize Map
     worldMap = new Choropleth("chart-area", map, data, headers, division);
 
     // Add Javascript for Display Pills
     changeRegions();
+    
+    // Add Javascript for View Tabs
+    changeView();
+
+    changeChoose();
 
     // Add Donut Chart
     addGenderDonut(data);
 
     // Add Regions/Subregions/Countries Chart
-    addPiecesChart(data);
+    //addPiecesChart(data);
     
     // Add Age Range Chart
     addAgesChart(data);
@@ -113,8 +114,6 @@ function createVis(map, data, headers, division) {
 
     // Add tooltip listeners
     addTooltips(data);
-
-    console.log("HELLO")
 
 }
 

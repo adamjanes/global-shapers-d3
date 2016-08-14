@@ -27,8 +27,6 @@ function addPiecesChart(allData) {
     update();
 
     function update(){
-        console.log(this)
-        console.log($(this).attr("class"))
 
         var flag = $("#flag")[0].innerHTML;
         if ((flag == "NO") && ($(this).attr("class") != "option act")){
@@ -40,13 +38,12 @@ function addPiecesChart(allData) {
         var type2;
         var view = $(".active.piece")[0];
 
-            var data = [],
-            nested_data,
-            thisRegion,
-            regionData;
+        var data = [],
+        nested_data,
+        thisRegion,
+        regionData;
 
-        console.log(view)
-        
+
         if (view == undefined){
             type1 = $("#view_code")[0].innerHTML;
             nested_data = d3.nest()

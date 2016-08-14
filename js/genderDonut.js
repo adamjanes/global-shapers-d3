@@ -1,7 +1,7 @@
 function addGenderDonut(data) {
 
     var width = worldMap.width * 0.25,
-        height = worldMap.height * 1.1 * 0.7 * 1.18,
+        height = worldMap.height * 1.2,
         radius = worldMap.height / 10,
         donutWidth = radius / 2 - 10,
         legendRectSize = 14,
@@ -12,7 +12,7 @@ function addGenderDonut(data) {
     
     var arc = d3.arc()
         .outerRadius(radius - 10)
-        .innerRadius(radius - donutWidth);
+        .innerRadius(0);
     
 
     var pie = d3.pie()
@@ -32,7 +32,6 @@ function addGenderDonut(data) {
         var gender = [
             {label: "Male", count: 0},
             {label: "Female", count: 0},
-            {label: "Other", count: 0}
         ];
 
         data.map(function (d) {
@@ -44,7 +43,6 @@ function addGenderDonut(data) {
                 gender[1].count += 1;
             }
             else {
-                gender[2].count += 1;
             }
         });
     
@@ -67,6 +65,12 @@ function addGenderDonut(data) {
         $(".option")
             .on("click", change);
 
+        $("#choose-regions")
+            .on("change", change);
+
+        $("#select-region")
+             .on("change", change);
+
         var legend = svg.selectAll('.legend')
             .data(color.domain())
             .enter()
@@ -75,25 +79,34 @@ function addGenderDonut(data) {
             .attr('transform', function (d, i) {
                 var height = legendRectSize + legendSpacing;
                 var offset = height * color.domain().length / 2;
-                var horz = -2 * legendRectSize + 10;
-                var vert = i * height - offset;
-                return 'translate(' + horz + ',' + vert + ')';
+                var horz = -10 * legendRectSize * i + 75;
+                var vert = height - offset - 80;
+                return 'translate(' + (horz - 40) + ',' + vert + ')';
             });
         legend.append('rect')
             .attr('width', legendRectSize)
             .attr('height', legendRectSize)
             .style('fill', color)
             .style('stroke', color);
-        legend.append('text')
+        var legText = legend.append('text')
             .attr('x', legendRectSize + legendSpacing)
             .attr('y', legendRectSize - legendSpacing)
             .text(function (d) {
-                return d;
+                var gen = gender.find(function(val){
+                    return val["label"] == d;
+                }).count;
+                return d + " (N = " + gen + ")";
             });
 
-        function change() {
-            console.log("HI")
+        var title = g.append("text")
+            .text("Gender Distribution")
+            .attr("text-anchor", "middle")
+            .style("font-weight", "lighter")
+            .style("font-size", "18px")
+            .style('color', "#31465B")
+            .attr("class", "title");
 
+        function change() {
             var value;
             var clicked = $(".active.piece")[0];
 
@@ -105,7 +118,6 @@ function addGenderDonut(data) {
                 value = [
                     {label: "Male", count: 0},
                     {label: "Female", count: 0},
-                    {label: "Other", count: 0}
                 ];
 
                 // Get Type of Piece Clicked
@@ -128,6 +140,7 @@ function addGenderDonut(data) {
 
 
                 data.map(function (d) {
+                    console.log(d[type].toUpperCase());
                     if (d[type].toUpperCase() == clicked.getAttribute("title").toUpperCase()) {
                         var gen = d["QID87"];
                         if (gen == "Male") {
@@ -137,11 +150,18 @@ function addGenderDonut(data) {
                             value[1].count += 1;
                         }
                         else {
-                            value[2].count += 1;
                         }
                     }
                 });
             }
+
+            legText
+                .text(function (d) {
+                    var gen = value.find(function(val){
+                        return val["label"] == d;
+                    }).count;
+                    return d + " (N = " + gen + ")";
+                });
 
             path = path.data(pie(value)); // compute the new angles
             path.transition().duration(750).attrTween("d", arcTween); // redraw the arcs
@@ -157,5 +177,8 @@ function addGenderDonut(data) {
             return arc(i(t));
         };
     }
+
+    title
+        .attr("transform", "translate(0, -100)");
 
 }

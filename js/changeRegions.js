@@ -1,28 +1,33 @@
 function changeRegions() {
-    $("#region").click(function(){
+    var selection = ($("#select-region").val());
+
+    if (selection == "Region") {
         worldMap.reset();
         $("#view_code")[0].innerHTML = "EmbeddedData-Region";
+        $("#view_class")[0].innerHTML = "region";
         $(".country").hide();
         $(".subregion").hide();
         $(".income").hide();
         $(".development").hide();
         $(".region").show();
         $("#piecesSVG").show('slow');
-    });
-    
-    $("#country").click(function(){
+    }
+
+    else if (selection == "Country") {
         $("#piecesSVG").hide();
         worldMap.reset();
+        $("#view_class")[0].innerHTML = "country";
         $("#view_code")[0].innerHTML = "EmbeddedData-Country";
         $(".region").hide();
         $(".subregion").hide();
         $(".income").hide();
         $(".development").hide();
         $(".country").show();
-    });
+    }
 
-    $("#sub-region").click(function(){
+    else if (selection == "Sub-region") {
         worldMap.reset();
+        $("#view_class")[0].innerHTML = "subregion";
         $("#view_code")[0].innerHTML = "EmbeddedData-Region_Sub_WEF";
         $(".region").hide();
         $(".country").hide();
@@ -30,10 +35,11 @@ function changeRegions() {
         $(".development").hide();
         $(".subregion").show();
         $("#piecesSVG").show('slow');
-    });
+    }
 
-    $("#development").click(function(){
+    else if (selection == "UNDP Index") {
         worldMap.reset();
+        $("#view_class")[0].innerHTML = "development";
         $("#view_code")[0].innerHTML = "EmbeddedData-UNDP_LEVEL";
         $(".region").hide();
         $(".country").hide();
@@ -41,10 +47,11 @@ function changeRegions() {
         $(".income").hide();
         $(".development").show();
         $("#piecesSVG").show('slow');
-    });
+    }
 
-    $("#income").click(function(){
+    else{
         worldMap.reset();
+        $("#view_class")[0].innerHTML = "income";
         $("#view_code")[0].innerHTML = "EmbeddedData-Income_WorldBank";
         $(".region").hide();
         $(".country").hide();
@@ -52,5 +59,6 @@ function changeRegions() {
         $(".income").show();
         $(".development").hide();
         $("#piecesSVG").show('slow');
-    });
+    }
+
 }
