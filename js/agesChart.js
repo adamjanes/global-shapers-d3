@@ -32,16 +32,13 @@ function addAgesChart(data) {
     update();
 
     function update(){
-        console.log("Updating Ages");
         var flag = $("#flag")[0].innerHTML;
-
-        console.log(flag);
-
+        
         if ((flag == "NO")){
             return;
         }
 
-        var clicked = $(".active.piece")[0];
+        var clicked = $(".activey.piece")[0];
         
         var value = [
             {label: "<18", count: 0},

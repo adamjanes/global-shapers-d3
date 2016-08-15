@@ -108,7 +108,7 @@ function addGenderDonut(data) {
 
         function change() {
             var value;
-            var clicked = $(".active.piece")[0];
+            var clicked = $(".activey.piece")[0];
 
             if (clicked == undefined) {
                 value = gender;
@@ -140,7 +140,6 @@ function addGenderDonut(data) {
 
 
                 data.map(function (d) {
-                    console.log(d[type].toUpperCase());
                     if (d[type].toUpperCase() == clicked.getAttribute("title").toUpperCase()) {
                         var gen = d["QID87"];
                         if (gen == "Male") {

@@ -190,14 +190,12 @@ Choropleth.prototype.initVis = function() {
 
         if (parts !== 0){
             // Region becomes active
-            if (active === vis.selection) return vis.reset();
+            if (active[0] === vis.selection[0]) return vis.reset();
 
             var view = $(".view:selected")[0].id;
-            $(".active").attr("class", "piece " + view);
-            active = vis.selection.attr("class", "piece " + view + " active");
-
-            console.log(active.attr("class"));
-
+            $(".activey").attr("class", "piece " + view);
+            active = vis.selection.attr("class", "piece " + view + " activey");
+            
             $("#choose-regions").val(vis.clicker);
 
             // Rename title to new region name
@@ -256,13 +254,12 @@ Choropleth.prototype.reset =  function() {
     $("#active").css("font-size", "3vw");
 
     // If a piece is active
-    if ($(".active.piece")[0] != undefined){
+    if ($(".activey.piece")[0] != undefined){
         $("#flag")[0].innerHTML = "YES";
 
         var view = $("#view_class")[0].innerHTML;
 
         active.attr("class", "piece " + view);
-        console.log(active.attr("class"));
 
         active = $(null);
 

@@ -36,7 +36,7 @@ function addPiecesChart(allData) {
         // Get Right Data
         var type1;
         var type2;
-        var view = $(".active.piece")[0];
+        var view = $(".activey.piece")[0];
 
         var data = [],
         nested_data,
@@ -124,9 +124,7 @@ function addPiecesChart(allData) {
                 .entries(allData);
 
             thisRegion = $("#active")[0].innerHTML;
-
-            console.log(nested_data);
-
+            
             regionData = nested_data.find(function(d){
                 return d.key.toUpperCase() == thisRegion.toUpperCase();
             }).values;

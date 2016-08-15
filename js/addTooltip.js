@@ -51,9 +51,7 @@ function addTooltips(data) {
             if (participants == undefined){
                 participants = [];
             }
-
-            //console.log(participants)
-
+            
             var output = "<strong>" + piece + "</strong><br>Participants: " + participants.values.length;
             tooltip.show(output);
         })

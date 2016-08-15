@@ -40,7 +40,6 @@ function changeChoose(){
 }
 
 function changeActive(){
-    console.log("HI");
     var selected = $("#choose-regions").val();
     var view = $("#select-region").val();
     var selection = $(".piece[title='"+selected+"']");
