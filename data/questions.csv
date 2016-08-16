@@ -1,0 +1,15 @@
+short,question,qid,topic,type
+What are the most serious issues affecting your country?,"In your opinon, what are the three (3) most serious issues affecting your country today?",QID277,economy,ManyRows
+What are the most serious issues affecting the world?, what are the three (3) most serious issues affecting the world today?",QID133,economy,ManyRows
+Which factors contribute most to inequality in your country?,What are the most important factors contributing to inequality in your country? (choose up to 3),QID137,economy,ManyRows
+What frustrates you most about your government leaders?,"What frustrates you the most about government leaders in your country (presidents, prime-ministers, ministers, governors, mayors, etc.) ?",QID316,politics,ManyRows
+Which factors contribute most to youth empowerment in your country?,What are the most important factors contributing to youth empowerment in your country?,QID156,politics,ManyRows
+How can Governments be Transparent and Accountable?,What are the most important ways that Government can demonstrate transparency and accountability?,QID164,politics,ManyRows
+What are the most important criteria for choosing a job?,What are your three (3) most important criteria when considering job opportunities?,QID236,business,ManyRows
+What is business' biggest contribution to society?,"What is, according to you, the most important contribution that businesses make to society? (choose 1)",QID243,business,OnePlusText
+Which part of life will be most affected by technology?,What part of your life is going to change significantly because of technological developments in the next 10 years,QID109,technology,ManyRows
+To what extent does your government adopt the latest technologies?,"In your country, to what extent does the government adopt the latest technologies to deliver services?",QID107,technology,OneToFive
+Which sector would benefit most from adopting the latest technologies?,"In your country, which sector do you think would benefit the most from the adoption of the latest technologies? (choose 1)",QID118,technology,OnePlusText
+Should there be no religious expression in public spaces?,Do you agree with the following statement? I believe there should be no religious expression in public spaces.,QID172,values,OneToFive
+I would welcome refugees to...,I would welcome refugees to...,QID339,values,ManyRows
+What should governments be doing about refugees?,"In addressing the refugee crisis, what do you think governments should be doing?",QID161,values,OnePlusText

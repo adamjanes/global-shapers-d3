@@ -109,7 +109,7 @@ function addGenderDonut(data) {
         function change() {
             var value;
             var clicked = $(".activey.piece")[0];
-
+            
             if (clicked == undefined) {
                 value = gender;
             }

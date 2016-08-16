@@ -56,10 +56,8 @@
                     <option class="option" id="categories">Categories</option>
                 </select>
                 <select class="form-control" id="choose-regions" onchange="changeActive()"></select>
-                <select class="form-control" id="select-insight" onchange="worldMap.updateVis()">
-                    <option class="option" id="question1">Q1</option>
-                    <option class="option" id="question2">Q2</option>
-                </select>
+                <select class="form-control" id="select-answer" onchange="worldMap.updateVis()"></select>
+                <select class="form-control" id="select-insight" onchange="changeAnswers();worldMap.updateVis()"></select>
             </div>
         </div>
         <div id="header3">

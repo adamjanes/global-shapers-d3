@@ -14,6 +14,14 @@ Choropleth.prototype.initVis = function() {
     vis.width = 1366;
     vis.height = 667;
 
+    vis.colorScale = d3.scaleThreshold()
+        .range(['#f7fbff','#deebf7','#c6dbef','#9ecae1','#6baed6','#4292c6','#2171b5','#08519c','#08306b'])
+        .domain(["0.01", "0.05", "0.1", "0.2", "0.35", "0.5", "0.6", "0.8"]);
+
+    vis.participationScale = d3.scaleThreshold()
+        .range(['#f7fbff','#deebf7','#c6dbef','#9ecae1','#6baed6','#4292c6','#2171b5','#08519c','#08306b'])
+        .domain(["3", "5", "10", "20", "30", "40", "50", "60"]);
+
     vis.svg = d3.select("#" + vis.parentElement)
         .append("div")
         .classed("svg-container", true) //container class to make it responsive
@@ -57,25 +65,12 @@ Choropleth.prototype.initVis = function() {
     vis.svg
         .call(vis.zoom);
 
-    // Get Countries
+    // Get Area Data
     vis.countries = topojson.feature(vis.map, vis.map.objects["TM_WORLD_BORDERS-0"]);
-    vis.country = vis.g.selectAll(".country").data(vis.countries.features);
-
-    // Get Regions
     vis.regions = getRegions(vis.countries);
-    vis.region = vis.g.selectAll(".region").data(vis.regions);
-
-    // Get Sub-Regions
     vis.subregions = getSubregions(vis.countries);
-    vis.subregion = vis.g.selectAll(".subregion").data(vis.subregions);
-
-    // Get Human Development Levels
     vis.developments = getDevRegions(vis.countries);
-    vis.development = vis.g.selectAll(".development").data(vis.developments);
-
-    // Get Human Development Levels
     vis.incomes = getIncomeRegions(vis.countries);
-    vis.income = vis.g.selectAll(".income").data(vis.incomes);
 
     // Set Initial Country Label as World
     $("#active")[0].innerHTML = "World";
@@ -86,16 +81,10 @@ Choropleth.prototype.initVis = function() {
         .entries(vis.data);
 
     // Add Countries Layer
-    vis.country.enter().append("path")
-        .attr("class", function(d){
-            var flag = "noshow";
-            country_nested_data.forEach(function(cont){
-                if (cont.key == d.properties["NAME"]){
-                    flag = "yesshow";
-                }
-            });
-            return (flag + " country piece");
-        })
+    vis.country = vis.g.selectAll(".country")
+        .data(vis.countries.features)
+        .enter().append("path")
+        .attr("class", "country piece")
         .attr("d", vis.path)
         .attr("id", function(d,i) { return d.properties["FIPS"]; })
         .attr("title", function(d,i) { return d.properties["NAME"]; })
@@ -104,43 +93,38 @@ Choropleth.prototype.initVis = function() {
     $(".country").toggle();
 
     // Add Subregions Layer
-    vis.subregion.enter().append("path")
+    vis.subregion = vis.g.selectAll(".subregion")
+        .data(vis.subregions)
+        .enter().append("path")
         .attr("class", "subregion piece")
         .attr("d", vis.path)
         .attr("id", function(d,i) { return d.id; })
         .attr("title", function(d,i) { return d.name; })
-        .style("pointer-events", function(d){ if (d.name == "N/A"){ return "none"; } })
-        .style("stroke", function(d) { if (d.name == "N/A"){ return "#0082C4"; } })
-        .style("stroke-opacity", "0.7")
-        .style("fill", function(d){ if (d.name == "N/A"){ return "none"; } else { return "#0082C4"; } })
         .on("click", clicked);
     $(".subregion").toggle();
 
     // Add Development Layer
-    vis.development.enter().append("path")
+    vis.development = vis.g.selectAll(".development")
+        .data(vis.developments)
+        .enter().append("path")
         .attr("class", "development piece")
         .attr("d", vis.path)
         .attr("id", function(d,i) { return d.id; })
         .attr("title", function(d,i) { return d.name; })
-        .style("pointer-events", function(d){ if (d.name == "N/A"){ return "none"; } })
-        .style("stroke", function(d) { if (d.name == "N/A"){ return "#0082C4"; } })
-        .style("stroke-opacity", "0.7")
-        .style("fill", function(d){ if (d.name == "N/A"){ return "none"; } else { return "#0082C4"; } })
         .on("click", clicked);
     $(".development").toggle();
 
     // Add Income Layer
-    vis.income.enter().append("path")
+    vis.income = vis.g.selectAll(".income")
+        .data(vis.incomes)
+        .enter().append("path")
         .attr("class", "income piece")
         .attr("d", vis.path)
         .attr("id", function(d,i) { return d.id; })
         .attr("title", function(d,i) { return d.name; })
-        .style("pointer-events", function(d){ if (d.name == "N/A"){ return "none"; } })
-        .style("stroke", function(d) { if (d.name == "N/A"){ return "#0082C4"; } })
-        .style("stroke-opacity", "0.7")
-        .style("fill", function(d){ if (d.name == "N/A"){ return "none"; } else { return "#0082C4"; } })
         .on("click", clicked);
     $(".income").toggle();
+
 
     // Overlay For Side Visualizations
     vis.overlay = vis.svg.append("rect")
@@ -151,16 +135,14 @@ Choropleth.prototype.initVis = function() {
         .attr("opacity", 1);
 
     // Add Regions Layer
-    vis.region.enter().append("path")
+    vis.region = vis.g.selectAll(".region").data(vis.regions).enter().append("path")
         .attr("class", "region piece")
         .attr("d", vis.path)
         .attr("id", function(d,i) { return d.id; })
         .attr("title", function(d,i) { return d.name; })
-        .style("fill", "#0082C4")
         .on("click", clicked);
 
     $("#participants")[0].innerHTML = vis.data.length;
-
 
     function clicked(select){
         $("#flag")[0].innerHTML = "YES";
@@ -195,7 +177,7 @@ Choropleth.prototype.initVis = function() {
             var view = $(".view:selected")[0].id;
             $(".activey").attr("class", "piece " + view);
             active = vis.selection.attr("class", "piece " + view + " activey");
-            
+
             $("#choose-regions").val(vis.clicker);
 
             // Rename title to new region name
@@ -213,21 +195,21 @@ Choropleth.prototype.initVis = function() {
             else {
                 $("#active").css("font-size", "3vw");
             }
-            
+
             // Set number of participants to the relevant total
             $("#participants")[0].innerHTML = parts;
         }
-    }
-
-    // Update on zoom/drag
-    function zoomed() {
-        vis.g.attr("transform", d3.event.transform);
     }
 
     vis.svg
         .append("g").attr("id", "mapID")
         .attr("height", "80%")
         .attr("transform", "translate(0,  100)");
+
+    // Update on zoom/drag
+    function zoomed() {
+        vis.g.attr("transform", d3.event.transform);
+    }
 
     vis.wrangleData();
 };
@@ -240,7 +222,72 @@ Choropleth.prototype.wrangleData = function() {
 
 Choropleth.prototype.updateVis = function() {
     var vis = this;
-    
+
+    var answer = $("#select-answer");
+    var qid =  answer.find('option:selected').attr('id');
+
+    console.log(qid);
+
+    colorIn(vis.country, "EmbeddedData-Country");
+    colorIn(vis.region, "EmbeddedData-Region");
+    colorIn(vis.subregion, "EmbeddedData-Region_Sub_WEF");
+    colorIn(vis.income, "EmbeddedData-Income_WorldBank");
+    colorIn(vis.development, "EmbeddedData-UNDP_LEVEL");
+
+
+    function colorIn(part, view){
+        part
+            .attr("selection", answer.val())
+            .attr("fill", function(d){
+                var name;
+                if (view == "EmbeddedData-Country"){
+                    name = d.properties["NAME"];
+                }
+                else {
+                    name = d.name;
+                }
+
+                var total = 0;
+                var matched = 0;
+                if ((view == "EmbeddedData-Country") && (d.properties == undefined)){
+                    return "black";
+                }
+
+                var val = answer.val();
+                if (qid == "QID107-1" || qid ==  "QID172-1"){
+                    val = reversePerceptionScale[answer.val()];
+                }
+
+                allData.forEach(function(response){
+                    if (response[view].toUpperCase() == name.toUpperCase()) {
+                        total += 1;
+                        //console.log(response[qid] + " " + answer.val())
+                        if (response[qid] == val) {
+                            matched += 1;
+                        }
+                    }
+                });
+                if (total == 0){
+                    $(this).attr({
+                        "stroke": "#c6dbef",
+                        "pointer-events": "none"
+                    });
+                    return "none";
+                }
+
+                if ((answer.val() == "Share of Total Participants") || val == undefined){
+                    $(this).attr("stat", ((total/allData.length)*100).toFixed(1) + "%" );
+                    return vis.colorScale(total/allData.length)
+                }
+                else{
+                    $(this).attr("stat", ((matched/total)*100).toFixed(1) + "%" );
+                    return vis.colorScale(matched/total);
+                }
+            });
+    }
+
+
+
     // Put code here if data is going to change
 
 };

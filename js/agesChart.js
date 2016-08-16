@@ -31,10 +31,14 @@ function addAgesChart(data) {
 
     update();
 
-    function update(){
+    function update(trigger){
         var flag = $("#flag")[0].innerHTML;
         
-        if ((flag == "NO")){
+        if (trigger == undefined) {
+            trigger = {type: "NA"};
+        }
+
+        if ((flag == "NO") && (trigger.type != "change")){
             return;
         }
 

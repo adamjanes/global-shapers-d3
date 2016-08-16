@@ -1,10 +1,11 @@
 // Global Variables
 var worldMap,
     allData,
+    allQuestions,
+    qidCodes = [],
     active = $(null);
 
 var start;
-
 
 // Tooltip
 var tooltip = {
@@ -26,6 +27,22 @@ var tooltip = {
     hide: function() {
         this.element.transition().duration(500).style("opacity", 0)
     }
+};
+
+var perceptionScale = {
+    "1" : "Strongly Disagree",
+    "2" : "Disagree",
+    "3" : "Neutral",
+    "4" : "Agree",
+    "5" : "Strongly Agree"
+};
+
+var reversePerceptionScale = {
+    "Strongly Disagree": "1",
+    "Disagree": "2",
+    "Neutral": "3",
+    "Agree": "4",
+    "Strongly Agree": "5"
 };
 
 // Spinner
@@ -50,7 +67,7 @@ var opts = {
     , shadow: false // Whether to render a shadow
     , hwaccel: false // Whether to use hardware acceleration
     , position: 'absolute' // Element positioning
-}
+};
 
 
 // Start application by loading the data
@@ -70,13 +87,13 @@ function loadData() {
             .defer(d3.json, "data/data.json")
             .defer(d3.csv, "data/test.csv")
             .defer(d3.csv, "data/headers.csv")
-            .defer(d3.csv, "data/division.csv")
-            .await(function (error, map, data, headers, division) {
+            .defer(d3.csv, "data/questions.csv")
+            .await(function (error, map, data, headers, questions) {
                 if (error) return console.warn(error);
 
                 console.log(headers);
                 
-                createVis(map, data, headers, division);
+                createVis(map, data, headers, questions);
                 // stop the loader
                 setTimeout(function(){spinner.stop();
                 $("#content").fadeIn("slow")}, 1000);
@@ -85,12 +102,26 @@ function loadData() {
 
 
 // Create the Visualization
-function createVis(map, data, headers, division) {
+function createVis(map, data, headers, questions) {
     tooltip.init();
+    
+    //allData = createAllData(data, questions);
     allData = data;
     
+    allQuestions = questions;
+
+    // Set qidCodes to contain an array of all matching QIDs
+    allQuestions.forEach(function(d){
+        var keys = Object.keys(allData[0]);
+        qidCodes[d["qid"]] = keys.filter(function(a){
+            if (a.indexOf("TEXT") === -1){
+                return (a.indexOf(d["qid"]) !== -1);
+            }
+        });
+    });
+    
     // Initialize Map
-    worldMap = new Choropleth("chart-area", map, data, headers, division);
+    worldMap = new Choropleth("chart-area", map, data, headers);
 
     // Add Javascript for Display Pills
     changeRegions();
@@ -98,7 +129,13 @@ function createVis(map, data, headers, division) {
     // Add Javascript for View Tabs
     changeView();
 
+    // Add Javascript for changing the select boxes
     changeChoose();
+
+    // Initialize answers
+    changeAnswers()
+
+    $("#map").trigger("click");
 
     // Add Donut Chart
     addGenderDonut(data);
@@ -115,5 +152,10 @@ function createVis(map, data, headers, division) {
     // Add tooltip listeners
     addTooltips(data);
 
+    countData("QID133", "EmbeddedData-Region");
+
 }
 
+/*function createAllData(data) {
+    
+}*/

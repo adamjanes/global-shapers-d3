@@ -22,6 +22,12 @@ function addTooltips(data) {
         .on("mouseover", function (d) {
             var piece = this.getAttribute("title");
 
+            var selection = this.getAttribute("selection");
+            var stat = this.getAttribute("stat");
+            /*
+            console.log(d)
+            console.log(this)
+
             var myData;
             if (this.classList.contains("region")) {
                 myData = region_nested_data;
@@ -50,9 +56,9 @@ function addTooltips(data) {
 
             if (participants == undefined){
                 participants = [];
-            }
+            }*/
             
-            var output = "<strong>" + piece + "</strong><br>Participants: " + participants.values.length;
+            var output = "<strong>" + piece + "</strong><br>" + selection + ": " + stat;
             tooltip.show(output);
         })
         .on("mousemove", function () {
