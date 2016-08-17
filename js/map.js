@@ -33,19 +33,18 @@ Choropleth.prototype.initVis = function() {
         //class to make it responsive
         .classed("svg-content-responsive", true);
 
-    // Background plane
-    vis.svg.append("rect")
-        .attr("class", "background")
-        .attr("width", vis.width)
-        .attr("height", vis.height)
-        .on("click", vis.reset);
-
     $("#select-region")
         .on("change", vis.reset);
 
     vis.g = vis.svg.append("g")
         .attr("id", "mapID2")
         .style("stroke-width", "1.5px");
+
+    vis.g.append("rect")
+        .attr("class", "background")
+        .attr("width", vis.width)
+        .attr("height", vis.height)
+        .on("click", vis.reset);
 
 
     // Draw Map
@@ -131,7 +130,7 @@ Choropleth.prototype.initVis = function() {
         .attr("class", "overlay")
         .attr("height", vis.height)
         .attr("width", vis.width * 0.25)
-        .attr("fill", "#0096FF")
+        .attr("fill", "#347B8F")
         .attr("opacity", 1);
 
     // Add Regions Layer
@@ -225,9 +224,7 @@ Choropleth.prototype.updateVis = function() {
 
     var answer = $("#select-answer");
     var qid =  answer.find('option:selected').attr('id');
-
-    console.log(qid);
-
+    
     colorIn(vis.country, "EmbeddedData-Country");
     colorIn(vis.region, "EmbeddedData-Region");
     colorIn(vis.subregion, "EmbeddedData-Region_Sub_WEF");
@@ -261,7 +258,7 @@ Choropleth.prototype.updateVis = function() {
                 allData.forEach(function(response){
                     if (response[view].toUpperCase() == name.toUpperCase()) {
                         total += 1;
-                        //console.log(response[qid] + " " + answer.val())
+
                         if (response[qid] == val) {
                             matched += 1;
                         }
@@ -285,16 +282,11 @@ Choropleth.prototype.updateVis = function() {
                 }
             });
     }
-
-
-
-    // Put code here if data is going to change
-
 };
 
 Choropleth.prototype.reset =  function() {
     var vis = this;
-
+    
     $("#buttons1").fadeOut("slow");
     $("#country-btns").fadeOut("slow");
 

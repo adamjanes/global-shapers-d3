@@ -44,7 +44,7 @@
 }
 
 .activey {
-    fill: #FFD958 !important;
+    fill: #E69B4F !important;
 }
 
 .mesh {
@@ -135,7 +135,7 @@ div.tooltip {
 }
 
 .bar {
-    fill: #9BCBF6;
+    fill: #84BBCA;
 }
 
 .act {
@@ -174,7 +174,7 @@ body {
     height: 100%;
     width: 100%;
     overflow: hidden;
-    color: #31465B;
+    color: #E4F4F9;
     background-color: #ffffff;
 }
 
@@ -194,7 +194,7 @@ body {
 .header2 {
     width:75.01%;
     float: right;
-    background-color: #2e6da4;
+    background-color: #0E566A;
 }
 
 #choose {
@@ -225,7 +225,7 @@ h1 {
     text-align: center;
     margin-top: 2vw;
     margin-bottom: 1vw;
-    color: #31465B;
+    color: #E4F4F9;
 }
 
 h3 {
@@ -237,7 +237,7 @@ h3 {
     text-align: center;
     margin-top: 1vw;
     margin-bottom: 1vw;
-    color: #31465B;
+    color: #E4F4F9;
 }
 
 
@@ -259,18 +259,20 @@ text.title {
     font-style: normal;
     font-variant: normal;
     line-height: 20px;
-    color: #31465B;
-    font-weight: 200;
+    color: #E4F4F9;
+    fill: #E4F4F9;
+    stroke: none;
+    font-weight:600;
 }
 
 text.label {
-    font-size: 9px;
+    font-size: 1vw;
     font-style: normal;
     font-variant: normal;
     font-weight: 100;
     line-height: 20px;
-    color: #31465B;
-    text-transform: capitalize;
+    color: #E4F4F9;
+    fill: #E4F4F9;
 }
 
 #title {
@@ -283,7 +285,7 @@ text.label {
     z-index: 1030;
     height: 15%;
     width: 100%;
-    background-color: #1b6d85;
+    background-color: #E4F4F9;
 }
 
 #logo {
@@ -299,10 +301,9 @@ text.label {
     margin-top: 1.5vw;
     float:left;
     font-size: 2vw;
-    font-weight: 800;
+    font-weight: 600;
     line-height: 2vw;
     text-align: right;
-    text-transform: uppercase;
     margin-right:2vw;
     color:white;
 }
@@ -325,7 +326,8 @@ ul.share-buttons img{
 }
 
 .axis {
-    stroke: #31465B;
+    font-weight: 100;
+    stroke: none;
 }
 
 #buttons1{

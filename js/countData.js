@@ -1,39 +1,77 @@
-function countData(qid, view) {
+function countData(qid, view, region) {
     var arr = qidCodes[qid];
 
-    var nested_data = d3.nest()
-        .key(function(d){
-            return (d[view]);
-        })
-        .entries(allData);
+    var answers = $(".answer").toArray();
 
     var data = [];
-    arr.forEach(function(col){
-        var counts = {};
-        nested_data.forEach(function(d){
-            d.values.forEach(function(response){
-                if((response[col] != "-99") && (response[col] != "0") && (response[col] != "")) {
-                    counts[d.key] = (counts[d.key] || {});
-                    counts[d.key][response[col]] = 1 + (counts[d.key][response[col]] || 0);
+    
+    if (answers[0] == "Share of Total Participants")
+    {
+        
+    }
+
+    // Not sorted individually
+    if (region == "Show All") {
+        answers.forEach(function (answer) {
+            var matched = 0;
+            var val = answer.text;
+            arr.forEach(function (col) {
+                if (col == "QID107-1" || col == "QID172-1") {
+                    val = reversePerceptionScale[val];
                 }
-            })
+                allData.forEach(function (response) {
+                    if ((response[col] == val)) {
+                        matched += 1;
+                    }
+                });
+            });
+            data.push({
+                "text": edit(answer.text),
+                "size": ((matched/allData.length)*100).toFixed(1)
+            });
         });
-        data.push(counts);
-    });
-    console.log((data));
-    //return formatData(data);
+    }
+
+    // Sorted by some Region (E.g. Only Africa)
+    else {
+        answers.forEach(function (answer) {
+            var total;
+            var matched = 0;
+            var val = answer.text;
+            arr.forEach(function (col) {
+                total = 0;
+                if (col == "QID107-1" || col == "QID172-1") {
+                    val = reversePerceptionScale[val];
+                }
+                allData.forEach(function (response) {
+                    if ((response[view].toUpperCase() == region.toUpperCase())){
+                        if ((response[col] == val)) {
+                            matched += 1;
+                        }
+                        total += 1;
+                    }
+                });
+            });
+            data.push({
+                "text": edit(answer.text),
+                "size": ((matched/total)*100).toFixed(1)
+            });
+        });
+    }
+
+    return (data);
 }
 
-function formatData(data){
-    var result = [];
-    var newD = data.map(function(d){
-        for (datum in d) {
-            d = {
-                "text" : datum,
-                "size" : d[datum]
-            };
-        }
-        return d;
-    });
-    return newD;
+function edit(ans)  {
+    if (ans == "Special treatments (entourage, security, opening doors, holding umbrellas, special titles, etc.)"){
+        return ("Special Treatments");
+    }
+
+    else if (ans == "Regular updates on progress of public works (including infrastructure)"){
+        return ("Regular updates on progress of public works");
+    }
+
+    else{
+        return ans;
+    }
 }

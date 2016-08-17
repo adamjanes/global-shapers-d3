@@ -1,5 +1,6 @@
 // Global Variables
 var worldMap,
+    totalChart,
     allData,
     allQuestions,
     qidCodes = [],
@@ -90,8 +91,6 @@ function loadData() {
             .defer(d3.csv, "data/questions.csv")
             .await(function (error, map, data, headers, questions) {
                 if (error) return console.warn(error);
-
-                console.log(headers);
                 
                 createVis(map, data, headers, questions);
                 // stop the loader
@@ -123,6 +122,9 @@ function createVis(map, data, headers, questions) {
     // Initialize Map
     worldMap = new Choropleth("chart-area", map, data, headers);
 
+    // Initialize Totals Chart
+    totalChart = new BarChart("#mapID");
+
     // Add Javascript for Display Pills
     changeRegions();
     
@@ -133,7 +135,7 @@ function createVis(map, data, headers, questions) {
     changeChoose();
 
     // Initialize answers
-    changeAnswers()
+    changeAnswers();
 
     $("#map").trigger("click");
 
@@ -151,8 +153,6 @@ function createVis(map, data, headers, questions) {
 
     // Add tooltip listeners
     addTooltips(data);
-
-    countData("QID133", "EmbeddedData-Region");
 
 }
 

@@ -18,7 +18,7 @@ function addAgesChart(data) {
         .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    $("#chart-area")
+    $("#mapID2")
         .on("click", update);
 
     $("#select-region")
@@ -167,7 +167,9 @@ function addAgesChart(data) {
                     { return; }
                     return e;
                 })
-                .ticks(tickCountSetter(yMax)));
+                .ticks(tickCountSetter(yMax)))
+            .selectAll("text")
+            .attr("class", "label")
         function tickCountSetter(n){if (n <=2){return n} else {return 5}}
 
     }

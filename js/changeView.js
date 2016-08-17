@@ -5,6 +5,8 @@ function changeView() {
         $("#select-view").hide("slow");
         $("#select-answer").show("slow")
             .trigger("change");
+        $("#totalChart").hide("slow");
+        //worldMap.reset();
     });
 
     $(".chart").on("click", function(){
@@ -12,7 +14,15 @@ function changeView() {
         $("#view-world")[0].innerHTML = "Select Breakdown:";
         $("#select-view").show("slow");
         $("#select-answer").hide("slow");
+        $("#select-insight").trigger("change");
         changeChoose();
+        //console.log($(this));
+        if ($(this)[0].firstChild.innerHTML != "About the Survey"){
+            $("#totalChart").show("slow");
+        }
+        else {
+            $("#totalChart").hide("slow");
+        }
     });
 }
 
@@ -46,13 +56,20 @@ function changeChoose(){
         opener = '<option selected class="option" id="all">Show All</option>';
     }
     $("#choose-regions")[0].innerHTML = opener + body;
+    $("#select-insight").trigger("change");
 }
 
 function changeActive(){
     var selected = $("#choose-regions").val();
     var view = $("#select-region").val();
     var selection = $(".piece[title='"+selected+"']");
-    selection[0]["__on"][0].value(selection);
+    if (selection.toArray().length == 0){
+        worldMap.reset();
+    }
+    else{
+        selection[0]["__on"][0].value(selection);
+    }
+    $("#select-insight").trigger("change");
 }
 
 // Helper function to deal with Income/UNDP
@@ -109,7 +126,7 @@ function changeAnswers() {
     var short = $("#select-insight").val();
 
     if ((short == "Global Shapers Survey") || (short == null)) {
-        ans += '<option selected class="option">Share of Total Participants</option>';
+        ans += '<option selected class="option answer">Share of Total Participants</option>';
     }
 
     else {
@@ -164,10 +181,10 @@ function changeAnswers() {
         // Add options for those answers
         answers.forEach(function(answer, i){
             if (i == 0){
-                ans += '<option selected class="option" id="' + answer["key"] + '">' + answer["value"] + '</option>'
+                ans += '<option selected class="option answer" id="' + answer["key"] + '">' + answer["value"] + '</option>'
             }
             else{
-                ans += '<option class="option" id="' + answer["key"] + '">' + answer["value"] + '</option>'
+                ans += '<option class="option answer" id="' + answer["key"] + '">' + answer["value"] + '</option>'
             }
         });
     }

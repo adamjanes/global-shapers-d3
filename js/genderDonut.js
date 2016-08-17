@@ -8,7 +8,7 @@ function addGenderDonut(data) {
         legendSpacing = 4;
     
     var color = d3.scaleOrdinal()
-        .range(["9CC7F6", "FFD958", "FF9258"]);
+        .range(["84BBCA", "E69B4F", "FF9258"]);
     
     var arc = d3.arc()
         .outerRadius(radius - 10)
@@ -79,7 +79,7 @@ function addGenderDonut(data) {
             .attr('transform', function (d, i) {
                 var height = legendRectSize + legendSpacing;
                 var offset = height * color.domain().length / 2;
-                var horz = -10 * legendRectSize * i + 75;
+                var horz = -12 * legendRectSize * i + 75;
                 var vert = height - offset - 80;
                 return 'translate(' + (horz - 40) + ',' + vert + ')';
             });
@@ -89,6 +89,7 @@ function addGenderDonut(data) {
             .style('fill', color)
             .style('stroke', color);
         var legText = legend.append('text')
+            .attr("class", "label")
             .attr('x', legendRectSize + legendSpacing)
             .attr('y', legendRectSize - legendSpacing)
             .text(function (d) {

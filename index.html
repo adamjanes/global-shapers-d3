@@ -7,6 +7,8 @@
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Lekton' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Molengo' rel='stylesheet' type='text/css'>
 
     <link rel="stylesheet" href="css/style.css">
 
@@ -31,7 +33,7 @@
             <h5 id="title-survey">The Global Shapers<br>Annual Survey 2016</h5>
             <ul id="navtabs" class="nav nav-tabs">
                 <li class="active" style="margin-top:0"><a style="padding:1.5vw;line-height:1vw" class="tabbs" data-toggle="tab" href="#" id="map">World Map</a></li>
-                <li class="chart"><a class="tabbs" style="padding:1.5vw;line-height:1vw" data-toggle="tab" href="" id="economy">Economy</a></li>
+                <li class="chart"><a class="tabbs" style="padding:1.5vw;line-height:1vw" data-toggle="tab" href="" id="economy" onclick="totalChart.wrangleData()">Economy</a></li>
                 <li class="chart"><a class="tabbs" style="padding:1.5vw;line-height:1vw" data-toggle="tab" href="" id="politics">Politics</a></li>
                 <li class="chart"><a class="tabbs" style="padding:1.5vw;line-height:1vw" data-toggle="tab" href="" id="values">Values</a></li>
                 <li class="chart"><a class="tabbs" style="padding:1.5vw;line-height:1vw" data-toggle="tab" href="" id="technology">Technology</a></li>
@@ -44,6 +46,10 @@
                 View the world by...
             </h3>
             <div class="form-group">
+                <select class="form-control" id="select-view">
+                    <option selected class="option" id="totals">Totals</option>
+                    <option class="option" id="categories">Categories</option>
+                </select>
                 <select class="form-control" id="select-region" onchange="changeRegions();changeChoose()">
                     <option selected class="view" id="region">Region</option>
                     <option class="view" id="subregion">Sub-region</option>
@@ -51,13 +57,9 @@
                     <option class="view" id="development">UNDP Index</option>
                     <option class="view" id="income">Income Level</option>
                 </select>
-                <select class="form-control" id="select-view">
-                    <option selected class="option" id="totals">Totals</option>
-                    <option class="option" id="categories">Categories</option>
-                </select>
                 <select class="form-control" id="choose-regions" onchange="changeActive()"></select>
                 <select class="form-control" id="select-answer" onchange="worldMap.updateVis()"></select>
-                <select class="form-control" id="select-insight" onchange="changeAnswers();worldMap.updateVis()"></select>
+                <select class="form-control" id="select-insight" onchange="changeAnswers();worldMap.updateVis();totalChart.wrangleData()"></select>
             </div>
         </div>
         <div id="header3">
@@ -114,6 +116,9 @@
 </div>
 </div>
 
+<div id="chart-area2"></div>
+
+
 <!-- JS Libraries -->
 <script src="js/d3-geo.v1.min.js"></script>
 <script src="js/d3-geo-projection.v1.min.js"></script>
@@ -141,6 +146,7 @@
 <script src="js/addTooltip.js"></script>
 <script src="js/wordCloud.js"></script>
 <script src="js/countData.js"></script>
+<script src="js/barChart.js"></script>
 
 
 
