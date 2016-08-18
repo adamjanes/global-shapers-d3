@@ -16,7 +16,7 @@ Choropleth.prototype.initVis = function() {
 
     vis.colorScale = d3.scaleThreshold()
         .range(['#f7fbff','#deebf7','#c6dbef','#9ecae1','#6baed6','#4292c6','#2171b5','#08519c','#08306b'])
-        .domain(["0.01", "0.05", "0.1", "0.2", "0.35", "0.5", "0.6", "0.8"]);
+        .domain(["0.05", "0.1", "0.2", "0.25", "0.3", "0.5", "0.65", "0.8"]);
 
     vis.participationScale = d3.scaleThreshold()
         .range(['#f7fbff','#deebf7','#c6dbef','#9ecae1','#6baed6','#4292c6','#2171b5','#08519c','#08306b'])
@@ -33,8 +33,9 @@ Choropleth.prototype.initVis = function() {
         //class to make it responsive
         .classed("svg-content-responsive", true);
 
-    $("#select-region")
-        .on("change", vis.reset);
+    // Handler already exists in changeRegions()
+    /*$("#select-region")
+        .on("change", vis.reset);*/
 
     vis.g = vis.svg.append("g")
         .attr("id", "mapID2")
@@ -46,12 +47,11 @@ Choropleth.prototype.initVis = function() {
         .attr("height", vis.height)
         .on("click", vis.reset);
 
-
     // Draw Map
     vis.projection = d3.geoMiller()
         .translate([vis.width / 2, vis.height / 2])
-        .scale(150)
-        .center([-60, 40]);
+        .scale(145)
+        .center([-60, 45]);
 
     vis.zoom = d3.zoom()
         .scaleExtent([1, 8])
@@ -71,11 +71,12 @@ Choropleth.prototype.initVis = function() {
     vis.developments = getDevRegions(vis.countries);
     vis.incomes = getIncomeRegions(vis.countries);
 
+    // Already set like that
     // Set Initial Country Label as World
-    $("#active")[0].innerHTML = "World";
+    // $("#active")[0].innerHTML = "World";
 
     // Needed to set class for visible countries
-    var country_nested_data = d3.nest()
+    vis.country_nested_data = d3.nest()
         .key(function(d) { return d["EmbeddedData-Country"]})
         .entries(vis.data);
 
@@ -127,10 +128,10 @@ Choropleth.prototype.initVis = function() {
 
     // Overlay For Side Visualizations
     vis.overlay = vis.svg.append("rect")
+        .attr("id", "overlay")
         .attr("class", "overlay")
         .attr("height", vis.height)
         .attr("width", vis.width * 0.25)
-        .attr("fill", "#347B8F")
         .attr("opacity", 1);
 
     // Add Regions Layer
@@ -179,20 +180,22 @@ Choropleth.prototype.initVis = function() {
 
             $("#choose-regions").val(vis.clicker);
 
+            var active_label = $("#active");
+
             // Rename title to new region name
-            $("#active")[0].innerHTML = vis.clicker;
+            active_label[0].innerHTML = vis.clicker;
 
             if (vis.clicker.length > 20){
-                $("#active").css("font-size", "1.5vw");
+                active_label.css("font-size", "1.5vw");
             }
             else if (vis.clicker.length > 17){
-                $("#active").css("font-size", "1.8vw");
+                active_label.css("font-size", "1.8vw");
             }
             else if (vis.clicker.length > 15){
-                $("#active").css("font-size", "2.5vw");
+                active_label.css("font-size", "2.5vw");
             }
             else {
-                $("#active").css("font-size", "3vw");
+                active_label.css("font-size", "3vw");
             }
 
             // Set number of participants to the relevant total
@@ -216,71 +219,89 @@ Choropleth.prototype.initVis = function() {
 Choropleth.prototype.wrangleData = function() {
     var vis = this;
 
-    vis.updateVis()
 };
 
 Choropleth.prototype.updateVis = function() {
     var vis = this;
 
-    var answer = $("#select-answer");
-    var qid =  answer.find('option:selected').attr('id');
-    
-    colorIn(vis.country, "EmbeddedData-Country");
-    colorIn(vis.region, "EmbeddedData-Region");
-    colorIn(vis.subregion, "EmbeddedData-Region_Sub_WEF");
-    colorIn(vis.income, "EmbeddedData-Income_WorldBank");
-    colorIn(vis.development, "EmbeddedData-UNDP_LEVEL");
+    if ($("#display")[0].innerHTML == "Map") {
 
+        var answer = $("#select-answer");
+        var qid = answer.find('option:selected').attr('id');
 
-    function colorIn(part, view){
-        part
-            .attr("selection", answer.val())
-            .attr("fill", function(d){
-                var name;
-                if (view == "EmbeddedData-Country"){
-                    name = d.properties["NAME"];
-                }
-                else {
-                    name = d.name;
-                }
+        var view = $("#view_code")[0].innerHTML;
 
-                var total = 0;
-                var matched = 0;
-                if ((view == "EmbeddedData-Country") && (d.properties == undefined)){
-                    return "black";
-                }
+        switch(view) {
+            case "EmbeddedData-Region":
+                colorIn(vis.region, "EmbeddedData-Region");
+                break;
+            case "EmbeddedData-Region_Sub_WEF":
+                colorIn(vis.subregion, "EmbeddedData-Region_Sub_WEF");
+                break;
+            case "EmbeddedData-Country":
+                colorIn(vis.country, "EmbeddedData-Country");
+                break;
+            case "EmbeddedData-Income_WorldBank":
+                colorIn(vis.income, "EmbeddedData-Income_WorldBank");
+                break;
+            case "EmbeddedData-UNDP_LEVEL":
+                colorIn(vis.development, "EmbeddedData-UNDP_LEVEL");
+                break;
+            default:
+                colorIn(vis.region, "EmbeddedData-Region")
+        }
 
-                var val = answer.val();
-                if (qid == "QID107-1" || qid ==  "QID172-1"){
-                    val = reversePerceptionScale[answer.val()];
-                }
+        function colorIn(part, view) {
+            part
+                .attr("selection", answer.val())
+                .attr("fill", function (d) {
+                    var name;
+                    if (view == "EmbeddedData-Country") {
+                        name = d.properties["NAME"];
+                    }
+                    else {
+                        name = d.name;
+                    }
 
-                allData.forEach(function(response){
-                    if (response[view].toUpperCase() == name.toUpperCase()) {
-                        total += 1;
+                    var total = 0;
+                    var matched = 0;
+                    if ((view == "EmbeddedData-Country") && (d.properties == undefined)) {
+                        return "none";
+                    }
 
-                        if (response[qid] == val) {
-                            matched += 1;
+                    var val = answer.val();
+                    if (qid == "QID107-1" || qid == "QID172-1") {
+                        val = reversePerceptionScale[answer.val()];
+                    }
+
+                    allData.forEach(function (response) {
+                        if (response[view].toUpperCase() == name.toUpperCase()) {
+                            total += 1;
+
+                            if (response[qid] == val) {
+                                matched += 1;
+                            }
                         }
+                    });
+
+                    if (total == 0) {
+                        $(this).attr({
+                            "stroke": "#c6dbef",
+                            "pointer-events": "none"
+                        });
+                        return "none";
+                    }
+
+                    if ((answer.val() == "Share of Total Participants") || val == undefined) {
+                        $(this).attr("stat", ((total / allData.length) * 100).toFixed(1) + "%");
+                        return vis.colorScale(total / allData.length)
+                    }
+                    else {
+                        $(this).attr("stat", ((matched / total) * 100).toFixed(1) + "%");
+                        return vis.colorScale(matched / total);
                     }
                 });
-                if (total == 0){
-                    $(this).attr({
-                        "stroke": "#c6dbef",
-                        "pointer-events": "none"
-                    });
-                    return "none";
-                }
-
-                if ((answer.val() == "Share of Total Participants") || val == undefined){
-                    $(this).attr("stat", ((total/allData.length)*100).toFixed(1) + "%" );
-                    return vis.colorScale(total/allData.length)
-                }
-                else{
-                    $(this).attr("stat", ((matched/total)*100).toFixed(1) + "%" );
-                    return vis.colorScale(matched/total);
-                }
-            });
+        }
     }
 };
 
@@ -290,7 +311,9 @@ Choropleth.prototype.reset =  function() {
     $("#buttons1").fadeOut("slow");
     $("#country-btns").fadeOut("slow");
 
-    $("#active").css("font-size", "3vw");
+    var active_label = $("#active");
+
+    active_label.css("font-size", "3vw");
 
     // If a piece is active
     if ($(".activey.piece")[0] != undefined){
@@ -307,10 +330,11 @@ Choropleth.prototype.reset =  function() {
             .style("stroke-width", "1.5px")
             .attr("transform", "");
 
+        // Should we trigger change?
         $("#choose-regions").val("Show All");
 
         // Title goes back to "World"
-        $("#active")[0].innerHTML = "World";
+        active_label[0].innerHTML = "World";
         // Participants count full range of responses again
         $("#participants")[0].innerHTML = worldMap.data.length;
     }

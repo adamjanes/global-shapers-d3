@@ -70,15 +70,6 @@ function getSubregions(countries) {
         },
         {
             type: "FeatureCollection",
-            name: "Latin America & Caribbean",
-            color: "#ff7f0e",
-            id: 13,
-            features: countries.features.filter(function (d) {
-                return d.properties["SUBREGION"] == "Latin America & Caribbean";
-            })
-        },
-        {
-            type: "FeatureCollection",
             name: "Eurasia",
             color: "#ff7f0e",
             id: 143,

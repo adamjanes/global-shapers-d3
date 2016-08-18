@@ -16,6 +16,7 @@
 <div id="view_code" style="display:none">EmbeddedData-Region</div>
 <div id="view_class" style="display:none">region</div>
 <div id="flag" style="display:none">Background</div>
+<div id="display" style="display:none">Map</div>
 <section id="screen"></section>
 <body>
 <div id="wordCloud"></div>
@@ -28,12 +29,12 @@
 
 <div class="contain">
     <div class="row" id="row1">
-        <div class="header1">
+        <div id="header1">
             <img id="logo" src="data/logo.png"/>
             <h5 id="title-survey">The Global Shapers<br>Annual Survey 2016</h5>
             <ul id="navtabs" class="nav nav-tabs">
                 <li class="active" style="margin-top:0"><a style="padding:1.5vw;line-height:1vw" class="tabbs" data-toggle="tab" href="#" id="map">World Map</a></li>
-                <li class="chart"><a class="tabbs" style="padding:1.5vw;line-height:1vw" data-toggle="tab" href="" id="economy" onclick="totalChart.wrangleData()">Economy</a></li>
+                <li class="chart"><a class="tabbs" style="padding:1.5vw;line-height:1vw" data-toggle="tab" href="" id="economy">Economy</a></li>
                 <li class="chart"><a class="tabbs" style="padding:1.5vw;line-height:1vw" data-toggle="tab" href="" id="politics">Politics</a></li>
                 <li class="chart"><a class="tabbs" style="padding:1.5vw;line-height:1vw" data-toggle="tab" href="" id="values">Values</a></li>
                 <li class="chart"><a class="tabbs" style="padding:1.5vw;line-height:1vw" data-toggle="tab" href="" id="technology">Technology</a></li>
@@ -41,26 +42,32 @@
                 <li class="chart"><a class="tabbs" style="padding:1.5vw;line-height:1vw" data-toggle="tab" href="" id="about">About the Survey</a></li>
             </ul>
         </div>
-        <div class="header2">
+        <div id="header2">
             <h3 id="view-world">
                 View the world by...
             </h3>
             <div class="form-group">
-                <select class="form-control" id="select-view">
+                <select class="form-control" id="select-view" onchange="changeChart()">
                     <option selected class="option" id="totals">Totals</option>
                     <option class="option" id="categories">Categories</option>
                 </select>
-                <select class="form-control" id="select-region" onchange="changeRegions();changeChoose()">
+                <select class="form-control" id="select-region" onchange="changeRegions();changeChoose();worldMap.updateVis()">
                     <option selected class="view" id="region">Region</option>
                     <option class="view" id="subregion">Sub-region</option>
                     <option class="view" id="country">Country</option>
                     <option class="view" id="development">UNDP Index</option>
                     <option class="view" id="income">Income Level</option>
                 </select>
-                <select class="form-control" id="choose-regions" onchange="changeActive()"></select>
+                <select class="form-control" id="choose-regions" onchange="changeActive()">
+                    <option selected="" class="option" id="all">Show All</option>
+                    <option class="option" id="Africa">Africa</option>
+                    <option class="option" id="Americas">Americas</option>
+                    <option class="option" id="Asia">Asia</option>
+                    <option class="option" id="Europe">Europe</option>
+                    <option class="option" id="Oceania">Oceania</option>
+                </select>
                 <select class="form-control" id="select-answer" onchange="worldMap.updateVis()"></select>
-                <select class="form-control" id="select-insight" onchange="changeAnswers();worldMap.updateVis();totalChart.wrangleData()"></select>
-            </div>
+                <select class="form-control" id="select-insight" onchange="changeAnswers();totalChart.wrangleData();groupChart.wrangleData()" style=""><option selected="" class="option" id="participation">Global Shapers Survey</option><optgroup label="Economy"><option class="option">What are the most serious issues affecting your country?</option><option class="option">What are the most serious issues affecting the world?</option><option class="option">Which factors contribute most to inequality in your country?</option></optgroup><optgroup label="Politics"><option class="option">What frustrates you most about your government leaders?</option><option class="option">Which factors contribute most to youth empowerment in your country?</option><option class="option">How can Governments be Transparent and Accountable?</option></optgroup><optgroup label="Business"><option class="option">What are the most important criteria for choosing a job?</option><option class="option">What is business' biggest contribution to society?</option></optgroup><optgroup label="Technology"><option class="option">Which part of life will be most affected by technology?</option><option class="option">To what extent does your government adopt the latest technologies?</option><option class="option">Which sector would benefit most from adopting the latest technologies?</option></optgroup><optgroup label="Values"><option class="option">Should there be no religious expression in public spaces?</option><option class="option">I would welcome refugees to...</option><option class="option">What should governments be doing about refugees?</option></optgroup></select>            </div>
         </div>
         <div id="header3">
             <h1 id="active">World</h1>
@@ -147,6 +154,7 @@
 <script src="js/wordCloud.js"></script>
 <script src="js/countData.js"></script>
 <script src="js/barChart.js"></script>
+<script src="js/groupedBar.js"></script>
 
 
 

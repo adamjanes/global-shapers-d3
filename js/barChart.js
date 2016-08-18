@@ -10,7 +10,7 @@ BarChart.prototype.initVis = function() {
     var vis = this;
 
     vis.margin = {top: (worldMap.height * 0.2), right: (worldMap.width * 0.05),
-        bottom: (worldMap.height * 0.25), left: (worldMap.width * 0.45)};
+        bottom: (worldMap.height * 0.3), left: (worldMap.width * 0.45)};
     vis.width = (worldMap.width - vis.margin.left - vis.margin.right);
     vis.height = (worldMap.height - vis.margin.top - vis.margin.bottom);
 
@@ -19,7 +19,7 @@ BarChart.prototype.initVis = function() {
         .padding(0.3);
 
     vis.x = d3.scaleLinear()
-        .range([vis.width, 0]);
+        .range([0, vis.width]);
 
     vis.chart = d3.select(vis.parentElement)
         .append("svg")
@@ -35,38 +35,42 @@ BarChart.prototype.initVis = function() {
 
 BarChart.prototype.wrangleData = function() {
     var vis = this;
+    
+    if (($("#select-view").val() == "Totals") && ($("#display")[0].innerHTML == "Not-Map")) {
 
-    // Get Relevant Data
-    vis.view = $("#view_code")[0].innerHTML;
-    vis.region = $("#choose-regions").val();
-    vis.question = $("#select-insight").val();
+        // Get Relevant Data
+        vis.view = $("#view_code")[0].innerHTML;
+        vis.region = $("#choose-regions").val();
+        vis.question = $("#select-insight").val();
 
-    if (vis.region == null) {
-        vis.region = "Show All";
+        if (vis.region == null) {
+            vis.region = "Show All";
+        }
+
+        if (vis.question == null) {
+            vis.question = "Global Shapers Survey";
+        }
+
+        if (vis.question != "Global Shapers Survey") {
+            vis.question = allQuestions.find(function (quest) {
+                return quest["short"] == vis.question;
+            });
+
+            vis.qid = vis.question["qid"];
+
+            vis.dataCount = countData(vis.qid, vis.view, vis.region).sort(function (a, b) {
+                return b.size - a.size;
+            });
+        }
+
+        vis.updateVis();
     }
 
-    if (vis.question == null) {
-        vis.question = "Global Shapers Survey";
-    }
-
-    if (vis.question != "Global Shapers Survey"){
-        vis.question = allQuestions.find(function(quest){
-            return quest["short"] == vis.question;
-        });
-
-        vis.qid = vis.question["qid"];
-
-        vis.dataCount = countData(vis.qid, vis.view, vis.region).sort(function(a, b){
-            return b.size - a.size;
-        });
-    }
-
-    vis.updateVis();
 };
 
 BarChart.prototype.updateVis = function() {
     var vis = this;
-
+    
     // This shouldn't happen for the map view on load
     if (vis.dataCount != undefined) {
         // Scale the range of the data in the domains
@@ -83,7 +87,7 @@ BarChart.prototype.updateVis = function() {
         vis.rects.exit()
             .attr("class", "exit bar")
             .transition(vis.t)
-            .attr("x", 0)
+            .attr("x", vis.x(0))
             .attr("width", 0)
             .remove();
 
@@ -98,37 +102,27 @@ BarChart.prototype.updateVis = function() {
                 return vis.y(d.text);
             })
             .attr("height", vis.y.bandwidth)
-            .attr("x", 0)
+            .attr("x", vis.x(0))
             .attr("width", 0)
             .transition(vis.t)
-            .attr("x", function (d) {
-                return 0;
-            })
+            .attr("x", vis.x(0))
             .attr("width", function (d) {
-                return vis.width - vis.x(d.size);
+                return vis.x(d.size);
             });
 
          // Remove old axes
          vis.chart.selectAll(".axis").remove();
-
-        /*
-         //Add new X Axis
-         vis.chart.append("g")
-         .attr("class", "axis")
-         .attr("transform", "translate(0," + vis.height + ")")
-         .call(d3.axisBottom(vis.x))
-         .selectAll("text")
-         .attr("class", "label")
-         .style("text-anchor", "end")
-         .attr("dx", "1em")
-         .attr("dy", "1em")
-         .attr("transform", "rotate(-15)" );*/
-
-         //Add new Y Axis
-         //var yMax = y.domain().slice(-1)[0];
+        
          vis.chart.append("g")
          .attr("class", "axis")
          .call(d3.axisLeft(vis.y));
+
+        vis.chart.append("g")
+            .attr("class", "axis")
+            .attr("transform", "translate(0," + vis.height + ")")
+            .call(d3.axisBottom(vis.x))
+            .append("text")
+            .text("hello");
 
         vis.chart.selectAll(".title2").remove();
 
@@ -140,6 +134,6 @@ BarChart.prototype.updateVis = function() {
             .text(vis.question["question"]);
 
     }
-
+    
 };
 

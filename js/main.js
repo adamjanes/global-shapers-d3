@@ -1,6 +1,7 @@
 // Global Variables
 var worldMap,
     totalChart,
+    groupChart,
     allData,
     allQuestions,
     qidCodes = [],
@@ -86,7 +87,7 @@ function loadData() {
 
         queue()
             .defer(d3.json, "data/data.json")
-            .defer(d3.csv, "data/test.csv")
+            .defer(d3.csv, "data/full-data.csv")
             .defer(d3.csv, "data/headers.csv")
             .defer(d3.csv, "data/questions.csv")
             .await(function (error, map, data, headers, questions) {
@@ -125,19 +126,16 @@ function createVis(map, data, headers, questions) {
     // Initialize Totals Chart
     totalChart = new BarChart("#mapID");
 
-    // Add Javascript for Display Pills
-    changeRegions();
+    // Initialize Totals Chart
+    groupChart = new GroupedBarChart("#mapID");
+
+    //$("#select-region").trigger("change");
     
     // Add Javascript for View Tabs
     changeView();
 
-    // Add Javascript for changing the select boxes
-    changeChoose();
-
     // Initialize answers
     changeAnswers();
-
-    $("#map").trigger("click");
 
     // Add Donut Chart
     addGenderDonut(data);
@@ -153,7 +151,6 @@ function createVis(map, data, headers, questions) {
 
     // Add tooltip listeners
     addTooltips(data);
-
 }
 
 /*function createAllData(data) {
