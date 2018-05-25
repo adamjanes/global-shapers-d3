@@ -3,12 +3,10 @@
 <head>
     <meta charset="utf-8">
     <meta name="description" content="">
-    <title>GSF Youth Survey 2016</title>
+    <title>GSC Annual Survey 2016</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href='http://fonts.googleapis.com/css?family=Lekton' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Molengo' rel='stylesheet' type='text/css'>
 
     <link rel="stylesheet" href="css/style.css">
 
@@ -19,19 +17,17 @@
 <div id="display" style="display:none">Map</div>
 <section id="screen"></section>
 <body>
-<div id="wordCloud"></div>
 
 <div id="content" style="display:none">
-<!-- Navigation
-<nav class="navbar navbar-default custom-nav" role="navigation" style="margin-bottom: 0px">
-    <a href="#" class="navbar-left"><img id="logo" src="data/logo.png"></a>
-</nav>-->
 
 <div class="contain">
+    <form method="get" action="data/report.pdf">
+        <button id="report" class="btn btn-default">View the Full Report</button>
+    </form>
     <div class="row" id="row1">
         <div id="header1">
-            <img id="logo" src="data/logo.png"/>
-            <h5 id="title-survey">The Global Shapers<br>Annual Survey 2016</h5>
+            <a href="https://globalshapers.org"><img id="logo" src="data/logo.png"/></a>
+            <h5 id="title-survey">Global Shapers<br><span id="title-survey-bottom">Annual Survey 2016</span><br><span id="hashtag">#ShapersSurvey</span></h5>
             <ul id="navtabs" class="nav nav-tabs">
                 <li class="active" style="margin-top:0"><a style="padding:1.5vw;line-height:1vw" class="tabbs" data-toggle="tab" href="#" id="map">World Map</a></li>
                 <li class="chart"><a class="tabbs" style="padding:1.5vw;line-height:1vw" data-toggle="tab" href="" id="economy">Economy</a></li>
@@ -40,6 +36,7 @@
                 <li class="chart"><a class="tabbs" style="padding:1.5vw;line-height:1vw" data-toggle="tab" href="" id="technology">Technology</a></li>
                 <li class="chart"><a class="tabbs" style="padding:1.5vw;line-height:1vw" data-toggle="tab" href="" id="business">Business</a></li>
                 <li class="chart"><a class="tabbs" style="padding:1.5vw;line-height:1vw" data-toggle="tab" href="" id="about">About the Survey</a></li>
+                <li class="chart"><a class="tabbs" style="padding:1.5vw;line-height:1vw" data-toggle="tab" href="" id="acknowledgements">Acknowledgements</a></li>
             </ul>
         </div>
         <div id="header2">
@@ -67,53 +64,96 @@
                     <option class="option" id="Oceania">Oceania</option>
                 </select>
                 <select class="form-control" id="select-answer" onchange="worldMap.updateVis()"></select>
-                <select class="form-control" id="select-insight" onchange="changeAnswers();totalChart.wrangleData();groupChart.wrangleData()" style=""><option selected="" class="option" id="participation">Global Shapers Survey</option><optgroup label="Economy"><option class="option">What are the most serious issues affecting your country?</option><option class="option">What are the most serious issues affecting the world?</option><option class="option">Which factors contribute most to inequality in your country?</option></optgroup><optgroup label="Politics"><option class="option">What frustrates you most about your government leaders?</option><option class="option">Which factors contribute most to youth empowerment in your country?</option><option class="option">How can Governments be Transparent and Accountable?</option></optgroup><optgroup label="Business"><option class="option">What are the most important criteria for choosing a job?</option><option class="option">What is business' biggest contribution to society?</option></optgroup><optgroup label="Technology"><option class="option">Which part of life will be most affected by technology?</option><option class="option">To what extent does your government adopt the latest technologies?</option><option class="option">Which sector would benefit most from adopting the latest technologies?</option></optgroup><optgroup label="Values"><option class="option">Should there be no religious expression in public spaces?</option><option class="option">I would welcome refugees to...</option><option class="option">What should governments be doing about refugees?</option></optgroup></select>            </div>
+                <select class="form-control" id="select-insight" onchange="changeAnswers();changeData();vertBarChart.wrangleData();totalChart.wrangleData();groupChart.wrangleData()" style=""><option selected="" class="option" id="participation">Global Shapers Survey</option><optgroup label="Economy"><option class="option">What are the most serious issues affecting your country?</option><option class="option">What are the most serious issues affecting the world?</option><option class="option">Which factors contribute most to inequality in your country?</option></optgroup><optgroup label="Politics"><option class="option">What frustrates you most about your government leaders?</option><option class="option">Which factors contribute most to youth empowerment in your country?</option><option class="option">How can Governments be Transparent and Accountable?</option></optgroup><optgroup label="Business"><option class="option">What are the most important criteria for choosing a job?</option><option class="option">What is business' biggest contribution to society?</option></optgroup><optgroup label="Technology"><option class="option">Which part of life will be most affected by technology?</option><option class="option">To what extent does your government adopt the latest technologies?</option><option class="option">Which sector would benefit most from adopting the latest technologies?</option></optgroup><optgroup label="Values"><option class="option">Should there be no religious expression in public spaces?</option><option class="option">I would welcome refugees to...</option><option class="option">What should governments be doing about refugees?</option></optgroup></select>            </div>
         </div>
         <div id="header3">
             <h1 id="active">World</h1>
             <div id="stats" class="class-screen">
-                <h3><span id="participants"></span> Participants</h3>
+                <h3><span id="participants"></span> Responses</h3>
             </div>
         </div>
         <div id="footer">
-
-        </div>
-    </div>
-    <!--<div id="country-btns">
-        <div id="buttons2" style="width:21%;margin-left:2%;margin-right:2%;float:left">
-            <button type="button" id="compare-btn2" style="color:white;background-color:#9CC7F6;border:#9CC7F6; margin-bottom:1.5vw;margin-top:1vw;pointer-events: all" class="btn btn-primary btn-lg btn-block">What's The Most Serious Issue?</button>
-            <button type="button" id="insights-btn2" style="color:white;background-color:#9CC7F6;border:#9CC7F6; margin-top:0.5vw;pointer-events: all" class="btn btn-primary btn-lg btn-block">Would They Welcome Refugees?</button>
-        </div>
-    </div>-->
-
-   <!-- <div id="title">
-        <div id="buttons1" style="width:21%;margin-left:2%;margin-right:2%;float:left">
-            <button type="button" id="compare-btn" style="color:white;background-color:#9CC7F6;border:#9CC7F6; margin-bottom:1.5vw;margin-top:0vw;pointer-events: all" class="btn btn-primary btn-lg btn-block">Side-By-Side Comparison</button>
-            <div class="dropup">
-                <button data-toggle="dropdown" type="button" id="insights-btn" style="color:white;background-color:#9CC7F6;border:#9CC7F6; margin-top:0.5vw;pointer-events: all" class="btn btn-primary btn-lg btn-block dropdown-toggle">Insights For This Region
-                    <span class="caret"></span></button>
-                <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="insights-btn">
-                    <li role="presentation"><a id="topic11" role="menuitem" tabindex="-1" href="#">Governance and Civil Engagement</a></li>
-                    <li role="presentation"><a id="topic22" role="menuitem" tabindex="-1" href="#">The Role of the Private Sector</a></li>
-                    <li role="presentation"><a id="topic33" role="menuitem" tabindex="-1" href="#">Economic Progress and Youth</a></li>
-                    <li role="presentation"><a id="topic44" role="menuitem" tabindex="-1" href="#">Technology and Innovation</a></li>
-                    <li role="presentation"><a id="topic55" role="menuitem" tabindex="-1" href="#">Values and Society</a></li>
-                </ul>
-            </div>
-        </div>
-        <div style="float:right;width:75%">
             <ul class="share-buttons">
-                <li><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fglobalshaperssurvey2016.com&t=Global%20Shapers%20Community%20Youth%20Survey%202016" title="Share on Facebook" target="_blank"><img src="images/social_flat_rounded_rects_svg/Facebook.svg"></a></li>
-                <li><a href="https://twitter.com/intent/tweet?source=http%3A%2F%2Fglobalshaperssurvey2016.com&text=Global%20Shapers%20Community%20Youth%20Survey%202016:%20http%3A%2F%2Fglobalshaperssurvey2016.com&via=GlobalShapers" target="_blank" title="Tweet"><img src="images/social_flat_rounded_rects_svg/Twitter.svg"></a></li>
-                <li><a href="https://plus.google.com/share?url=http%3A%2F%2Fglobalshaperssurvey2016.com" target="_blank" title="Share on Google+"><img src="images/social_flat_rounded_rects_svg/Google+.svg"></a></li>
-                <li><a href="http://www.tumblr.com/share?v=3&u=http%3A%2F%2Fglobalshaperssurvey2016.com&t=Global%20Shapers%20Community%20Youth%20Survey%202016&s=" target="_blank" title="Post to Tumblr"><img src="images/social_flat_rounded_rects_svg/Tumblr.svg"></a></li>
-                <li><a href="http://www.reddit.com/submit?url=http%3A%2F%2Fglobalshaperssurvey2016.com&title=Global%20Shapers%20Community%20Youth%20Survey%202016" target="_blank" title="Submit to Reddit"><img src="images/social_flat_rounded_rects_svg/Reddit.svg"></a></li>
-                <li><a href="http://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fglobalshaperssurvey2016.com&title=Global%20Shapers%20Community%20Youth%20Survey%202016&summary=The%20Global%20Shapers%20Community%20asked%20(Number%20of%20Respondents)%20young%20people%20around%20the%20world%20about%20how%20they%20view%20the%20world.%20Here%20is%20what%20we%20found.&source=http%3A%2F%2Fglobalshaperssurvey2016.com" target="_blank" title="Share on LinkedIn"><img src="images/social_flat_rounded_rects_svg/LinkedIn.svg"></a></li>
-                <li><a href="mailto:?subject=Global%20Shapers%20Community%20Youth%20Survey%202016&body=The%20Global%20Shapers%20Community%20asked%20(Number%20of%20Respondents)%20young%20people%20around%20the%20world%20about%20how%20they%20view%20the%20world.%20Here%20is%20what%20we%20found.:%20http%3A%2F%2Fglobalshaperssurvey2016.com" target="_blank" title="Email"><img src="images/social_flat_rounded_rects_svg/Email.svg"></a></li>
+                <li><a href="https://twitter.com/intent/tweet?source=http%3A%2F%2Fshaperssurvey.org&text=Insights%20from%20%23ShapersSurvey:%20http%3A%2F%2Fshaperssurvey.org&via=GlobalShapers" target="_blank" title="Tweet"><img alt="Tweet" src="images/social_flat_rounded_rects_svg/Twitter.svg"></a></li>
+                <li><a href="https://plus.google.com/share?url=http%3A%2F%2Fshaperssurvey.org" target="_blank" title="Share on Google+"><img alt="Share on Google+" src="images/social_flat_rounded_rects_svg/Google+.svg"></a></li>
+                <li><a href="http://www.tumblr.com/share?v=3&u=http%3A%2F%2Fshaperssurvey.org&t=Insights%20from%20%23ShapersSurvey&s=" target="_blank" title="Post to Tumblr"><img alt="Post to Tumblr" src="images/social_flat_rounded_rects_svg/Tumblr.svg"></a></li>
+                <li><a href="http://www.reddit.com/submit?url=http%3A%2F%2Fshaperssurvey.org&title=Insights%20from%20%23ShapersSurvey" target="_blank" title="Submit to Reddit"><img alt="Submit to Reddit" src="images/social_flat_rounded_rects_svg/Reddit.svg"></a></li>
+                <li><a href="http://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fshaperssurvey.org&title=Insights%20from%20%23ShapersSurvey&summary=Take%20a%20look%20at%20the%20results%20of%20the%202016%20Global%20Shapers%20Community's%20Annual%20Survey.%20This%20year%2C%20we%20received%2026%2C615%20responses%20from%20181%20countries%20of%20people%20aged%2018%20to%2035.&source=http%3A%2F%2Fshaperssurvey.org" target="_blank" title="Share on LinkedIn"><img alt="Share on LinkedIn" src="images/social_flat_rounded_rects_svg/LinkedIn.svg"></a></li>
+                <li><a href="mailto:?subject=Insights%20from%20%23ShapersSurvey&body=Take%20a%20look%20at%20the%20results%20of%20the%202016%20Global%20Shapers%20Community's%20Annual%20Survey.%20This%20year%2C%20we%20received%2026%2C615%20responses%20from%20181%20countries%20of%20people%20aged%2018%20to%2035.:%20http%3A%2F%2Fshaperssurvey.org" target="_blank" title="Send email"><img alt="Send email" src="images/social_flat_rounded_rects_svg/Email.svg"></a></li>
             </ul>
+            <p id="footer-text">The Global Shapers Community is an initiative of the <a href="http://www.weforum.org"> World Economic Forum </a></p>
+        </div>
+        <div class="container-fluid" style="color:black;display:none" id="acknowledgements-page">
+            <div style="width:100%">
+                <h4>Acknowledgements</h4>
+                <p>This effort was possible thanks to the insistence of Professor Klaus Schwab, Founder and Executive Chairman of the World Economic Forum.</p>
+                <p>We would like to thank all members and friends of the Global Shapers Community for the support that they gave to the Global Shapers Annual Survey 2016. Every action from sharing the Shapers Survey to taking the survey helped us to believe that this was possible. In particular, we would like to thank the Global Shapers who volunteered as members of the “GSC Survey Team”. Please see their names below.</p>
+                <p>We are greatly indebted to the Survey Affiliates whose disciplined outreach ensured that this effort reached the targeted demographic in an efficient way. We thank the Survey Affiliates also because they won the trust of the young people in their communities who lent their voices to this global effort. In particular, we highlight the Top 5 Survey Affiliates whose leadership played a significant role in the success of the outreach.</p>
+                <p> We thank all those whose contributions strengthened the Survey at various stages, especially several colleagues at the World Economic Forum. In particular Saadia Zahidi, Stephan Mergenthaler, Cynthia Hansen, Margareta Drzeniek, Thierry Geiger, Ciara Browne, Alexandre Raffoul, Till Leopold and Rebecca Ivey. We thank all members of the Foundations Team, especially the team that oversees regions of the Global Shapers Community: Albina Krasnodemska, Chidiogo Akunyili, Shimer Diao and Wadia Ait Hamza. We also thank Merid Berhe for great support. We thank members of the Public Engagement Team, especially Fon Mathuros, Georg Schmitt and Dai Di. We thank Mike Hanley and members of the Forum’s Digital Team. And we thank Kamal Kimaoui, Floris Landi and Ruslan Gaynutdinov.</p>
+                <p> Beyond the Forum, we thank several experts and constituents of the World Economic Forum who made themselves accessible, especially Sangeet Paul Choudary. We thank Adam Janes for his visualization expertise. And we thank Fabienne Stassen for superb editorial work.</p>
+                <p> Several individuals worked with the core team for significant periods, becoming full members of the team during those periods: Ines Ayari, a member of the Global Leadership Fellows programme at the World Economic Forum, and Daniela Serrano and Jiyuan Yu, Summer Associates from Harvard Kennedy School’s MPA/ID programme.</p>
+                <p>The Global Shapers Annual Survey was designed and executed by: Yemi Babington-Ashaye - Head of Global Shapers Community; Vijay Raju - Deputy Head, Global Shapers Community. Head of
+                    Partnerships, Foundations; Pierre Saouter - Project Specialist, Data, Knowledge and Platforms.</p>
+                <p><strong>Global Shapers Community (GSC) Survey Team</strong></p>
+                <p>The following Global Shapers were part of the “GSC Survey Team” and their contributions at various phases of the project contributed to its success: Adhit Shet, Aftab Arif, Amanda Luz, Anar Bayarsaikhan, Andrey Kovalev, Angela Peñaherrera, Ayman Almuhya, Baria Daye, Bart Kolodziejczyk, BolorErdene Tumurchudur, Brice Loving, Ciprian Stanescu, Daniel Owusu, Daniel Stephen, Daniel Tedesco, David Kangye, Diana Guevara, Diksha Ahi, Elizabeth Muange, Enoch Wong, Enrica Sighinolfi, Gameli Adzaho, Gilbert Mitullah, Giovanni A. Costamagna, Hamza Kaabar, Iryna Minjkovsjka, Israel Bimpe, Jairon Merchan, Jessica Rosa, Jesús Rosiles Martínez, Juan Pablo Ríos Valles, Kathleen Largo, Kumar Manish, Lillian Secelela Madeje, Luisa Meneghetti, Luiza Thompson, Manga Clémence, Mehdi Nassih, Njoroge Kinyanjui, Noah Miller, Oleksandr Elkin, Pavel Vostrikov, Pranav Mehrotra, Reenad Bint Saud, Rendell de Kort, Saddam Sayyleh, Saurabh Pacheriwala, Seif Borgi, Seth Franz, Sharanya Sekaram, Urvashi Prasad, Vyacheslav Polonski, Wajiha Khalid, Wiem Melki and Zied Touznai.</p>
+
+                <div style="width:40%;margin-top:2vw;margin-left:5%;float:left">
+                <p><strong>Top 5 Survey Affiliates</strong></p>
+                <ol class="about-list"><li>The Greater China Survey Team</li>
+                    <li>The University of Karachi</li>
+                    <li>The Dhaka Hub</li>
+                    <li>The Lancaster Hub</li>
+                    <li>The Calabar Hub</li></ol>
+                </div>
+
+                <div style="height:16vw;width:50%;margin-top:2vw;margin-right:5%;float:right">
+                    <table class="table">
+                        <tr style="background-color:orange;width:100%;margin-left:5vw"><th style="text-align:center" colspan="3">All Survey Affiliates</th></tr>
+                        <tr><td>Accra Hub</td><td>Kharkiv Hub</td><td>Port of Spain Hub</td></tr>
+                        <tr><td>Astana Hub</td><td>Lancaster Hub</td><td>Riyadh Hub</td></tr>
+                        <tr><td>Calabar Hub</td><td>Lima Hub</td><td>Rosario Hub</td></tr>
+                        <tr><td>Dhaka Hub</td><td>Managua Hub</td><td>Toronto Hub</td></tr>
+                        <tr><td>Greater China Survey Team</td><td>Mexico City Hub</td><td>Tunis Hub</td></tr>
+                        <tr><td>Joinville Hub</td><td>Nicosia Hub</td><td>University of Karachi</td></tr>
+                        <tr><td>Kazan Hub</td><td>Oranjestad Hub</td><td>Warsaw Hub</td></tr>
+                    </table>
+                </div>
+
+                <br><br>
+            </div>
+            </div>
+
+
+        <div class="container-fluid" style="color:black;display:none" id="about-page">
+            <div style="width:100%">
+                <h4>About the Survey</h4>
+                <p>The Global Shapers Annual Survey 2016 is designed with two lead questions:</p>
+                <ul style="list-style:none" class="about-list">
+                    <li><strong>How do young people see the world?</strong></li>
+                    <li><strong>What do they want to do about it?</strong></li>
+                </ul>
+                <p>The study explores both perception and action in five dimensions across 4 distinct age-groups ranging from 18 to 35 years. The five dimensions are: Economy, Technology, Values, Governance and the Role of Business.</p>
+                <p>The survey received 26,615 total responses from 181 countries of which 20,079 were valid. Respondents include both members of the Global Shapers Community (2K) and young people who are not members of the Community. The survey is anonymous and does not track answers by personal identity. Responses were collected in cities by Survey Affiliates predominantly online, although in some cities responses were also collected offline. To reach young people without easy access to devices, workshops were often set up which provided devices that respondents could use to complete the survey. Interviews were discouraged to avoid any interpretation bias or unintended influence. No respondent was paid to participate in the survey. </p>
+                <p>The survey was available in 9 languages, including all UN languages.  </p>
+                <p>The questions are designed to highlight perception as well as to provide action-oriented recommendations in five areas: </p>
+                <ul class="about-list">
+                    <li>Economy and Global Outlook: Youth perspectives on how major socio-economic trends are reshaping the future of the global economy. </li>
+                    <li>Technology and Innovation: How technology is transforming and redefining the modern life. </li>
+                    <li>Governance: Governance, attitudes to governance and recommendations for related issues. </li>
+                    <li>Values and Society: Explore how modern values are evolving or changing in the era of the fourth industrial revolution. </li>
+                    <li>The Role of the Private Sector: Perspectives on the role of business in society and thoughts on jobs, organisations and related issues.</li>
+                </ul>
+
+                <p>After the first part of the survey, there are 5 optional pathways that any respondent may choose to follow to provide additional insights. The pathways are an opportunity to go deeper in the areas listed above. </p>
+
+                <p>The four age groups are: 18-21; 22-26; 27-30; 31-35.</p>
+                <p>The Survey was designed by a Core Team at the headquarters of the Global Shapers Community and the World working with a team of over 40 Global Shapers from different countries and regions. In addition, consultation was conducted with various experts and stakeholders both within and outside the World Economic Forum’s communities. The mobilisation of responses was completed in close collaboration with members of the Global Shapers Community and also with the official Survey Affiliates.</p>
+
+                <br><br>
+                </div>
         </div>
     </div>
-    -->
+
     <div class="row">
         <div>
             <div id="chart-area"></div>
@@ -148,12 +188,11 @@
 <script src="js/changeView.js"></script>
 <script src="js/getDivisions.js"></script>
 <script src="js/genderDonut.js"></script>
-<!--<script src="js/piecesChart.js"></script>-->
 <script src="js/agesChart.js"></script>
 <script src="js/addTooltip.js"></script>
-<script src="js/wordCloud.js"></script>
 <script src="js/countData.js"></script>
 <script src="js/barChart.js"></script>
+<script src="js/verticalBar.js"></script>
 <script src="js/groupedBar.js"></script>
 
 

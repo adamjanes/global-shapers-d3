@@ -1,6 +1,6 @@
 short,question,qid,topic,type
-What are the most serious issues affecting your country?,"In your opinon, what are the three (3) most serious issues affecting your country today?",QID277,economy,ManyRows
-What are the most serious issues affecting the world?, what are the three (3) most serious issues affecting the world today?",QID133,economy,ManyRows
+What are the most serious issues affecting your country?,"In your opinion, what are the three (3) most serious issues affecting your country today?",QID277,economy,ManyRows
+What are the most serious issues affecting the world?,"In your opinion, what are the three (3) most serious issues affecting the world today?",QID133,economy,ManyRows
 Which factors contribute most to inequality in your country?,What are the most important factors contributing to inequality in your country? (choose up to 3),QID137,economy,ManyRows
 What frustrates you most about your government leaders?,"What frustrates you the most about government leaders in your country (presidents, prime-ministers, ministers, governors, mayors, etc.) ?",QID316,politics,ManyRows
 Which factors contribute most to youth empowerment in your country?,What are the most important factors contributing to youth empowerment in your country?,QID156,politics,ManyRows

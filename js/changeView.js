@@ -5,40 +5,75 @@ function changeView() {
     $("#map").on("click", function(){
         $("#display")[0].innerHTML = "Map";
         $("#mapID2").fadeIn("slow");
+        $(".map-legend").fadeIn("slow");
         $("#view-world")[0].innerHTML = "View the world by...";
         $("#select-view").hide("slow");
         $("#select-answer").show("slow");
-        $("#totalChart").hide("slow");
-        $("#groupedChart").hide("slow");
-        $("#choose-regions").show("slow");
-        tabClicked();
-        //worldMap.reset();
+        $("#totalChart").fadeOut("slow");
+        $("#groupedChart").fadeOut("slow");
+        $("#vertChart").fadeOut("slow");
+        $("#choose-regions").fadeIn("slow");
+        $("#country").removeAttr('disabled');
+        $("body").css("overflow", "hidden");
+        $("#chart-area").fadeIn("slow");
+        $("#header2").fadeIn("slow");
+        $("#footer").fadeIn("slow");
+        $("#about-page").fadeOut("slow");
+        $("#acknowledgements-page").fadeOut("slow");
+        $("#header3").fadeIn("slow");
+        //$("#select-insight").trigger("change");
     });
 
     // Other Tab Selected
     $(".chart").on("click", function() {
         $("#display")[0].innerHTML = "Not-Map";
         $("#mapID2").fadeOut("slow");
+        $(".map-legend").fadeOut("slow");
         $("#view-world")[0].innerHTML = "Select Breakdown:";
         $("#select-view").show("slow");
         $("#select-answer").hide("slow");
-        if ($(this)[0].firstChild.innerHTML != "About the Survey"){
+        if (($(this)[0].firstChild.innerHTML != "About the Survey") && ($(this)[0].firstChild.innerHTML != "Acknowledgements")){
             changeChart();
+            $("body").css("overflow", "hidden");
+            $("#chart-area").fadeIn("slow");
+            $("#header2").fadeIn("slow");
+            $("#footer").fadeIn("slow");
+            $("#about-page").fadeOut("slow");
+            $("#acknowledgements-page").fadeOut("slow");
+            $("#header3").fadeIn("slow");
         }
         else {
-            $("#totalChart").hide("slow");
-            $("#groupedChart").hide("slow");
+            $("#totalChart").fadeOut("slow");
+            $("#groupedChart").fadeOut("slow");
+            $("#vertChart").fadeOut("slow");
+            $("body").css("height", "auto");
+            $(".svg-container").css("overflow", "auto");
+            $("#chart-area").hide();
+            $("#header2").hide();
+            $("#footer").hide();
+            if ($(this)[0].firstChild.innerHTML == "About the Survey") {
+                $("#acknowledgements-page").fadeOut("slow");
+                $("#about-page").fadeIn("slow");
+            }
+            else {
+                $("#acknowledgements-page").fadeIn("slow");
+                $("#about-page").fadeOut("slow");
+            }
+            $("#header3").hide();
         }
-        tabClicked();
     });
     
     // When view changes at all
     $(".tabbs").on("click", changeQuestions);
+    $(".tabbs").on("click", tabClicked);
+
+
 }
 
 function tabClicked(){
-    console.log("Tab Clicked");
-    $("#select-insight").trigger("change");
+    if ($(this)[0].id == "map"){
+        $("#select-insight").trigger("change");
+    }
 }
 
 
@@ -58,10 +93,10 @@ function changeChoose(){
 
     var body = "";
     var active  = $("#active")[0].innerHTML;
-
+    
     // Add those regions to the Region select box
     nested_data2.forEach(function(d){
-        if ((d.key != "#N/A") && (d.key != "")){
+        if ((d.key != "#N/A") && (d.key != "") && (d.key != "Not classified")){
             if (ucwords(d.key, true) == active){
                 body += '<option selected class="option" id="' + ucwords(d.key, true) + '">' + ucwords(d.key, true) + '</option>';
             }
@@ -82,7 +117,7 @@ function changeChoose(){
 
 }
 
-// Changes active element (accesses click function in worldMap.init()), updates totalChart
+// Changes active element (accesses click function in worldMap.init()), updates totalChart, updates number of respondents
 function changeActive(){
     // Get region
     var selected = $("#choose-regions").val();
@@ -100,9 +135,11 @@ function changeActive(){
     else{
         selection[0]["__on"][0].value(selection);
     }
-    
+
+
     // Update Total Chart
-    // totalChart.wrangleData();
+    totalChart.wrangleData();
+    vertBarChart.wrangleData()
 }
 
 // Helper function to deal with Income/UNDP
@@ -136,7 +173,7 @@ function changeQuestions() {
             opts += '</optgroup>';
         });
     }
-    else if (selected == "about"){
+    else if (selected == "about" || selected == "acknowledgements"){
         selectBox.hide("slow");
     }
     else {
@@ -154,10 +191,7 @@ function changeQuestions() {
     }
 
     selectBox[0].innerHTML = opts;
-
-
-    /*totalChart.wrangleData();
-    groupChart.wrangleData();*/
+    
 }
 
 // Get a list of all answers could match each question, and append these as options to select-answer.
@@ -248,19 +282,92 @@ function changeAnswers() {
 
     // After change, update the map
     worldMap.updateVis();
+
+    if (($("#display")[0].innerHTML == "Not-Map") && ($("#select-view").val() == "Totals")){
+        if ((short == "Should there be no religious expression in public spaces?") || (short == "To what extent does your government adopt the latest technologies?")){
+            $("#totalChart").hide();
+            $("#vertChart").show();
+        }
+        else {
+            $("#vertChart").hide();
+            $("#totalChart").show();
+        }
+    }
+
 }
 
+// On insights tab, switches the view between the Total chart and the Grouped Bar chart
 function changeChart(){
     var selected = $("#select-view").val();
     if (selected == "Totals"){
-        $("#totalChart").show("slow");
+        //$("#totalChart").show("slow");
+        //$("#vertChart").show("slow");
         $("#groupedChart").hide("slow");
         $("#choose-regions").show("slow");
+        $("#country").removeAttr('disabled');
     }
     else {
         $("#groupedChart").show("slow");
+        $("#vertChart").hide("slow");
         $("#totalChart").hide("slow");
         $("#choose-regions").hide("slow");
+        $("#country").attr('disabled','disabled');
+        $("#select-region").trigger("change");
     }
     $("#select-insight").trigger("change");
+}
+
+
+// Streamline allData, so that it only shows the data that we are currently looking at
+function changeData() {
+    // Get region title and view type (Region/Subregion/Country, etc)
+    var clicker = $("#active")[0].innerHTML.replace(/&amp;/g, '&');
+    var view = $("#view_code")[0].innerHTML;
+
+    // Number of participants in this area with selected question
+    var answers = $(".answer").toArray();
+    
+    // We are on the default view, looking at participation stats
+    if ((answers.length == 0)) {
+            allData = originalData;
+    }
+
+    // One of the questions has been selected
+    else {
+            allData = originalData.filter(function(response){
+            var tester = 0;
+
+            answers.forEach(function(answer){
+                if ((response[answer.id] !== "0") && (response[answer.id] !== "-99") && (response[answer.id] !== "")) {
+                    tester = 1;
+                }
+            });
+
+            return tester == 1;
+
+            });
+    }
+updateResponses();
+
+}
+
+function updateResponses() {
+    var clicker = $("#active")[0].innerHTML.replace(/&amp;/g, '&');
+    var view = $("#view_code")[0].innerHTML;
+
+    if (clicker != "World"){
+        // Number of participants in this area
+        var parts = allData.reduce(function(a, b){
+            if (b[view].toUpperCase() == clicker.toUpperCase()) { return a + 1; }
+            else { return a; }
+        }, 0);
+        $("#participants")[0].innerHTML = parts;
+
+    }
+    else{
+        $("#participants")[0].innerHTML = allData.length;
+    }
+
+    $("#participants").trigger("click");
+
 }

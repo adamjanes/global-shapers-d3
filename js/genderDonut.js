@@ -1,14 +1,14 @@
-function addGenderDonut(data) {
+function addGenderDonut() {
 
     var width = worldMap.width * 0.25,
         height = worldMap.height * 1.2,
         radius = worldMap.height / 10,
         donutWidth = radius / 2 - 10,
-        legendRectSize = 14,
-        legendSpacing = 4;
+        legendRectSize = 18,
+        legendSpacing = 6;
     
     var color = d3.scaleOrdinal()
-        .range(["84BBCA", "E69B4F", "FF9258"]);
+        .range(["#B3DCFC", "#FFB351", "#FF9258"]);
     
     var arc = d3.arc()
         .outerRadius(radius - 10)
@@ -34,7 +34,7 @@ function addGenderDonut(data) {
             {label: "Female", count: 0},
         ];
 
-        data.map(function (d) {
+        allData.map(function (d) {
             var gen = d["QID87"];
             if (gen == "Male") {
                 gender[0].count += 1;
@@ -71,7 +71,13 @@ function addGenderDonut(data) {
         $("#select-region")
              .on("change", change);
 
-        var legend = svg.selectAll('.legend')
+        $("#select-insight")
+            .on("change", change);
+
+        $("#participants").on("click", change);
+
+
+    var legend = svg.selectAll('.legend')
             .data(color.domain())
             .enter()
             .append('g')
@@ -79,8 +85,8 @@ function addGenderDonut(data) {
             .attr('transform', function (d, i) {
                 var height = legendRectSize + legendSpacing;
                 var offset = height * color.domain().length / 2;
-                var horz = -12 * legendRectSize * i + 75;
-                var vert = height - offset - 80;
+                var horz = -12 * legendRectSize * i + 80;
+                var vert = height - offset - 130;
                 return 'translate(' + (horz - 40) + ',' + vert + ')';
             });
         legend.append('rect')
@@ -88,16 +94,40 @@ function addGenderDonut(data) {
             .attr('height', legendRectSize)
             .style('fill', color)
             .style('stroke', color);
+        var responses = $("#participants")[0].innerHTML;
         var legText = legend.append('text')
             .attr("class", "label")
             .attr('x', legendRectSize + legendSpacing)
-            .attr('y', legendRectSize - legendSpacing)
+            .attr('y', legendRectSize - 2)
             .text(function (d) {
                 var gen = gender.find(function(val){
                     return val["label"] == d;
                 }).count;
-                return d + " (N = " + gen + ")";
+                return d + " (N = " + gen +  ")";
             });
+
+    var pcts = g.selectAll(".pcts")
+        .data(gender);
+
+    var pctText = pcts
+        .enter()
+        .append("text")
+        .attr("class", "pcts-gen")
+        .attr("fill", "white")
+        .text(function(d) {
+            return ((d.count/responses)*100).toFixed(1) ;
+        })
+        .attr("text-anchor", "middle")
+        .attr("font-size", "18px")
+        .attr("font-weight", "bold")
+        .attr("x", function(d, i) {
+            return -((100 * i) - 50);
+        })
+        .attr("y", function(d) {
+            return 0;
+        });
+
+
 
         var title = g.append("text")
             .text("Gender Distribution")
@@ -108,19 +138,26 @@ function addGenderDonut(data) {
             .attr("class", "title");
 
         function change() {
-            var value;
             var clicked = $(".activey.piece")[0];
+
+            var value = [
+                {label: "Male", count: 0},
+                {label: "Female", count: 0},
+            ];
             
             if (clicked == undefined) {
-                value = gender;
+                allData.map(function (d) {
+                    var gen = d["QID87"];
+                    if (gen == "Male") {
+                        value[0].count += 1;
+                    }
+                    else if (gen == "Female") {
+                        value[1].count += 1;
+                    }
+                });
             }
 
             else {
-                value = [
-                    {label: "Male", count: 0},
-                    {label: "Female", count: 0},
-                ];
-
                 // Get Type of Piece Clicked
                 var type;
                 if (clicked.classList.contains("region")) {
@@ -140,7 +177,7 @@ function addGenderDonut(data) {
                 }
 
 
-                data.map(function (d) {
+                allData.map(function (d) {
                     if (d[type].toUpperCase() == clicked.getAttribute("title").toUpperCase()) {
                         var gen = d["QID87"];
                         if (gen == "Male") {
@@ -154,17 +191,36 @@ function addGenderDonut(data) {
                     }
                 });
             }
-
+            var responses = $("#participants")[0].innerHTML;
+            
             legText
                 .text(function (d) {
                     var gen = value.find(function(val){
                         return val["label"] == d;
                     }).count;
-                    return d + " (N = " + gen + ")";
+                    return d + " (N = " + gen +  ")";
+                });
+
+            pctText
+                .text(function(d) {
+                    var gen = value.find(function(val){
+                        return val["label"] == d.label;
+                    }).count;
+                    return ((gen/responses)*100).toFixed(1) ;
                 });
 
             path = path.data(pie(value)); // compute the new angles
             path.transition().duration(750).attrTween("d", arcTween); // redraw the arcs
+
+            var pcts = $(".pcts-gen");
+            //console.log(active)
+
+            if (($("#select-region").val() == "Country") && ($("#active")[0].innerHTML != "World")) {
+                pcts.hide();
+            }
+            else{
+                pcts.show();
+            }
         }
 
     // Store the displayed angles in _current.
@@ -179,6 +235,6 @@ function addGenderDonut(data) {
     }
 
     title
-        .attr("transform", "translate(0, -100)");
+        .attr("transform", "translate(0, -150)");
 
 }

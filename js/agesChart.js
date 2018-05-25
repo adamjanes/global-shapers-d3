@@ -1,12 +1,12 @@
-function addAgesChart(data) {
+function addAgesChart() {
 
-    var margin = {top: (worldMap.height * 0.2), right: 40, bottom: (worldMap.height * 0.07), left: 40},
+    var margin = {top: (worldMap.height * 0.21), right: 60, bottom: (worldMap.height * 0.08), left: 80},
         width = (worldMap.width * 0.25 - margin.left - margin.right),
-        height = (worldMap.height * 0.45 - margin.top - margin.bottom) * 0.7;
+        height = (worldMap.height * 0.48 - margin.top - margin.bottom) * 0.7;
 
     var x = d3.scaleBand()
         .range([0, width])
-        .padding(0.3);
+        .padding(0.5);
 
     var y = d3.scaleLinear()
         .range([height, 0]);
@@ -26,7 +26,12 @@ function addAgesChart(data) {
 
     $("#choose-regions")
         .on("change", update);
-    
+
+    $("#select-insight")
+        .on("change", update);
+
+    $("#participants").on("click", update);
+
     $("#flag")[0].innerHTML = "YES";
 
     update();
@@ -45,34 +50,26 @@ function addAgesChart(data) {
         var clicked = $(".activey.piece")[0];
         
         var value = [
-            {label: "<18", count: 0},
             {label: "18-21", count: 0},
             {label: "22-26", count: 0},
             {label: "27-30", count: 0},
             {label: "31-35", count: 0},
-            {label: ">35", count: 0}
         ];
 
         if (clicked == undefined) {
-            data.map(function (d) {
+            allData.map(function (d) {
                     var age = d["QID88"];
-                    if (age == "less than 18") {
+                    if (age == "18-21") {
                         value[0].count += 1;
                     }
-                    else if (age == "18-21") {
+                    else if (age == "22-26") {
                         value[1].count += 1;
                     }
-                    else if (age == "22-26") {
+                    else if (age == "27-30") {
                         value[2].count += 1;
                     }
-                    else if (age == "27-30") {
-                        value[3].count += 1;
-                    }
                     else if (age == "31-35") {
-                        value[4].count += 1;
-                    }
-                    else {
-                        value[5].count += 1;
+                        value[3].count += 1;
                     }
             });
         }
@@ -82,28 +79,22 @@ function addAgesChart(data) {
             var type = $("#view_code")[0].innerHTML;
 
 
-            data.map(function (d) {
+            allData.map(function (d) {
                 if (d[type].toUpperCase() == clicked.getAttribute("title").toUpperCase()) {
                     var age = d["QID88"];
                         var age = d["QID88"];
-                        if (age == "less than 18") {
-                            value[0].count += 1;
-                        }
-                        else if (age == "18-21") {
-                            value[1].count += 1;
-                        }
-                        else if (age == "22-26") {
-                            value[2].count += 1;
-                        }
-                        else if (age == "27-30") {
-                            value[3].count += 1;
-                        }
-                        else if (age == "31-35") {
-                            value[4].count += 1;
-                        }
-                        else {
-                            value[5].count += 1;
-                        }
+                    if (age == "18-21") {
+                        value[0].count += 1;
+                    }
+                    else if (age == "22-26") {
+                        value[1].count += 1;
+                    }
+                    else if (age == "27-30") {
+                        value[2].count += 1;
+                    }
+                    else if (age == "31-35") {
+                        value[3].count += 1;
+                    }
                 }
             });
         }
@@ -126,21 +117,64 @@ function addAgesChart(data) {
             .attr("height", 0)
             .remove();
 
-        rects.attr("class", "update bar");
+        rects.attr("class", "update bar")
+            .transition(t)
+            .attr("x", function(d) { return x(d.label); })
+            .attr("width", x.bandwidth)
+            .attr("y", function(d) { return y(d.count); })
+            .attr("height", function(d) { return height - y(d.count); });
 
         rects
             .enter().append("rect")
             .attr("class", "enter bar")
-            .merge(rects)
+            .transition(t)
             .attr("x", function(d) { return x(d.label); })
             .attr("width", x.bandwidth)
-            .attr("y", height)
-            .attr("height", 0)
-            .transition(t)
-            .attr("height", height - y(0))
             .attr("y", function(d) { return y(d.count); })
             .attr("height", function(d) { return height - y(d.count); });
 
+
+        var respondents = $("#participants")[0].innerHTML;
+
+        var pcts = svg.selectAll(".pcts")
+            .data(value);
+
+        pcts.exit()
+            .attr("class", "exit pcts")
+            .remove();
+
+        pcts
+            .attr("class", "update pcts")
+            .transition(t)
+            .text(function(d) {
+                var pct = ((d.count / respondents)*100).toFixed(0) + "%";
+                return pct;
+            })
+            .attr("fill", "white")
+            .attr("text-anchor", "left")
+            .attr("x", function(d, i) {
+                return x(d.label) + 7;
+            })
+            .attr("y", function(d) {
+                return y(d.count) - 5;
+            });
+
+        pcts
+            .enter()
+            .append("text")
+            .attr("class", "enter pcts")
+            .attr("fill", "white")
+            .text(function(d) {
+                var pct = ((d.count / respondents)*100).toFixed(0) + "%";
+                return pct;
+            })
+            .attr("text-anchor", "left")
+            .attr("x", function(d, i) {
+                return x(d.label) + 5;
+            })
+            .attr("y", function(d) {
+                return y(d.count) -5;
+            });
 
         // Remove old axes
         svg.selectAll(".axis").remove();
@@ -152,12 +186,12 @@ function addAgesChart(data) {
             .call(d3.axisBottom(x))
             .selectAll("text")
             .attr("class", "label")
-            .style("text-anchor", "end")
-            .attr("dx", "1em")
-            .attr("dy", "1em")
-            .attr("transform", "rotate(-15)" );
+            .style("text-anchor", "middle")
+            .text(function(d){
+                return d;
+            });
 
-        //Add new Y Axis
+        /*//Add new Y Axis
         var yMax = y.domain().slice(-1)[0];
         svg.append("g")
             .attr("class", "axis")
@@ -170,14 +204,14 @@ function addAgesChart(data) {
                 .ticks(tickCountSetter(yMax)))
             .selectAll("text")
             .attr("class", "label")
-        function tickCountSetter(n){if (n <=2){return n} else {return 5}}
-
+        function tickCountSetter(n){if (n <=2){return n} else {return 3}}
+*/
     }
 
     // Add the text label for the X axis
     svg.append("text")
         .attr("class", "title")
-        .attr("transform", "translate(" + (width / 2) + " ," + (-20) + ")")
+        .attr("transform", "translate(" + ((width / 2) - 10) + " ," + (-40) + ")")
         .style("text-anchor", "middle")
         .text("Age Group Distribution");
 }

@@ -2,7 +2,9 @@
 var worldMap,
     totalChart,
     groupChart,
+    vertBarChart,
     allData,
+    originalData,
     allQuestions,
     qidCodes = [],
     active = $(null);
@@ -76,7 +78,6 @@ var opts = {
 loadData();
 
 function loadData() {
-
     // Use the Queue.js library to read data files
     start = Date.now();
 
@@ -87,13 +88,12 @@ function loadData() {
 
         queue()
             .defer(d3.json, "data/data.json")
-            .defer(d3.csv, "data/full-data.csv")
-            .defer(d3.csv, "data/headers.csv")
+            .defer(d3.csv, "data/full-data2.csv")
             .defer(d3.csv, "data/questions.csv")
-            .await(function (error, map, data, headers, questions) {
+            .await(function (error, map, data, questions) {
                 if (error) return console.warn(error);
-                
-                createVis(map, data, headers, questions);
+
+                createVis(map, data, questions);
                 // stop the loader
                 setTimeout(function(){spinner.stop();
                 $("#content").fadeIn("slow")}, 1000);
@@ -102,8 +102,10 @@ function loadData() {
 
 
 // Create the Visualization
-function createVis(map, data, headers, questions) {
+function createVis(map, data, questions) {
     tooltip.init();
+
+    originalData = data;
     
     //allData = createAllData(data, questions);
     allData = data;
@@ -121,7 +123,7 @@ function createVis(map, data, headers, questions) {
     });
     
     // Initialize Map
-    worldMap = new Choropleth("chart-area", map, data, headers);
+    worldMap = new Choropleth("chart-area", map, data);
 
     // Initialize Totals Chart
     totalChart = new BarChart("#mapID");
@@ -129,7 +131,8 @@ function createVis(map, data, headers, questions) {
     // Initialize Totals Chart
     groupChart = new GroupedBarChart("#mapID");
 
-    //$("#select-region").trigger("change");
+    // Initialize Totals Chart
+    vertBarChart = new VertBarChart("#mapID");
     
     // Add Javascript for View Tabs
     changeView();
@@ -138,21 +141,11 @@ function createVis(map, data, headers, questions) {
     changeAnswers();
 
     // Add Donut Chart
-    addGenderDonut(data);
-
-    // Add Regions/Subregions/Countries Chart
-    //addPiecesChart(data);
+    addGenderDonut();
     
     // Add Age Range Chart
-    addAgesChart(data);
-
-    // Add Word Cloud
-    //createWordcloud(["QID137-3", "QID137-6", "QID137-5", "QID137-8", "QID137-10", "QID137-11"], data, "body");
+    addAgesChart();
 
     // Add tooltip listeners
-    addTooltips(data);
+    addTooltips();
 }
-
-/*function createAllData(data) {
-    
-}*/

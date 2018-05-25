@@ -20,8 +20,9 @@ function countData(qid, view, region) {
                 }
             });
             data.push({
-                "text": edit(answer.text),
-                "size": ((matched/allData.length)*100).toFixed(1)
+                "text": edit(answer.text, qid),
+                "size": ((matched/allData.length)*100).toFixed(1),
+                "total": matched
             });
         });
     }
@@ -46,9 +47,60 @@ function countData(qid, view, region) {
             });
             data.push({
                 "text": edit(answer.text),
-                "size": ((matched/total)*100).toFixed(1)
+                "size": ((matched/total)*100).toFixed(1),
+                "total": matched
             });
         });
+    }
+    var newData = [];
+
+
+
+    if (qid == "QID107"){
+        newData.push(data.find(function(d){
+            return d.text == "Not at All";
+        }));
+        newData.push(data.find(function(d){
+            return d.text == "Not Enough";
+        }));
+        newData.push(data.find(function(d){
+            return d.text == "A Little";
+        }));
+        newData.push(data.find(function(d){
+            return d.text == "To an Extent";
+        }));
+        newData.push(data.find(function(d){
+            return d.text == "To a Great Extent";
+        }));
+        data = newData;
+    }
+
+
+    if (qid == "QID172"){
+        newData.push(data.find(function(d){
+            return d.text == "Strongly Disagree";
+        }));
+        newData.push(data.find(function(d){
+            return d.text == "Disagree";
+        }));
+        newData.push(data.find(function(d){
+            return d.text == "Neutral";
+        }));
+
+        newData.push(data.find(function(d){
+            return d.text == "Agree";
+        }));
+        newData.push(data.find(function(d){
+            return d.text == "Strongly Agree";
+        }));
+        data = newData;
+    }
+    
+    function add(point) {
+        var addition = (data.find(function(d){
+            return d.text == point;
+        }));
+        newData.push(addition);
     }
 
     return (data);
@@ -64,7 +116,7 @@ function countGroupData(qid, view) {
     var data = [];
 
     nested_data.forEach(function(region){
-        if ((region.key != "#N/A") && (region.key != "")) {
+        if ((region.key != "#N/A") && (region.key != "") && (region.key != "Not classified")) {
             var ansList = [];
             answers.forEach(function (answer) {
                 var matched = 0;
@@ -80,13 +132,15 @@ function countGroupData(qid, view) {
                 });
                 var total = region.values.length;
                 ansList.push({
-                    "text": edit(answer.text),
-                    "size": ((matched/total)*100).toFixed(1)
+                    "text": edit(answer.text, qid),
+                    "size": ((matched/total)*100).toFixed(1),
+                    "region": ucwords(region.key, true),
+                    "num" : matched
                 });
             });
-            //console.log(ansList);
             data.push({
-                "region" : region.key,
+                "region" : ucwords(region.key, true),
+                "region_num" : region.values.length,
                 "answers" : ansList
             })
         }
@@ -94,7 +148,22 @@ function countGroupData(qid, view) {
     return(data);
 }
 
-function edit(ans)  {
+function edit(ans, qid)  {
+    if (qid == "QID107-1"){
+        switch (ans) {
+            case "Strongly Disagree":
+                return "Not at All";
+            case "Disagree":
+                return "Not Enough";
+            case "Neutral":
+                return "A Little";
+            case "Agree":
+                return "To an Extent";
+            case "Strongly Agree":
+                return "To a Great Extent";
+        }
+    }
+
     if (ans == "Special treatments (entourage, security, opening doors, holding umbrellas, special titles, etc.)"){
         return ("Special Treatments");
     }
@@ -103,7 +172,8 @@ function edit(ans)  {
         return ("Regular updates on progress of public works");
     }
 
-    else{
+    else {
         return ans;
     }
+
 }

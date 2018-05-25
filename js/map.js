@@ -1,9 +1,7 @@
-
-Choropleth = function(_parentElement, _map, _data, _headers, _division) {
+Choropleth = function(_parentElement, _map, _data) {
     this.parentElement = _parentElement;
     this.map = _map;
     this.data = _data;
-    this.headers = _headers;
 
     this.initVis();
 };
@@ -11,16 +9,15 @@ Choropleth = function(_parentElement, _map, _data, _headers, _division) {
 Choropleth.prototype.initVis = function() {
     var vis = this;
 
-    vis.width = 1366;
-    vis.height = 667;
+    vis.width = 1920;
+    vis.height = 1080;
+
+    vis.color_domain = ["0.05", "0.1", "0.2", "0.25", "0.3", "0.5", "0.65", "0.8"];
+    vis.legend_labels = ["< 5% ", "10-20%", "20-25%", "25-30%", "30-50%", "50-65%", "65-80%", "> 80%"];
 
     vis.colorScale = d3.scaleThreshold()
         .range(['#f7fbff','#deebf7','#c6dbef','#9ecae1','#6baed6','#4292c6','#2171b5','#08519c','#08306b'])
-        .domain(["0.05", "0.1", "0.2", "0.25", "0.3", "0.5", "0.65", "0.8"]);
-
-    vis.participationScale = d3.scaleThreshold()
-        .range(['#f7fbff','#deebf7','#c6dbef','#9ecae1','#6baed6','#4292c6','#2171b5','#08519c','#08306b'])
-        .domain(["3", "5", "10", "20", "30", "40", "50", "60"]);
+        .domain(vis.color_domain);
 
     vis.svg = d3.select("#" + vis.parentElement)
         .append("div")
@@ -32,10 +29,6 @@ Choropleth.prototype.initVis = function() {
         .attr("viewBox", "0 0 " + vis.width + " " + vis.height)
         //class to make it responsive
         .classed("svg-content-responsive", true);
-
-    // Handler already exists in changeRegions()
-    /*$("#select-region")
-        .on("change", vis.reset);*/
 
     vis.g = vis.svg.append("g")
         .attr("id", "mapID2")
@@ -50,8 +43,8 @@ Choropleth.prototype.initVis = function() {
     // Draw Map
     vis.projection = d3.geoMiller()
         .translate([vis.width / 2, vis.height / 2])
-        .scale(145)
-        .center([-60, 45]);
+        .scale(200)
+        .center([-70, 25]);
 
     vis.zoom = d3.zoom()
         .scaleExtent([1, 8])
@@ -71,14 +64,16 @@ Choropleth.prototype.initVis = function() {
     vis.developments = getDevRegions(vis.countries);
     vis.incomes = getIncomeRegions(vis.countries);
 
-    // Already set like that
-    // Set Initial Country Label as World
-    // $("#active")[0].innerHTML = "World";
-
     // Needed to set class for visible countries
     vis.country_nested_data = d3.nest()
         .key(function(d) { return d["EmbeddedData-Country"]})
-        .entries(vis.data);
+        .entries(allData);
+
+    vis.country_object = {};
+
+    vis.country_nested_data.forEach(function(d){
+        vis.country_object[d.key] = d.values;
+    });
 
     // Add Countries Layer
     vis.country = vis.g.selectAll(".country")
@@ -142,7 +137,7 @@ Choropleth.prototype.initVis = function() {
         .attr("title", function(d,i) { return d.name; })
         .on("click", clicked);
 
-    $("#participants")[0].innerHTML = vis.data.length;
+    $("#participants")[0].innerHTML = allData.length;
 
     function clicked(select){
         $("#flag")[0].innerHTML = "YES";
@@ -158,49 +153,27 @@ Choropleth.prototype.initVis = function() {
         vis.clicker = vis.selection.attr("title");
         vis.view = $("#view_code")[0].innerHTML;
 
-        $("#buttons1").fadeIn("slow");
-
-        if (vis.view == "EmbeddedData-Country"){
-            $("#country-btns").fadeIn("slow");
-        }
-
         // Number of participants in this area
-        var parts = vis.data.reduce(function(a, b){
+        var parts = allData.reduce(function(a, b){
             if (b[vis.view].toUpperCase() == vis.clicker.toUpperCase()) { return a + 1; }
             else { return a; }
         }, 0);
+         
+        // Region becomes active
+        if (active[0] === vis.selection[0]) return vis.reset();
 
-        if (parts !== 0){
-            // Region becomes active
-            if (active[0] === vis.selection[0]) return vis.reset();
+        var view = $(".view:selected")[0].id;
+        $(".activey").attr("class", "piece " + view);
+        active = vis.selection.attr("class", "piece " + view + " activey");
 
-            var view = $(".view:selected")[0].id;
-            $(".activey").attr("class", "piece " + view);
-            active = vis.selection.attr("class", "piece " + view + " activey");
+        $("#choose-regions").val(vis.clicker);
 
-            $("#choose-regions").val(vis.clicker);
+        var active_label = $("#active");
 
-            var active_label = $("#active");
-
-            // Rename title to new region name
-            active_label[0].innerHTML = vis.clicker;
-
-            if (vis.clicker.length > 20){
-                active_label.css("font-size", "1.5vw");
-            }
-            else if (vis.clicker.length > 17){
-                active_label.css("font-size", "1.8vw");
-            }
-            else if (vis.clicker.length > 15){
-                active_label.css("font-size", "2.5vw");
-            }
-            else {
-                active_label.css("font-size", "3vw");
-            }
-
-            // Set number of participants to the relevant total
-            $("#participants")[0].innerHTML = parts;
-        }
+        // Rename title to new region name
+        active_label[0].innerHTML = vis.clicker;
+        
+        $("#participants")[0].innerHTML = parts;
     }
 
     vis.svg
@@ -212,6 +185,29 @@ Choropleth.prototype.initVis = function() {
     function zoomed() {
         vis.g.attr("transform", d3.event.transform);
     }
+
+    // Legend
+    vis.legend = vis.svg.selectAll("g.map-legend")
+        .data(vis.color_domain)
+        .enter().append("g")
+        .attr("class", "map-legend")
+        .attr("transform", "translate(500, -230)");
+
+    var ls_w = 20, ls_h = 20;
+
+    vis.legend.append("rect")
+        .attr("x", 20)
+        .attr("y", function(d, i){ return vis.height - (i*ls_h) - 2*ls_h;})
+        .attr("width", ls_w)
+        .attr("height", ls_h)
+        .style("fill", function(d, i) { return vis.colorScale(d); })
+        .style("opacity", 0.8);
+
+    vis.legend.append("text")
+        .attr("x", 50)
+        .attr("y", function(d, i){ return vis.height - (i*ls_h) - ls_h - 4;})
+        .text(function(d, i){ return vis.legend_labels[i]; });
+
 
     vis.wrangleData();
 };
@@ -228,6 +224,8 @@ Choropleth.prototype.updateVis = function() {
 
         var answer = $("#select-answer");
         var qid = answer.find('option:selected').attr('id');
+        
+        // Get total respondents for selected question
 
         var view = $("#view_code")[0].innerHTML;
 
@@ -239,7 +237,7 @@ Choropleth.prototype.updateVis = function() {
                 colorIn(vis.subregion, "EmbeddedData-Region_Sub_WEF");
                 break;
             case "EmbeddedData-Country":
-                colorIn(vis.country, "EmbeddedData-Country");
+                colorInCountry(vis.country, "EmbeddedData-Country");
                 break;
             case "EmbeddedData-Income_WorldBank":
                 colorIn(vis.income, "EmbeddedData-Income_WorldBank");
@@ -255,19 +253,10 @@ Choropleth.prototype.updateVis = function() {
             part
                 .attr("selection", answer.val())
                 .attr("fill", function (d) {
-                    var name;
-                    if (view == "EmbeddedData-Country") {
-                        name = d.properties["NAME"];
-                    }
-                    else {
-                        name = d.name;
-                    }
+                    var name = d.name;
 
                     var total = 0;
                     var matched = 0;
-                    if ((view == "EmbeddedData-Country") && (d.properties == undefined)) {
-                        return "none";
-                    }
 
                     var val = answer.val();
                     if (qid == "QID107-1" || qid == "QID172-1") {
@@ -303,6 +292,54 @@ Choropleth.prototype.updateVis = function() {
                 });
         }
     }
+
+    function colorInCountry(part, view) {
+        part
+            .attr("selection", answer.val())
+            .attr("fill", function (d) {
+                var name = d.properties["NAME"];
+
+                var total = 0;
+                var matched = 0;
+                if (d.properties == undefined) {
+                    return "none";
+                }
+
+                var val = answer.val();
+                if (qid == "QID107-1" || qid == "QID172-1") {
+                    val = reversePerceptionScale[answer.val()];
+                }
+
+                if (vis.country_object[name] == undefined){
+                    $(this).attr({
+                        "stroke": "#c6dbef",
+                        "pointer-events": "none"
+                    });
+                    return "none";
+                }
+
+                vis.country_object[name].forEach(function (response) {
+                    if (response[view].toUpperCase() == name.toUpperCase()) {
+                        total += 1;
+
+                        if (response[qid] == val) {
+                            matched += 1;
+                        }
+                    }
+                });
+
+
+                if ((answer.val() == "Share of Total Participants") || val == undefined) {
+                    $(this).attr("stat", ((total / allData.length) * 100).toFixed(1) + "%");
+                    return vis.colorScale(total / allData.length)
+                }
+                else {
+                    $(this).attr("stat", ((matched / total) * 100).toFixed(1) + "%");
+                    return vis.colorScale(matched / total);
+                }
+            });
+    }
+
 };
 
 Choropleth.prototype.reset =  function() {
@@ -312,9 +349,7 @@ Choropleth.prototype.reset =  function() {
     $("#country-btns").fadeOut("slow");
 
     var active_label = $("#active");
-
-    active_label.css("font-size", "3vw");
-
+    
     // If a piece is active
     if ($(".activey.piece")[0] != undefined){
         $("#flag")[0].innerHTML = "YES";
@@ -335,12 +370,14 @@ Choropleth.prototype.reset =  function() {
 
         // Title goes back to "World"
         active_label[0].innerHTML = "World";
-        // Participants count full range of responses again
-        $("#participants")[0].innerHTML = worldMap.data.length;
     }
     
     else {
         $("#flag")[0].innerHTML = "NO";
     }
+
+    updateResponses();
+
+
 };
 

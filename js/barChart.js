@@ -1,4 +1,3 @@
-
 BarChart = function(_parentElement) {
     this.parentElement = _parentElement;
     this.data = allData;
@@ -9,8 +8,8 @@ BarChart = function(_parentElement) {
 BarChart.prototype.initVis = function() {
     var vis = this;
 
-    vis.margin = {top: (worldMap.height * 0.2), right: (worldMap.width * 0.05),
-        bottom: (worldMap.height * 0.3), left: (worldMap.width * 0.45)};
+    vis.margin = {top: (worldMap.height * 0.17), right: (worldMap.width * 0.05),
+        bottom: (worldMap.height * 0.37), left: (worldMap.width * 0.45)};
     vis.width = (worldMap.width - vis.margin.left - vis.margin.right);
     vis.height = (worldMap.height - vis.margin.top - vis.margin.bottom);
 
@@ -81,22 +80,30 @@ BarChart.prototype.updateVis = function() {
             .duration(1000);
 
         // append the rectangles for the bar chart
-        vis.rects = vis.chart.selectAll(".bar")
+        vis.rects = vis.chart.selectAll(".bar3")
             .data(vis.dataCount);
 
         vis.rects.exit()
-            .attr("class", "exit bar")
+            .attr("class", "exit bar3")
             .transition(vis.t)
             .attr("x", vis.x(0))
             .attr("width", 0)
             .remove();
 
-        vis.rects.attr("class", "update bar");
+        vis.rects.attr("class", "update bar3")
+            .transition(vis.t)
+            .attr("x", vis.x(0))
+            .attr("width", function (d) {
+                return vis.x(d.size);
+            })
+            .attr("y", function (d) {
+                return vis.y(d.text);
+            })
+            .attr("height", vis.y.bandwidth);
 
         vis.rects
             .enter().append("rect")
-            .attr("class", "enter bar")
-            .merge(vis.rects)
+            .attr("class", "enter bar3")
             .attr("fill", "blue")
             .attr("y", function (d) {
                 return vis.y(d.text);
@@ -110,30 +117,121 @@ BarChart.prototype.updateVis = function() {
                 return vis.x(d.size);
             });
 
+        vis.respondents = $("#participants")[0].innerHTML;
+
+        vis.pcts = vis.chart.selectAll(".pcts")
+            .data(vis.dataCount);
+
+        vis.pcts.exit()
+            .attr("class", "exit pcts")
+            .attr("x", 0)
+            .remove();
+
+        vis.pcts
+            .attr("class", "update pcts")
+            .transition(vis.t)
+            .text(function(d) {
+                var pct = d.size + "%";
+                return pct;
+            })
+            .attr("text-anchor", "left")
+            .attr("x", function(d, i) {
+                return vis.x(d.size) + 5;
+            })
+            .attr("y", function(d) {
+                return vis.y(d.text) + vis.y.bandwidth()/2 + 5;
+            });
+
+        vis.pcts
+            .enter()
+            .append("text")
+            .attr("class", "enter pcts")
+            .text(function(d) {
+                var pct = d.size + "%";
+                return pct;
+            })
+            .attr("text-anchor", "left")
+            .attr("y", (vis.height))
+            .attr("height", 0)
+            .attr("y", function(d) {
+                return vis.y(d.text) + vis.y.bandwidth()/2 + 5;
+            })
+            .transition(vis.t)
+            .attr("x", function(d, i) {
+                return vis.x(d.size) + 5;
+            });
+
          // Remove old axes
          vis.chart.selectAll(".axis").remove();
         
          vis.chart.append("g")
          .attr("class", "axis")
-         .call(d3.axisLeft(vis.y));
-
-        vis.chart.append("g")
-            .attr("class", "axis")
-            .attr("transform", "translate(0," + vis.height + ")")
-            .call(d3.axisBottom(vis.x))
-            .append("text")
-            .text("hello");
+         .call(d3.axisLeft(vis.y))
+             .selectAll("text")
+             .attr("class", "label2")
+             .style("text-anchor", "end")
+             .attr("font-size", "15px")
+             //.attr("dy", "1em")
+             .text(function(d){
+                 return d;
+             });
 
         vis.chart.selectAll(".title2").remove();
+
+        var responses = $("#participants")[0].innerHTML;
 
         // Add Title
         vis.chart.append("text")
             .attr("class", "title2")
-            .attr("transform", "translate(" + (vis.width / 3) + " ," + (-20) + ")")
+            .attr("transform", "translate(" + (vis.width / 3) + " ," + (-40) + ")")
             .style("text-anchor", "middle")
-            .text(vis.question["question"]);
+            .attr("font-size", "16px")
+            .text(vis.question["question"]  + " (N = " + responses + ")");
+        
+        if (vis.question["type"] == "ManyRows") {
+            // Add the text label for the X axis
+            vis.chart.append("text")
+                .attr("class", "title2")
+                .attr("font-size", "15px")
+                .attr("transform", "translate(" + ((vis.width/2) - 50) + " ," + (vis.height + 40) + ")")
+                .style("text-anchor", "middle")
+                .text("Percentage of Unique Votes (Respondents could choose up to 3 answer choices)")
 
+            d3.selectAll(".bar3")
+                .on("mouseover", function (d) {
+                    tooltip.show(d.text + " (N = " + d.total + ")<br>" + (d.size) + "% of Unique Votes");
+                })
+                .on("mousemove", function () {
+                    tooltip.move();
+                })
+                .on("mouseout", function () {
+                    tooltip.hide();
+                });
+        }
+
+        else {
+            // Add the text label for the X axis
+            vis.chart.append("text")
+                .attr("class", "title2")
+                .attr("font-size", "15px")
+                .attr("transform", "translate(" + ((vis.width/2) - 50) + " ," + (vis.height + 40) + ")")
+                .style("text-anchor", "middle")
+                .text("Percentage of Votes");
+
+            d3.selectAll(".bar3")
+                .on("mouseover", function (d) {
+                    tooltip.show(d.text + " (N = " + d.total + ")<br>" + (d.size) + "% of Votes");
+                })
+                .on("mousemove", function () {
+                    tooltip.move();
+                })
+                .on("mouseout", function () {
+                    tooltip.hide();
+                });
+        }
     }
-    
+
+
+
 };
 
